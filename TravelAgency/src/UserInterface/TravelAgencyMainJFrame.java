@@ -41,7 +41,7 @@ public class TravelAgencyMainJFrame extends javax.swing.JFrame {
         cardSequenceJPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1200, 600));
+        setPreferredSize(new java.awt.Dimension(1300, 600));
 
         leftJPanel.setBackground(new java.awt.Color(255, 255, 255));
         leftJPanel.setMinimumSize(new java.awt.Dimension(230, 510));

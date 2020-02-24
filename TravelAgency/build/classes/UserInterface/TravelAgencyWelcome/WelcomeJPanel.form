@@ -26,7 +26,7 @@
               <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
               <Component id="btnAirliner" min="-2" pref="205" max="-2" attributes="0"/>
               <EmptySpace pref="139" max="32767" attributes="0"/>
-              <Component id="btnCustomer" min="-2" pref="206" max="-2" attributes="0"/>
+              <Component id="btnTravelAgent" min="-2" pref="206" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="128" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -39,7 +39,7 @@
               <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnAirliner" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
-                  <Component id="btnCustomer" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
+                  <Component id="btnTravelAgent" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="340" max="32767" attributes="0"/>
           </Group>
@@ -73,7 +73,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAirlinerActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btnCustomer">
+    <Component class="javax.swing.JButton" name="btnTravelAgent">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Bell MT" size="18" style="1"/>
@@ -84,7 +84,7 @@
         <Property name="text" type="java.lang.String" value="Travel Agent"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCustomerActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTravelAgentActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

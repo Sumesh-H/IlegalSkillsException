@@ -5,8 +5,6 @@
  */
 package UserInterface.ManageAirline;
 
-import Business.Airliner;
-import Business.AirlinerDirectory;
 import Business.TravelAgency;
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -37,14 +35,8 @@ public class CreateAirlinerJPanel extends javax.swing.JPanel {
         Matcher m = p.matcher(string);
         boolean b = m.matches();
         return b;
-    }
+    }   
     
-//    public boolean PatternNumber(int a){
-//        Pattern p = Pattern.compile("[0-9]+");
-//        Matcher m = p.matcher(Integer.toString(a));
-//        boolean b = m.matches();
-//        return b;
-//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -137,22 +129,16 @@ public class CreateAirlinerJPanel extends javax.swing.JPanel {
 
     private void btnCreateNewAirlinerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateNewAirlinerActionPerformed
         // TODO add your handling code here:
-        String name = txtNameAirliner.getText();     
-        
-        if(travelAgency.getAirlinerDirectory().getAirlinerList().size()>=0){
-            if(!PatternString(name)){
-                JOptionPane.showMessageDialog(null, "Please enter valid airliner name");
-                    return;
-        }            
-        for(Airliner n : travelAgency.getAirlinerDirectory().getAirlinerList()) {
-            if(n.getAirlinerName().equals(name)) {
-                JOptionPane.showMessageDialog(null, "Please enter valid Airliner Name as airliner already exist");
-                    return;
-                }
-            }                    
+        String name = txtNameAirliner.getText();        
+        if(!PatternString(name)){
+            JOptionPane.showMessageDialog(null, "Please enter valid airliner name");
+        } 
+        else {
+ 
             travelAgency.getAirlinerDirectory().addAirliner(name);
             JOptionPane.showMessageDialog(null, "Airliner added Successfully");
-            txtNameAirliner.setText("");         
+            txtNameAirliner.setText("");      
+      
         }
     }//GEN-LAST:event_btnCreateNewAirlinerActionPerformed
 

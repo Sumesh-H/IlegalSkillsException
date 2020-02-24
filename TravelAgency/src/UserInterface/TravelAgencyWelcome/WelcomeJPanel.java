@@ -41,7 +41,7 @@ public class WelcomeJPanel extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         btnAirliner = new javax.swing.JButton();
-        btnCustomer = new javax.swing.JButton();
+        btnTravelAgent = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -59,12 +59,12 @@ public class WelcomeJPanel extends javax.swing.JPanel {
             }
         });
 
-        btnCustomer.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
-        btnCustomer.setForeground(new java.awt.Color(153, 0, 0));
-        btnCustomer.setText("Travel Agent");
-        btnCustomer.addActionListener(new java.awt.event.ActionListener() {
+        btnTravelAgent.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
+        btnTravelAgent.setForeground(new java.awt.Color(153, 0, 0));
+        btnTravelAgent.setText("Travel Agent");
+        btnTravelAgent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCustomerActionPerformed(evt);
+                btnTravelAgentActionPerformed(evt);
             }
         });
 
@@ -77,7 +77,7 @@ public class WelcomeJPanel extends javax.swing.JPanel {
                 .addGap(85, 85, 85)
                 .addComponent(btnAirliner, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
-                .addComponent(btnCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnTravelAgent, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(128, 128, 128))
         );
         layout.setVerticalGroup(
@@ -88,7 +88,7 @@ public class WelcomeJPanel extends javax.swing.JPanel {
                 .addGap(57, 57, 57)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAirliner, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnTravelAgent, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(340, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -101,14 +101,19 @@ public class WelcomeJPanel extends javax.swing.JPanel {
         layout.next(cardSequenceJPanel);        
     }//GEN-LAST:event_btnAirlinerActionPerformed
 
-    private void btnCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerActionPerformed
+    private void btnTravelAgentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTravelAgentActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnCustomerActionPerformed
+        TravelAgentJPanel panel = new TravelAgentJPanel(travelAgency, cardSequenceJPanel);
+        cardSequenceJPanel.add("TravelAgentJPanel", panel);
+        CardLayout layout = (CardLayout)cardSequenceJPanel.getLayout();
+        layout.next(cardSequenceJPanel);      
+        
+    }//GEN-LAST:event_btnTravelAgentActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAirliner;
-    private javax.swing.JButton btnCustomer;
+    private javax.swing.JButton btnTravelAgent;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

@@ -8,12 +8,12 @@ package UserInterface.ManageAdmin;
 import Business.Abstract.Admin;
 import Business.TravelAgency;
 import UserInterface.ManageAirline.ManageAirlinerJPanel;
+import UserInterface.TravelAgencyWelcome.TravelAgencyManageJPanel;
 import java.awt.CardLayout;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import sun.security.util.Password;
 
 /**
  *
@@ -134,32 +134,27 @@ public class LoginJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginAdminActionPerformed
-        // TODO add your handling code here: 
-        String password = txtPasswordAdmin.getText();               
+        // TODO add your handling code here:
         String uName = (String) comboAdmin.getSelectedItem();
-        
-        if(uName !=null ){
-            if(password !=null){
-                for(Admin admin : travelAgency.getAdminDir().getAdminList()){
-                    if(admin.getUserName().equals(uName)){
-                        if(admin.verify(password)){
-                            ManageAirlinerJPanel panel = new ManageAirlinerJPanel(cardSequenceJPanel, travelAgency);
-                            cardSequenceJPanel.add("ManageAirlinerJPanel", panel);
-                            CardLayout layout = (CardLayout) cardSequenceJPanel.getLayout();
-                            layout.next(cardSequenceJPanel);
-                        }else{
-                            JOptionPane.showMessageDialog(null, "Please enter correct password!!");
-                        }
+        String password = txtPasswordAdmin.getText();
+        if(password == null || password == ""){
+            JOptionPane.showMessageDialog(null, "Please enter passowrd!!");
+        }else {            
+            for(Admin admin : travelAgency.getAdminDir().getAdminList()){
+                if(admin.getUserName().equals(uName)){
+                    if(admin.verify(password)){
+                        TravelAgencyManageJPanel panel = new TravelAgencyManageJPanel(cardSequenceJPanel, travelAgency);
+                        cardSequenceJPanel.add("ManageAirlinerJPanel", panel);
+                        CardLayout layout = (CardLayout) cardSequenceJPanel.getLayout();
+                        layout.next(cardSequenceJPanel);
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Please enter correct password!!");
                     }
                 }
             }
-            else{
-                JOptionPane.showMessageDialog(null, "Please enter passowrd!!");
-            }
+            
         }
-        else{
-            JOptionPane.showMessageDialog(null, "Please create your credentials!!");
-        } 
+       
     }//GEN-LAST:event_btnLoginAdminActionPerformed
 
     private void btnCreateAdminUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateAdminUserActionPerformed

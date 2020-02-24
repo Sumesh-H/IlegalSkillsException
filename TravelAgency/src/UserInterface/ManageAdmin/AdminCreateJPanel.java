@@ -229,12 +229,6 @@ public class AdminCreateJPanel extends javax.swing.JPanel {
         }        
         travelAgency.getAdminDir().getAdminList().add(new Admins(pass, username) );
         JOptionPane.showMessageDialog(null, "Admin created successfully!!");
-        txtUser.setBorder(BorderFactory.createLineBorder(Color.BLUE));
-        txtPword.setBorder(BorderFactory.createLineBorder(Color.BLUE));
-        txtRePword.setBorder(BorderFactory.createLineBorder(Color.BLUE));
-        jLabel1.setForeground(Color.BLACK);
-        jLabel2.setForeground(Color.BLACK);
-        jLabel3.setForeground(Color.BLACK);
         txtUser.setText("");
         txtPword.setText("");
         txtRePword.setText("");        

@@ -8,6 +8,7 @@ package UserInterface.ManageAirline;
 import Business.Airliner;
 import Business.Flight;
 import Business.TravelAgency;
+import UserInterface.TravelAgencyWelcome.TravelAgencyManageJPanel;
 import UserInterface.TravelAgencyWelcome.WelcomeJPanel;
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -78,6 +79,7 @@ public class ManageAirlinerJPanel extends javax.swing.JPanel {
         btnSearchAirliner = new javax.swing.JButton();
         btnClearSearch = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
+        btnBack = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -162,6 +164,15 @@ public class ManageAirlinerJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnBack.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
+        btnBack.setForeground(new java.awt.Color(153, 0, 0));
+        btnBack.setText("<- Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -191,6 +202,10 @@ public class ManageAirlinerJPanel extends javax.swing.JPanel {
                                 .addComponent(btnClearSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 43, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnBack)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,7 +214,9 @@ public class ManageAirlinerJPanel extends javax.swing.JPanel {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnBack)
+                .addGap(19, 19, 19)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -211,7 +228,7 @@ public class ManageAirlinerJPanel extends javax.swing.JPanel {
                     .addComponent(txtSearchAirliner, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSearchAirliner, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnClearSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(159, Short.MAX_VALUE))
+                .addContainerGap(153, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -286,9 +303,21 @@ public class ManageAirlinerJPanel extends javax.swing.JPanel {
         txtSearchAirliner.setText("");
     }//GEN-LAST:event_btnClearSearchActionPerformed
 
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+       cardSequenceJPanel.remove(this);
+       Component[] componentArray = cardSequenceJPanel.getComponents();
+       Component component = componentArray[componentArray.length-1];
+       TravelAgencyManageJPanel panel = (TravelAgencyManageJPanel) component;
+       panel.populateTable();
+       CardLayout layout = (CardLayout) cardSequenceJPanel.getLayout();
+       layout.previous(cardSequenceJPanel);     
+    }//GEN-LAST:event_btnBackActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddAirliner;
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnClearSearch;
     private javax.swing.JButton btnDeleteAirliner;
     private javax.swing.JButton btnSearchAirliner;
