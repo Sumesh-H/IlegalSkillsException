@@ -6,8 +6,11 @@
 package UserInterface.ManageAirline;
 
 import Business.Airliner;
+import Business.Flight;
+import Business.TravelAgency;
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
@@ -15,21 +18,26 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author Sumesh
+ * @author HP
  */
 public class CreateFlightJPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form CreateFlightJPanel
      */
-    private JPanel cardSequenceJPanel;
+    private JPanel cardSequenceJPanel;    
+    private String str;
+    List<Airliner> airlinerList;
     private Airliner airliner;
-    public CreateFlightJPanel(JPanel cardSequenceJPanel, Airliner airliner) {
+    private TravelAgency travelAgency;
+    public CreateFlightJPanel(JPanel cardSequenceJPanel, String str, TravelAgency travelAgency, Airliner airliner) {
         initComponents();
-        this.cardSequenceJPanel = cardSequenceJPanel;
+        this.cardSequenceJPanel = cardSequenceJPanel;        
+        this.str = str;
         this.airliner = airliner;
-        comboBoxAirliner.setEnabled(false);
-        comboBoxAirliner.setSelectedItem(airliner.getAirlinerName());
+        this.travelAgency = travelAgency;
+        comboBoxAirliner.addItem(str);
+        comboBoxAirliner.setEnabled(false);       
     }
     
     public boolean patternString(String string){
@@ -47,7 +55,7 @@ public class CreateFlightJPanel extends javax.swing.JPanel {
     }
     
     public boolean patternTime(String string){
-       Pattern p = Pattern.compile("^[0-9]+:[0-9]+$");
+       Pattern p = Pattern.compile(".*");
        Matcher m = p.matcher(string);
        boolean b = m.matches();
        return b;
@@ -64,24 +72,29 @@ public class CreateFlightJPanel extends javax.swing.JPanel {
 
         btnBack = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         txtFlightNo = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
         txtSource = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
         txtDestination = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        txtDeparture = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        txtArrival = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        txtPrice = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        txtSeatNumber = new javax.swing.JTextField();
+        txtSeats = new javax.swing.JTextField();
         btnCreate = new javax.swing.JButton();
         comboBoxAirliner = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        txtPrice = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        txtDepartureTime = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        txtArrivalTime = new javax.swing.JTextField();
+        jSeparator1 = new javax.swing.JSeparator();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        btnBack.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
+        btnBack.setForeground(new java.awt.Color(153, 0, 0));
         btnBack.setText("<- Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,27 +102,13 @@ public class CreateFlightJPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 255));
+        jLabel1.setFont(new java.awt.Font("Monotype Corsiva", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(153, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Create New Flight");
 
-        jLabel2.setText("Airliner Name :");
-
-        jLabel3.setText("Flight Number :");
-
-        jLabel4.setText("Source :");
-
-        jLabel5.setText("Destination :");
-
-        jLabel6.setText("Departure Time :");
-
-        jLabel7.setText("Arrival Time :");
-
-        jLabel8.setText("Price :");
-
-        jLabel9.setText("Total Seats :");
-
+        btnCreate.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
+        btnCreate.setForeground(new java.awt.Color(153, 0, 0));
         btnCreate.setText("Create");
         btnCreate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -117,146 +116,198 @@ public class CreateFlightJPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
+        jLabel2.setText("Airliner Name: ");
+
+        jLabel3.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
+        jLabel3.setText("Flight Number: ");
+
+        jLabel4.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
+        jLabel4.setText("Source: ");
+
+        jLabel5.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
+        jLabel5.setText("Destination: ");
+
+        jLabel6.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
+        jLabel6.setText("Seats: ");
+
+        jLabel10.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
+        jLabel10.setText("Price: ");
+
+        jLabel7.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
+        jLabel7.setText("DepartureTime: ");
+
+        jLabel8.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
+        jLabel8.setText("Arrival Time: ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(192, 192, 192)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtDestination, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(198, 198, 198)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel4)
+                                        .addComponent(jLabel3))
+                                    .addGap(18, 18, 18))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addContainerGap()
+                                    .addComponent(jLabel2)
+                                    .addGap(10, 10, 10)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtSource, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtFlightNo, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(comboBoxAirliner, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(191, 191, 191)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel7)
                                     .addGap(18, 18, 18)
-                                    .addComponent(txtDeparture, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtArrival, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(comboBoxAirliner, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtSource, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtDestination, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtFlightNo, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtSeatNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 136, Short.MAX_VALUE)))
-                .addContainerGap())
+                                    .addComponent(txtDepartureTime, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel6)
+                                        .addComponent(jLabel8)
+                                        .addComponent(jLabel10))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtSeats, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtArrivalTime, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(248, Short.MAX_VALUE))
+            .addComponent(jSeparator1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(82, 82, 82)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboBoxAirliner, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtFlightNo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(txtSource, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDestination, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDeparture, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboBoxAirliner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtArrival, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFlightNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(txtSource, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSeatNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDestination, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDepartureTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtArrivalTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtSeats, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10))
                 .addGap(18, 18, 18)
                 .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addContainerGap(110, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         // TODO add your handling code here:
-        airliner.setAirlinerName(comboBoxAirliner.getSelectedItem().toString());
+        //airliner.setAirlinerName(comboBoxAirliner.getSelectedItem().toString());
         String flightNumber = txtFlightNo.getText();
         String source = txtSource.getText();
-        String destination = txtDestination.getText();
-        String departure = txtDeparture.getText();
-        String arrival = txtArrival.getText();
-        try{
+        String destination = txtDestination.getText();        
+        
+        String departureTime = txtDepartureTime.getText();
+        double depTime = Double.parseDouble(departureTime);
+        
+        String arrival = txtArrivalTime.getText();
+        Double arrInteger = Double.parseDouble(arrival);
+        
+        if (destination.equals(source)) {
+            JOptionPane.showMessageDialog(null, "The source and destination cannot be the same.");
+        } else if(arrInteger < depTime) {
+            JOptionPane.showMessageDialog(null, "The departure time cannot be before arrival time");
+            txtArrivalTime.setText("");
+        } else {
+            try{
             Double price = Double.parseDouble(txtPrice.getText());
-            int totalSeats = Integer.parseInt(txtSeatNumber.getText());
+            int totalSeats = Integer.parseInt(txtSeats.getText());
             
-        if(!patternFlightNumber(flightNumber)){
-            JOptionPane.showMessageDialog(null, "Please enter valid flight number : XX-XXXX");
+            if(!patternFlightNumber(flightNumber)){
+                JOptionPane.showMessageDialog(null, "Please enter valid flight number : XX-XXXX");
+            }
+            else if(!patternTime(departureTime)){
+                JOptionPane.showMessageDialog(null, "Please enter valid departure time : XX:XX");
+                System.out.println("Invalid Time!");
+            }
+            else if(!patternTime(arrival)){
+                JOptionPane.showMessageDialog(null, "Please enter valid arrival time : XX:XX");
+            }
+            else if(!patternString(source)){
+                JOptionPane.showMessageDialog(null, "Please enter valid source");
+            }
+            else if(!patternString(destination)){
+                JOptionPane.showMessageDialog(null, "Please enter valid destination");
+            }     
+            else {
+
+                airliner.addFlight(str, flightNumber, source, destination, departureTime, arrival, price, totalSeats);
+
+                txtFlightNo.setText("");
+                txtSource.setText("");
+                txtDestination.setText("");
+                txtDepartureTime.setText("");
+                txtArrivalTime.setText("");
+                txtPrice.setText("");
+                txtSeats.setText("");
+                
+                JOptionPane.showMessageDialog(null, "Flight successfully added");
+                
+                int count = 0;
+                for(Airliner airliner: travelAgency.getAirlinerDirectory().getAirlinerList()){
+                    for(Flight flight:airliner.getFlightList()){
+                        if(airliner.getAirlinerName().equals(flight.getAirlinerName())){
+                        count++;
+                        }
+                    }
+                    airliner.setAirlinerNoOfAirplanes(count);
+                    count = 0;
+                }
+            }
         }
-        else if(!patternTime(departure)){
-            JOptionPane.showMessageDialog(null, "Please enter valid departure time : XX:XX");
-        }
-        else if(!patternTime(arrival)){
-            JOptionPane.showMessageDialog(null, "Please enter valid arrival time : XX:XX");
-        }
-        else if(!patternString(source)){
-            JOptionPane.showMessageDialog(null, "Please enter valid source");
-        }
-        else if(!patternString(destination)){
-            JOptionPane.showMessageDialog(null, "Please enter valid destination");
-        }
-        else {
-            airliner.addFlight(comboBoxAirliner.getSelectedItem().toString(), flightNumber, source, destination, departure, arrival, price, totalSeats);
-            txtFlightNo.setText("");
-            txtSource.setText("");
-            txtDestination.setText("");
-            txtDeparture.setText("");
-            txtArrival.setText("");
-            txtPrice.setText("");
-            txtSeatNumber.setText("");
-            JOptionPane.showMessageDialog(null, "Flight successfully added");
-        }
-        }
-        catch(NumberFormatException e){
-            JOptionPane.showMessageDialog(null, "Price and Total seats should be a number");
-        }
+            catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(null, "Price and Total seats should be a number");
+            }
+        } 
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -270,8 +321,9 @@ public class CreateFlightJPanel extends javax.swing.JPanel {
             if(c instanceof ManageAirlinerJPanel)
             {
                 ManageAirlinerJPanel panel=(ManageAirlinerJPanel) c;
+                
 //                panel.calculateFleetSize();
-//                panel.populateAirlinersTable();
+                panel.populateAirlinersTable();
             }
         }
     }//GEN-LAST:event_btnBackActionPerformed
@@ -282,6 +334,7 @@ public class CreateFlightJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnCreate;
     private javax.swing.JComboBox<String> comboBoxAirliner;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -289,13 +342,13 @@ public class CreateFlightJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField txtArrival;
-    private javax.swing.JTextField txtDeparture;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTextField txtArrivalTime;
+    private javax.swing.JTextField txtDepartureTime;
     private javax.swing.JTextField txtDestination;
     private javax.swing.JTextField txtFlightNo;
     private javax.swing.JTextField txtPrice;
-    private javax.swing.JTextField txtSeatNumber;
+    private javax.swing.JTextField txtSeats;
     private javax.swing.JTextField txtSource;
     // End of variables declaration//GEN-END:variables
 }

@@ -37,4 +37,9 @@ public class Seats {
     public void setSeatAvailability(boolean seatAvailability) {
         this.seatAvailability = seatAvailability;
     }
+    
+    @Override
+    public String toString(){
+        return this.seatNumber;
+    }
 }
