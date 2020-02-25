@@ -65,8 +65,8 @@ public class SearchFlightToBookJPanel extends javax.swing.JPanel {
             
             if(airliner.getAirlinerName().equals(flight.getAirlinerName())){
             Object[] row = new Object[8];
-            row[0]=airliner.getAirlinerName();
-            row[1]=flight;
+            row[0]=flight;
+            row[1]=flight.getFlightNumber();
             row[2]=airliner.getFlightList().get(i).getSource();
             row[3]=airliner.getFlightList().get(i).getDestination();
             row[4]=airliner.getFlightList().get(i).getDepartureTime();
@@ -154,6 +154,8 @@ public class SearchFlightToBookJPanel extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         jComboBoxAirliner = new javax.swing.JComboBox<>();
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
         backBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/icons8-back-30.png"))); // NOI18N
         backBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -162,11 +164,14 @@ public class SearchFlightToBookJPanel extends javax.swing.JPanel {
         });
 
         jLabel1.setFont(new java.awt.Font("Monotype Corsiva", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(153, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Find Your Flights Here!!");
 
+        jLabel2.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
         jLabel2.setText("From*   :");
 
+        jLabel3.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
         jLabel3.setText("TO*  :");
 
         jComboBoxDestination.addActionListener(new java.awt.event.ActionListener() {
@@ -175,10 +180,13 @@ public class SearchFlightToBookJPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
         jLabel4.setText("Min Price :");
 
+        jLabel5.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
         jLabel5.setText("Max Price :");
 
+        jLabel6.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
         jLabel6.setText("Time  :");
 
         jComboBoxTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Morning", "Afternoon", "Evening", "Night" }));
@@ -196,6 +204,8 @@ public class SearchFlightToBookJPanel extends javax.swing.JPanel {
         });
 
         searchBtn.setActionCommand("searchBtn");
+        searchBtn.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
+        searchBtn.setForeground(new java.awt.Color(153, 0, 0));
         searchBtn.setLabel("Search");
         searchBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -221,6 +231,8 @@ public class SearchFlightToBookJPanel extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(tblSearchFlightList);
 
+        bookBtn.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
+        bookBtn.setForeground(new java.awt.Color(153, 0, 0));
         bookBtn.setLabel("Book");
         bookBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -228,6 +240,7 @@ public class SearchFlightToBookJPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel7.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
         jLabel7.setText("Airliner :");
 
         jComboBoxAirliner.addActionListener(new java.awt.event.ActionListener() {
@@ -256,36 +269,37 @@ public class SearchFlightToBookJPanel extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(211, 211, 211)
                         .addComponent(searchBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jComboBoxTime, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jComboBoxAirliner, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jComboBoxFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(minPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGap(96, 96, 96)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(maxPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jComboBoxDestination, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(37, 37, 37)
+                                .addComponent(jComboBoxTime, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(minPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jComboBoxFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(105, 105, 105)
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)
+                                .addComponent(jComboBoxDestination, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(71, 71, 71)
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(maxPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(92, 92, 92)
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jComboBoxAirliner, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(bookBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -338,7 +352,7 @@ public class SearchFlightToBookJPanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 699, Short.MAX_VALUE)
+            .addGap(0, 701, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -668,7 +682,8 @@ public class SearchFlightToBookJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "You are not allowed to book more than one flight!!!"+"\n"+"Please Select only one flight that you want to book!!!","Warning",JOptionPane.WARNING_MESSAGE);
         }
         else{
-            Flight flight = (Flight)tblSearchFlightList.getValueAt(selectedRow, 1);
+
+            Flight flight = (Flight)tblSearchFlightList.getValueAt(selectedRow, 0);
             BookFlightJPanel jPanel = new BookFlightJPanel(panel,flight,travelAgency);
             panel.add("BookFlight",jPanel);
             CardLayout layout = (CardLayout) panel.getLayout();

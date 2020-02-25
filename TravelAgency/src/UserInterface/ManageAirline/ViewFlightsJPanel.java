@@ -90,6 +90,8 @@ public class ViewFlightsJPanel extends javax.swing.JPanel {
             tblMngFlights.getColumnModel().getColumn(0).setResizable(false);
         }
 
+        btnViewFlightDetails.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
+        btnViewFlightDetails.setForeground(new java.awt.Color(153, 0, 0));
         btnViewFlightDetails.setText("View Flight Details");
         btnViewFlightDetails.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -108,8 +110,8 @@ public class ViewFlightsJPanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(162, 162, 162))
             .addGroup(layout.createSequentialGroup()
-                .addGap(360, 360, 360)
-                .addComponent(btnViewFlightDetails)
+                .addGap(347, 347, 347)
+                .addComponent(btnViewFlightDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -123,7 +125,7 @@ public class ViewFlightsJPanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(64, 64, 64)
                 .addComponent(btnViewFlightDetails)
-                .addContainerGap(224, Short.MAX_VALUE))
+                .addContainerGap(218, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

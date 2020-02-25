@@ -110,6 +110,10 @@ public class TravelAgentJPanel extends javax.swing.JPanel {
 
     private void btnPastBookingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPastBookingsActionPerformed
         // TODO add your handling code here:
+        PastBookingsJPanel pastBookingsJPanel= new PastBookingsJPanel(cardSequenceJPanel,travelAgency);
+        cardSequenceJPanel.add("PastBookingsJPanel" , pastBookingsJPanel);
+        CardLayout cardLayout = (CardLayout) cardSequenceJPanel.getLayout();
+        cardLayout.next(cardSequenceJPanel);
     }//GEN-LAST:event_btnPastBookingsActionPerformed
 
 

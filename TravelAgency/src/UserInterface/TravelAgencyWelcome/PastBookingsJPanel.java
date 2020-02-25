@@ -74,6 +74,8 @@ public class PastBookingsJPanel extends javax.swing.JPanel {
         tblPastBookings = new javax.swing.JTable();
         deleteBookingBtn = new java.awt.Button();
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
         backBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/icons8-back-30.png"))); // NOI18N
         backBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -82,6 +84,7 @@ public class PastBookingsJPanel extends javax.swing.JPanel {
         });
 
         jLabel1.setFont(new java.awt.Font("Monotype Corsiva", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(153, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("View Your Booking Here!!!");
 
@@ -103,7 +106,8 @@ public class PastBookingsJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblPastBookings);
 
-        deleteBookingBtn.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        deleteBookingBtn.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
+        deleteBookingBtn.setForeground(new java.awt.Color(153, 0, 0));
         deleteBookingBtn.setLabel("Delete");
         deleteBookingBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -37,8 +37,7 @@ public class BookFlightJPanel extends javax.swing.JPanel {
         this.flight = flight;
         this.travelAgency = travelAgency;
         flightNumberTextField.setEnabled(false);
-        flightNumberTextField.setText(flight.getFlightNumber());
-        
+        flightNumberTextField.setText(flight.getFlightNumber());        
         populateSeats();
     }
 
@@ -100,6 +99,9 @@ public class BookFlightJPanel extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         backBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/icons8-back-30.png"))); // NOI18N
         backBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -109,10 +111,11 @@ public class BookFlightJPanel extends javax.swing.JPanel {
         });
 
         jLabel1.setFont(new java.awt.Font("Monotype Corsiva", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(153, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Confirm Your Booking!!!");
 
-        flightNumLabel.setFont(new java.awt.Font("Arial Black", 1, 13)); // NOI18N
+        flightNumLabel.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
         flightNumLabel.setText("Flight Number :");
 
         flightNumberTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -121,16 +124,16 @@ public class BookFlightJPanel extends javax.swing.JPanel {
             }
         });
 
-        cusNameLabel.setFont(new java.awt.Font("Arial Black", 1, 13)); // NOI18N
+        cusNameLabel.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
         cusNameLabel.setText("Name :");
 
-        phoneLabel.setFont(new java.awt.Font("Arial Black", 1, 13)); // NOI18N
+        phoneLabel.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
         phoneLabel.setText("Phone Numebr :");
 
-        eMailLabel.setFont(new java.awt.Font("Arial Black", 1, 13)); // NOI18N
+        eMailLabel.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
         eMailLabel.setText("Email :");
 
-        jLabel6.setFont(new java.awt.Font("Arial Black", 1, 13)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
         jLabel6.setText("Seat :");
 
         comboSeat.addActionListener(new java.awt.event.ActionListener() {
@@ -139,7 +142,8 @@ public class BookFlightJPanel extends javax.swing.JPanel {
             }
         });
 
-        bookBtn.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        bookBtn.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
+        bookBtn.setForeground(new java.awt.Color(153, 0, 0));
         bookBtn.setLabel("Book");
         bookBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -262,18 +266,12 @@ public class BookFlightJPanel extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1123, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bookBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bookBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(332, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -290,16 +288,24 @@ public class BookFlightJPanel extends javax.swing.JPanel {
                             .addComponent(customerEmailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(comboSeat, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(seatArrangementPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 323, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jSeparator1)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
                 .addComponent(backBtn)
                 .addGap(34, 34, 34)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(flightNumLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(flightNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -331,7 +337,7 @@ public class BookFlightJPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1123, Short.MAX_VALUE)
+            .addGap(0, 1245, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -532,6 +538,7 @@ public class BookFlightJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel phoneLabel;
     private javax.swing.JPanel seatArrangementPanel;
     // End of variables declaration//GEN-END:variables
