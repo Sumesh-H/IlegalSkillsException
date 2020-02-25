@@ -6,6 +6,7 @@
 package UserInterface.TravelAgencyWelcome;
 
 import Business.TravelAgency;
+import java.awt.CardLayout;
 import javax.swing.JPanel;
 
 /**
@@ -35,8 +36,8 @@ public class TravelAgentJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnBookFlight = new javax.swing.JButton();
+        btnPastBookings = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -46,18 +47,23 @@ public class TravelAgentJPanel extends javax.swing.JPanel {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Travel Agent");
 
-        jButton1.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(153, 0, 0));
-        jButton1.setText("Book Flight");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnBookFlight.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
+        btnBookFlight.setForeground(new java.awt.Color(153, 0, 0));
+        btnBookFlight.setText("Book Flight");
+        btnBookFlight.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnBookFlightActionPerformed(evt);
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(153, 0, 0));
-        jButton2.setText("View Past Bookings");
+        btnPastBookings.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
+        btnPastBookings.setForeground(new java.awt.Color(153, 0, 0));
+        btnPastBookings.setText("View Past Bookings");
+        btnPastBookings.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPastBookingsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -71,9 +77,9 @@ public class TravelAgentJPanel extends javax.swing.JPanel {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(205, 205, 205)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBookFlight, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(139, 139, 139)
-                    .addComponent(jButton2)
+                    .addComponent(btnPastBookings)
                     .addContainerGap(238, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
@@ -88,20 +94,28 @@ public class TravelAgentJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createSequentialGroup()
                     .addGap(206, 206, 206)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnPastBookings, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnBookFlight, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addContainerGap(265, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnBookFlightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookFlightActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        SearchFlightToBookJPanel searchFlightToBookJPanel = new SearchFlightToBookJPanel(cardSequenceJPanel,travelAgency);
+        cardSequenceJPanel.add("SearchFlightToBookJPanel" , searchFlightToBookJPanel);
+        CardLayout cardLayout = (CardLayout) cardSequenceJPanel.getLayout();
+        cardLayout.next(cardSequenceJPanel);
+    }//GEN-LAST:event_btnBookFlightActionPerformed
+
+    private void btnPastBookingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPastBookingsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPastBookingsActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnBookFlight;
+    private javax.swing.JButton btnPastBookings;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
