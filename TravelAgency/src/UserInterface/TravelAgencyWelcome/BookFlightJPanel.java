@@ -382,14 +382,14 @@ public class BookFlightJPanel extends javax.swing.JPanel {
         long customerContact = 0;
         try{
             customerContact = Long.parseLong(customerPhoneNumberTextField.getText());
-
+            
             if(!phoneNumberPattern())
             {
                 JOptionPane.showMessageDialog(null, "Please Enter a valid Phone Number");
                 customerPhoneNumberTextField.setBorder(BorderFactory.createLineBorder(Color.RED));
                 phoneLabel.setForeground(Color.RED);
                 return;
-            }else if(!emailPattern())
+            }else if(!emailPattern()) 
             {
                 JOptionPane.showMessageDialog(null, "Email should be the form of xxx123@xxx.xxx");
                 customerEmailTextField.setBorder(BorderFactory.createLineBorder(Color.RED));
@@ -407,48 +407,81 @@ public class BookFlightJPanel extends javax.swing.JPanel {
                 int currentDeparture=0;
                 int previousArrival=0;
                 int previousDeparture=0;
+                boolean b =true;
+                int countList = travelAgency.getCustomerDirectory().getCustomerList().size();
+                if(countList>0){
+                    for(Customer customer : travelAgency.getCustomerDirectory().getCustomerList()) {
+                        if(customer.getCustomerName().equalsIgnoreCase(customerName) && customer.getCustomerEmail().equals(customerEmail)){
+                            for(Airliner airliner : travelAgency.getAirlinerDirectory().getAirlinerList()){
+                                for(Flight flight : airliner.getFlightList()){
 
-                for(Customer customer : travelAgency.getCustomerDirectory().getCustomerList()) {
-                    if(customer.getCustomerName().equalsIgnoreCase(customerName) && customer.getCustomerEmail().equals(customerEmail)){
-                        for(Airliner airliner : travelAgency.getAirlinerDirectory().getAirlinerList()){
-                            for(Flight flight : airliner.getFlightList()){
-
-                                if(flight.getFlightNumber().equals(flightNumber)){
-                                    currentArrival = Integer.parseInt(flight.getArrivalTime().substring(0, 2));
-                                    currentDeparture =Integer.parseInt(flight.getDepartureTime().substring(0, 2));
-                                }else if(flight.getFlightNumber().equals(customer.getFlightNumber())){
-                                    previousArrival = Integer.parseInt(flight.getArrivalTime().substring(0, 2));
-                                    previousDeparture =Integer.parseInt(flight.getDepartureTime().substring(0, 2));
+                                    if(flight.getFlightNumber().equals(customer.getFlightNumber()) && flight.getFlightNumber().equals(flightNumber)){
+                                            currentArrival = Integer.parseInt(flight.getArrivalTime().substring(0, 2));
+                                            currentDeparture =Integer.parseInt(flight.getDepartureTime().substring(0, 2)); 
+                                            previousArrival = Integer.parseInt(flight.getArrivalTime().substring(0, 2));
+                                            previousDeparture =Integer.parseInt(flight.getDepartureTime().substring(0, 2));
+                                    }else if(flight.getFlightNumber().equals(flightNumber) && !flight.getFlightNumber().equals(customer.getFlightNumber())){
+                                        b=false;
+                                        currentArrival = Integer.parseInt(flight.getArrivalTime().substring(0, 2));
+                                        currentDeparture =Integer.parseInt(flight.getDepartureTime().substring(0, 2)); 
+                                    }
+                                    if(flight.getFlightNumber().equals(customer.getFlightNumber()) && !flight.getFlightNumber().equals(flightNumber) ){
+                                            b=false;
+                                            previousArrival = Integer.parseInt(flight.getArrivalTime().substring(0, 2));
+                                            previousDeparture =Integer.parseInt(flight.getDepartureTime().substring(0, 2));
+                                    }
                                 }
                             }
                         }
                     }
+                }else{
+                    for(Airliner airliner : travelAgency.getAirlinerDirectory().getAirlinerList()){
+                        for(Flight flight : airliner.getFlightList()){
+                            if(flight.getFlightNumber().equals(flightNumber)){
+                                currentArrival = Integer.parseInt(flight.getArrivalTime().substring(0, 2));
+                                currentDeparture =Integer.parseInt(flight.getDepartureTime().substring(0, 2)); 
+                            }
+                        }
+                    }
                 }
-                if((currentDeparture > previousDeparture  && currentDeparture < previousArrival) || (currentArrival > previousDeparture  && currentArrival < previousArrival)){
-
-                    //if(currentdeparture < previousdeparture){
-                        JOptionPane.showMessageDialog(null, "No Overlapping allowed");
-                        return;
-
-                        //}
-
+                
+                if(b== false){
+                    
+                    if((currentDeparture >= previousDeparture  && currentDeparture <= previousArrival) || (currentArrival >= previousDeparture  && currentArrival <= previousArrival)){
+                        
+                        //if(currentdeparture < previousdeparture){
+                            JOptionPane.showMessageDialog(null, "No Overlapping allowed");
+                            return;
+                    
+                    //}
+                        
+                    }
+//                    if((currentDeparture > previousDeparture  && currentDeparture < previousArrival) || (currentArrival > previousDeparture  && currentArrival < previousArrival)){
+//                        
+//                        //if(currentdeparture < previousdeparture){
+//                            JOptionPane.showMessageDialog(null, "No Overlapping allowed");
+//                            return;
+//                    
+//                    //}
+//                        
+//                    }
+//                    else if((previousDeparture > currentDeparture  && previousDeparture < currentArrival) || (previousArrival > currentDeparture  && previousArrival < currentArrival)){
+//                        
+//                        //if(currentdeparture < previousdeparture){
+//                            JOptionPane.showMessageDialog(null, "No Overlapping allowed");
+//                            return;
+//                    
+//                    //}
+//                        
+//                    }
                 }
-                else if((previousDeparture > currentDeparture  && previousDeparture < currentArrival) || (previousArrival > currentDeparture  && previousArrival < currentArrival)){
-
-                    //if(currentdeparture < previousdeparture){
-                        JOptionPane.showMessageDialog(null, "No Overlapping allowed");
-                        return;
-
-                        //}
-
-                }
-
+                
                 travelAgency.getCustomerDirectory().addCustomer(customerName, customerContact, customerEmail, flightNumber, seatNumber);
                 flight.setAvailableSeats(flight.getTotalSeats()-1);
                 JOptionPane.showMessageDialog(null, "Flight booked successfully\n"+"Airline: "+flight.getAirlinerName()+"\n"+"Flight Number: "+flight.getFlightNumber()+"\n"+"Seat Number: "+seatNumber);
                 for(Seats seat:flight.getSeatList()){
                     if(seat.getSeatNumber().equals(seatNumber))
-                    seat.setSeatAvailability(false);
+                     seat.setSeatAvailability(false);
                 }
                 comboSeat.removeItem(seatNumber);
                 customerNameTextField.setText("");
@@ -456,7 +489,7 @@ public class BookFlightJPanel extends javax.swing.JPanel {
                 customerPhoneNumberTextField.setText("");
                 comboSeat.setSelectedIndex(0);
             }
-
+            
         }catch(NumberFormatException e)
         {
             JOptionPane.showMessageDialog(null, "Please enter your Phone Number ");
