@@ -3,10 +3,16 @@
 **Creator's Info.**
 **Name :** *Sumesh Harale*
 **NUID :** *001069129*
+**Husky Email:** *harale.s@husky.neu.edu*
+
 **Name :** *Krishna Tejnaryan Singh*
 **NUID :** *001028148*
-**Name :** *Santhosh Krishnan*
-**NUID :** *001029708*
+**Husky Email:** *singh.kri@husky.neu.edu*
+
+**Name :** *Keshav Gupta*
+**NUID :** *001378461*
+**Husky Email:** *gupta.k@husky.neu.edu*
+
 
 This project is created as an assignment for AED.
 
