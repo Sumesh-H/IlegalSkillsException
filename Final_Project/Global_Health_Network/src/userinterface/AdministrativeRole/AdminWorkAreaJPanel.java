@@ -2,8 +2,11 @@
 
 package userinterface.AdministrativeRole;
 
+import Business.Employee.Employee;
 import Business.Enterprise.Enterprise;
+import Business.Organization.Organization;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -31,84 +34,109 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        userJButton = new javax.swing.JButton();
-        manageEmployeeJButton = new javax.swing.JButton();
-        manageOrganizationJButton = new javax.swing.JButton();
+        btnManageUser = new javax.swing.JButton();
+        btnManageEmployee = new javax.swing.JButton();
+        btnManageOrganization = new javax.swing.JButton();
         enterpriseLabel = new javax.swing.JLabel();
         valueLabel = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setText("My Work Area -Adminstrative Role");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, -1, -1));
+        jLabel1.setFont(new java.awt.Font("Monotype Corsiva", 1, 36)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("ADMIN WORK AREA PANEL");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 770, -1));
 
-        userJButton.setText("Manage User");
-        userJButton.addActionListener(new java.awt.event.ActionListener() {
+        btnManageUser.setText("Manage User");
+        btnManageUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                userJButtonActionPerformed(evt);
+                btnManageUserActionPerformed(evt);
             }
         });
-        add(userJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 230, 150, -1));
+        add(btnManageUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 250, 150, -1));
 
-        manageEmployeeJButton.setText("Manage Employee");
-        manageEmployeeJButton.addActionListener(new java.awt.event.ActionListener() {
+        btnManageEmployee.setText("Manage Employee");
+        btnManageEmployee.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                manageEmployeeJButtonActionPerformed(evt);
+                btnManageEmployeeActionPerformed(evt);
             }
         });
-        add(manageEmployeeJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 180, 150, -1));
+        add(btnManageEmployee, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 200, 150, -1));
 
-        manageOrganizationJButton.setText("Manage Organization");
-        manageOrganizationJButton.addActionListener(new java.awt.event.ActionListener() {
+        btnManageOrganization.setText("Manage Organization");
+        btnManageOrganization.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                manageOrganizationJButtonActionPerformed(evt);
+                btnManageOrganizationActionPerformed(evt);
             }
         });
-        add(manageOrganizationJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 130, -1, -1));
+        add(btnManageOrganization, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 150, 150, -1));
 
         enterpriseLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        enterpriseLabel.setText("EnterPrise :");
-        add(enterpriseLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, 120, 30));
+        enterpriseLabel.setText("Enterprise :");
+        add(enterpriseLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, 120, 30));
 
         valueLabel.setText("<value>");
-        add(valueLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 100, 130, -1));
+        add(valueLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 120, 130, -1));
+        add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 82, 770, 10));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void userJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userJButtonActionPerformed
+    private void btnManageUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageUserActionPerformed
         // TODO add your handling code here:
+        int employeecheck=0;
+        for(Organization o: enterprise.getOrganizationDirectory().getOrganizationList())
+        {
+            for(Employee e :o.getEmployeeDirectory().getEmployeeList())
+            employeecheck++;
+            
+        }
+        if(employeecheck<=0)
+        {
+             JOptionPane.showMessageDialog(null, "No Employee is available to create a user account for them");
+            return;
+        }
         ManageUserAccountJPanel muajp = new ManageUserAccountJPanel(userProcessContainer, enterprise);
         userProcessContainer.add("ManageUserAccountJPanel", muajp);
-
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
-    }//GEN-LAST:event_userJButtonActionPerformed
+    }//GEN-LAST:event_btnManageUserActionPerformed
 
-    private void manageEmployeeJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageEmployeeJButtonActionPerformed
+    private void btnManageEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageEmployeeActionPerformed
 
+        int Organisationcheck=0;
+        for(Organization o: enterprise.getOrganizationDirectory().getOrganizationList())
+        {
+            Organisationcheck++;
+            
+        }
+        if(Organisationcheck<=0)
+        {
+            JOptionPane.showMessageDialog(null, "Organisation is Unavailable to create a Employee");
+            return;
+        }
         ManageEmployeeJPanel manageEmployeeJPanel = new ManageEmployeeJPanel(userProcessContainer, enterprise.getOrganizationDirectory());
         userProcessContainer.add("manageEmployeeJPanel", manageEmployeeJPanel);
-
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
         
-    }//GEN-LAST:event_manageEmployeeJButtonActionPerformed
+    }//GEN-LAST:event_btnManageEmployeeActionPerformed
 
-    private void manageOrganizationJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageOrganizationJButtonActionPerformed
+    private void btnManageOrganizationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageOrganizationActionPerformed
 
-        ManageOrganizationJPanel manageOrganizationJPanel = new ManageOrganizationJPanel(userProcessContainer, enterprise.getOrganizationDirectory());
+        ManageOrganizationJPanel manageOrganizationJPanel = new ManageOrganizationJPanel(userProcessContainer, enterprise.getOrganizationDirectory(), enterprise);
         userProcessContainer.add("manageOrganizationJPanel", manageOrganizationJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
-    }//GEN-LAST:event_manageOrganizationJButtonActionPerformed
+    }//GEN-LAST:event_btnManageOrganizationActionPerformed
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnManageEmployee;
+    private javax.swing.JButton btnManageOrganization;
+    private javax.swing.JButton btnManageUser;
     private javax.swing.JLabel enterpriseLabel;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JButton manageEmployeeJButton;
-    private javax.swing.JButton manageOrganizationJButton;
-    private javax.swing.JButton userJButton;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel valueLabel;
     // End of variables declaration//GEN-END:variables
     

@@ -53,14 +53,14 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
 
     private void populateComboBox() {
         cbxNetwork.removeAllItems();
-        cbxEnterprise.removeAllItems();
+        cbxEnterpriseType.removeAllItems();
 
         for (Network network : system.getNetworkList()) {
             cbxNetwork.addItem(network);
         }
 
         for (Enterprise.EnterpriseType type : Enterprise.EnterpriseType.values()) {
-            cbxEnterprise.addItem(type);
+            cbxEnterpriseType.addItem(type);
         }
 
     }
@@ -81,7 +81,7 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         txtNameEnterprise = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        cbxEnterprise = new javax.swing.JComboBox();
+        cbxEnterpriseType = new javax.swing.JComboBox();
         btnBack = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -116,7 +116,7 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
 
         jLabel3.setText("Enterprise Type:");
 
-        cbxEnterprise.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxEnterpriseType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnBack.setText("<- Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -153,7 +153,7 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
                         .addGap(60, 60, 60)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtNameEnterprise, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
-                            .addComponent(cbxEnterprise, 0, 136, Short.MAX_VALUE)
+                            .addComponent(cbxEnterpriseType, 0, 136, Short.MAX_VALUE)
                             .addComponent(cbxNetwork, 0, 136, Short.MAX_VALUE)
                             .addComponent(btnSubmit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
@@ -182,7 +182,7 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbxEnterprise, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxEnterpriseType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -208,7 +208,7 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
         Network network = (Network) cbxNetwork.getSelectedItem();
-        Enterprise.EnterpriseType type = (Enterprise.EnterpriseType) cbxEnterprise.getSelectedItem();
+        Enterprise.EnterpriseType type = (Enterprise.EnterpriseType) cbxEnterpriseType.getSelectedItem();
 
         if (network == null || type == null) {
             JOptionPane.showMessageDialog(null, "Invalid Input!");
@@ -242,7 +242,7 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnSubmit;
-    private javax.swing.JComboBox cbxEnterprise;
+    private javax.swing.JComboBox cbxEnterpriseType;
     private javax.swing.JComboBox cbxNetwork;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
