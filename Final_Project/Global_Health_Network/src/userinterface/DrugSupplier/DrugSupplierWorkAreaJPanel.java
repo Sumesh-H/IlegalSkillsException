@@ -64,6 +64,7 @@ public class DrugSupplierWorkAreaJPanel extends javax.swing.JPanel {
         btnReqChemical = new javax.swing.JButton();
         btnViewLabReq = new javax.swing.JButton();
         btnAddDrug = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
 
         tblWorkAreaDrug.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 0, 20)); // NOI18N
         tblWorkAreaDrug.setModel(new javax.swing.table.DefaultTableModel(
@@ -145,13 +146,16 @@ public class DrugSupplierWorkAreaJPanel extends javax.swing.JPanel {
                             .addComponent(btnRefresh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 537, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(156, Short.MAX_VALUE))
+            .addComponent(jSeparator1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
+                .addGap(22, 22, 22)
                 .addComponent(jLabel1)
-                .addGap(56, 56, 56)
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -181,9 +185,9 @@ public class DrugSupplierWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnViewLabReqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewLabReqActionPerformed
         // TODO add your handling code here:
-//        CardLayout layout = (CardLayout) userProcessContainer.getLayout();        
-//        userProcessContainer.add("LabResultsJPanel", new LabResultsJpanel(userProcessContainer, userAccount, enterprise, drugOrganization, network, business));
-//        layout.next(userProcessContainer);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();        
+        userProcessContainer.add("LabResultsJPanel", new LabResultsJPanel(userProcessContainer, userAccount, enterprise, drugOrganization, network, business));
+        layout.next(userProcessContainer);
     }//GEN-LAST:event_btnViewLabReqActionPerformed
 
 
@@ -196,6 +200,7 @@ public class DrugSupplierWorkAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnViewLabReq;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable tblWorkAreaDrug;
     // End of variables declaration//GEN-END:variables
 }
