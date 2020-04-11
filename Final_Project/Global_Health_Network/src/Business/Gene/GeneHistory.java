@@ -5,10 +5,36 @@
  */
 package Business.Gene;
 
+
+import java.util.ArrayList;
+
 /**
  *
- * @author Sumesh
+ * @author krish
  */
 public class GeneHistory {
+    private ArrayList<Gene> geneList;
+
+    public GeneHistory() {
+        
+        geneList = new  ArrayList<Gene>();
+    }
+
+    public ArrayList<Gene> getGeneList() {
+        return geneList;
+    }
+
+    public void setGeneList(ArrayList<Gene> geneList) {
+        this.geneList = geneList;
+    }
     
+    public Gene addGene(){
+        Gene gene = new Gene();
+        geneList.add(gene);
+        return gene;
+    }
+
+
+    
+
 }

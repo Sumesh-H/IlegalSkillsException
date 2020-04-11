@@ -149,6 +149,7 @@ public class MainJFrame extends javax.swing.JFrame {
                            if(userAccount!=null){
                                inEnterprise=enterprise;
                                inOrganization=organization;
+                               inNetwork=network;
                                break;
                            }
                        }
