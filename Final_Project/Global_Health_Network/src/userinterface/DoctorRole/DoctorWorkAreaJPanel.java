@@ -175,7 +175,7 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         log.debug("IN doctor request");
-        userProcessContainer.add("DoctorPrescriptionJpanel",new userinterface.DoctorRole.DoctorRequestJPanel(userProcessContainer,userAccount,organization,enterprise,system,network));
+        userProcessContainer.add("DoctorRequestJPanel",new userinterface.DoctorRole.DoctorRequestJPanel(userProcessContainer,userAccount,organization,enterprise,system,network));
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnLabTestActionPerformed
 
