@@ -27,6 +27,7 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
     private DoctorOrganization organization;
     private Enterprise enterprise;
     private UserAccount userAccount;
+
 //    private Physician physician;
 //    private PrescriptionList list;
 //    private DoctorWorkRequest docreq;
@@ -38,6 +39,8 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
      * Creates new form DoctorWorkAreaJPanel
      */
     public DoctorWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, DoctorOrganization organization, Enterprise enterprise, EcoSystem ecoSystem, Network network) {
+
+    
         initComponents();
         
         this.userProcessContainer = userProcessContainer;
@@ -45,8 +48,10 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
         this.enterprise = enterprise;
         this.userAccount = account;
         this.network = network;
+
         this.system = ecoSystem;
         network();
+
     }
     
     public void network(){

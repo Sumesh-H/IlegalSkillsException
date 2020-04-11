@@ -30,7 +30,7 @@
                       <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="txtNameEnterprise" pref="136" max="32767" attributes="0"/>
-                          <Component id="cbxEnterprise" pref="136" max="32767" attributes="0"/>
+                          <Component id="cbxEnterpriseType" pref="136" max="32767" attributes="0"/>
                           <Component id="cbxNetwork" pref="136" max="32767" attributes="0"/>
                           <Component id="btnSubmit" alignment="0" max="32767" attributes="0"/>
                       </Group>
@@ -67,7 +67,7 @@
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="cbxEnterprise" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbxEnterpriseType" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
@@ -154,7 +154,7 @@
         <Property name="text" type="java.lang.String" value="Enterprise Type:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="cbxEnterprise">
+    <Component class="javax.swing.JComboBox" name="cbxEnterpriseType">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="4">

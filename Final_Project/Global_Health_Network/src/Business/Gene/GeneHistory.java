@@ -5,6 +5,7 @@
  */
 package Business.Gene;
 
+
 import java.util.ArrayList;
 
 /**
@@ -32,4 +33,8 @@ public class GeneHistory {
         geneList.add(gene);
         return gene;
     }
+
+
+    
+
 }

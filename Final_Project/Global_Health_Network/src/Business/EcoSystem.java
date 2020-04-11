@@ -5,6 +5,9 @@
  */
 package Business;
 
+import Business.Chemical.ChemicalList;
+import Business.Drug.DrugList;
+import Business.Gene.GeneHistory;
 import Business.Network.Network;
 import Business.Organization.Organization;
 import Business.Role.Role;
@@ -19,6 +22,9 @@ public class EcoSystem extends Organization{
     
     private static EcoSystem business;
     private ArrayList<Network> networkList;
+    private ChemicalList chemicalList;
+    private DrugList drugList;
+    private GeneHistory geneList;
     public static EcoSystem getInstance(){
         if(business==null){
             business=new EcoSystem();
@@ -40,6 +46,9 @@ public class EcoSystem extends Organization{
     private EcoSystem(){
         super(null);
         networkList=new ArrayList<Network>();
+        drugList = new DrugList(); 
+        chemicalList = new ChemicalList();
+        geneList = new GeneHistory();
     }
 
     public ArrayList<Network> getNetworkList() {
@@ -59,4 +68,29 @@ public class EcoSystem extends Organization{
         }
         return true;
     }
+
+    public DrugList getDrugList() {
+        return drugList;
+    }
+
+    public void setDrugList(DrugList drugList) {
+        this.drugList = drugList;
+    }
+
+    public ChemicalList getChemicalList() {
+        return chemicalList;
+    }
+
+    public void setChemicalList(ChemicalList chemicalList) {
+        this.chemicalList = chemicalList;
+    }
+
+    public GeneHistory getGeneList() {
+        return geneList;
+    }
+
+    public void setGeneList(GeneHistory geneList) {
+        this.geneList = geneList;
+    }
+    
 }

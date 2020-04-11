@@ -7,6 +7,7 @@ package Business.Gene;
 
 /**
  *
+
  * @author krish
  */
 public class Gene {
@@ -35,6 +36,7 @@ public class Gene {
     public String toString() {
         return "Gene{" + "geneName=" + geneName + ", id=" + id + '}';
     }
+
 
     
 }
