@@ -4,11 +4,14 @@
  */
 package userinterface.DoctorRole;
 
+import Business.Doctor.Physician;
+import Business.Doctor.PrescriptionList;
 import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
 import Business.Network.Network;
 import Business.Organization.DoctorOrganization;
 import Business.UserAccount.UserAccount;
+import Business.WorkQueue.DoctorWorkRequest;
 import Business.WorkQueue.LabTestWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
@@ -28,9 +31,9 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
     private Enterprise enterprise;
     private UserAccount userAccount;
 
-//    private Physician physician;
-//    private PrescriptionList list;
-//    private DoctorWorkRequest docreq;
+    private Physician physician;
+    private PrescriptionList list;
+    private DoctorWorkRequest docreq;
     private Network network;
     private EcoSystem system;
     private static Logger log = Logger.getLogger(DoctorWorkAreaJPanel.class);
@@ -164,8 +167,7 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
 
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         log.debug("In doctor role");
-        //userProcessContainer.add("DocterPrescriptionJpanel", new userinterface.DoctorRole.DoctorPrescriptionJpanel(userProcessContainer,list,userAccount,enterprise,organization,system,network));
-        //  userProcessContainer.add("PrescriptionJPanel", new userinterface.DoctorRole.PrescriptionJPanel(userProcessContainer, userAccount, enterprise));
+        userProcessContainer.add("DocterPrescriptionJpanel", new userinterface.DoctorRole.DoctorPrescriptionJpanel(userProcessContainer,list,userAccount,enterprise,organization,system,network));
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnPrecriptionActionPerformed
 
@@ -173,7 +175,7 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         log.debug("IN doctor request");
-        //userProcessContainer.add("DoctorPrescriptionJpanel",new userinterface.DoctorRole.DoctorPrescriptionJpanel(userProcessContainer,list,userAccount,enterprise,organization,system,network));
+        userProcessContainer.add("DoctorPrescriptionJpanel",new userinterface.DoctorRole.DoctorRequestJPanel(userProcessContainer,userAccount,organization,enterprise,system,network));
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnLabTestActionPerformed
 
