@@ -5,6 +5,10 @@
  */
 package userinterface.DrugSupplier;
 
+import java.awt.CardLayout;
+import java.awt.Component;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Sumesh
@@ -14,8 +18,11 @@ public class ProcessingDrugWorkRequestJPanel extends javax.swing.JPanel {
     /**
      * Creates new form ProcessingDrugWorkRequestJPanel
      */
+    private JPanel userProcessContainer;
+    
     public ProcessingDrugWorkRequestJPanel() {
         initComponents();
+        this.userProcessContainer = userProcessContainer;
     }
 
     /**
@@ -40,6 +47,11 @@ public class ProcessingDrugWorkRequestJPanel extends javax.swing.JPanel {
         btnUpdate.setText("Update Status");
 
         btnBack.setText("<- Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Monotype Corsiva", 1, 36)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -88,6 +100,17 @@ public class ProcessingDrugWorkRequestJPanel extends javax.swing.JPanel {
                 .addContainerGap(166, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        DrugSupplierWorkAreaJPanel dwjp = (DrugSupplierWorkAreaJPanel) component;
+        dwjp.populateTable();
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_btnBackActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

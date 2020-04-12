@@ -5,6 +5,11 @@
  */
 package userinterface.DoctorRole;
 
+import java.awt.CardLayout;
+import java.awt.Component;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
 /**
  *
  * @author krish
@@ -14,6 +19,7 @@ public class DoctorRequestJPanel extends javax.swing.JPanel {
     /**
      * Creates new form DoctorRequestJPanel
      */
+    private JPanel userProcessContainer;
     public DoctorRequestJPanel() {
         initComponents();
     }
@@ -282,30 +288,30 @@ public class DoctorRequestJPanel extends javax.swing.JPanel {
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
 
-        String clinicalStatus = cbxSex.getSelectedItem().toString();
-
-        if((clinicalStatus == "") || (!clinicalStatus.equalsIgnoreCase("--Please select--"))){
-
-            request.getPatient().setClinicalStatus(clinicalStatus);
-            log.debug("updated patient status to"+" "+request.getPatient().getClinicalStatus());
-            JOptionPane.showMessageDialog(null, "Status has been updated successfully");
-        }
-
-        else{
-            JOptionPane.showMessageDialog(null, "Please select clincal Status");
-            log.error("clinical status has not been selected");
-        }
+//        String clinicalStatus = cbxSex.getSelectedItem().toString();
+//
+//        if((clinicalStatus == "") || (!clinicalStatus.equalsIgnoreCase("--Please select--"))){
+//
+//            request.getPatient().setClinicalStatus(clinicalStatus);
+//            
+//            JOptionPane.showMessageDialog(null, "Status has been updated successfully");
+//        }
+//
+//        else{
+//            JOptionPane.showMessageDialog(null, "Please select clincal Status");
+//            
+//        }
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
 
-        userProcessContainer.remove(this);
-        Component[] componentArray = userProcessContainer.getComponents();
-        Component component = componentArray[componentArray.length - 1];
-        DoctorRequestJPanel dwjp = (DoctorRequestJPanel) component;
-        dwjp.populateRequestTable();
-        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        layout.previous(userProcessContainer);
+//        userProcessContainer.remove(this);
+//        Component[] componentArray = userProcessContainer.getComponents();
+//        Component component = componentArray[componentArray.length - 1];
+//        DoctorRequestJPanel dwjp = (DoctorRequestJPanel) component;
+//        dwjp.populateRequestTable();
+//        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+//        layout.previous(userProcessContainer);
     }//GEN-LAST:event_btnBackActionPerformed
 
 

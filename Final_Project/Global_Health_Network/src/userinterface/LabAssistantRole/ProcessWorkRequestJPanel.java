@@ -4,10 +4,20 @@
  */
 package userinterface.LabAssistantRole;
 
+import Business.Doctor.Patient;
+import Business.Gene.Gene;
+import Business.Network.Network;
+import Business.Organization.LabOrganization;
+import Business.Organization.Organization;
+import Business.UserAccount.UserAccount;
+import Business.WorkQueue.DrugWorkRequest;
 import Business.WorkQueue.LabTestWorkRequest;
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -17,17 +27,42 @@ import javax.swing.JPanel;
 
 public class ProcessWorkRequestJPanel extends javax.swing.JPanel {
 
-    JPanel userProcessContainer;
-    LabTestWorkRequest request;
+    private JPanel userProcessContainer;
+    private LabTestWorkRequest request;
+    private LabOrganization labOrganization;
+    private UserAccount userAccount;
+    private Network network;
+    String filePath = "./genes data.txt";
     /**
      * Creates new form ProcessWorkRequestJPanel
      */
-    public ProcessWorkRequestJPanel(JPanel userProcessContainer, LabTestWorkRequest request) {
+    public ProcessWorkRequestJPanel(JPanel userProcessContainer, LabTestWorkRequest request, Organization organization, UserAccount userAccount, Network network) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.request = request;
+        this.userAccount = userAccount;
+        this.network = network;
+        this.labOrganization = (LabOrganization) organization;
+        txtNamePatient.setText(request.getPatientName());
+        populateTable();
     }
 
+    public void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) geneTbl.getModel();
+
+        model.setRowCount(0);       
+
+        for (Gene g : ((LabTestWorkRequest) request).getPatient().getGeneHistory().getGeneList()) {
+
+            Object[] row = new Object[2];
+            row[0] = g.getId();
+            row[1] = g.getGeneName();
+            System.out.println(((LabTestWorkRequest) request).getPatient());
+
+            model.addRow(row);
+        }
+
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -37,24 +72,71 @@ public class ProcessWorkRequestJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        submitJButton = new javax.swing.JButton();
+        btnAddGene = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        resultJTextField = new javax.swing.JTextField();
-        backJButton = new javax.swing.JButton();
+        txtNameGene = new javax.swing.JTextField();
+        btnBack = new javax.swing.JButton();
+        jScrollPane = new javax.swing.JScrollPane();
+        geneTbl = new javax.swing.JTable();
+        txtNamePatient = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel3 = new javax.swing.JLabel();
+        btnSubmit = new javax.swing.JButton();
 
-        submitJButton.setText("Submit Result");
-        submitJButton.addActionListener(new java.awt.event.ActionListener() {
+        btnAddGene.setText("Add Gene");
+        btnAddGene.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                submitJButtonActionPerformed(evt);
+                btnAddGeneActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("Result");
+        jLabel1.setText("Gene:");
 
-        backJButton.setText("Back");
-        backJButton.addActionListener(new java.awt.event.ActionListener() {
+        btnBack.setText("<- Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backJButtonActionPerformed(evt);
+                btnBackActionPerformed(evt);
+            }
+        });
+
+        geneTbl.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 0, 20)); // NOI18N
+        geneTbl.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Gene"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        geneTbl.setRowHeight(30);
+        jScrollPane.setViewportView(geneTbl);
+
+        jLabel2.setText("Patient Name:");
+
+        jLabel3.setFont(new java.awt.Font("Monotype Corsiva", 1, 36)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Result");
+
+        btnSubmit.setText("Submit Result");
+        btnSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmitActionPerformed(evt);
             }
         });
 
@@ -62,57 +144,143 @@ public class ProcessWorkRequestJPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSeparator1)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 595, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(53, 53, 53)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(backJButton)
-                    .addComponent(jLabel1))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(resultJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(btnBack))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
-                        .addComponent(submitJButton)
-                        .addGap(63, 63, 63))))
+                        .addGap(150, 150, 150)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(31, 31, 31)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtNamePatient, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtNameGene, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnAddGene))
+                            .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(206, 206, 206)
+                        .addComponent(btnSubmit)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(44, 44, 44)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnBack)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNamePatient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(resultJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(44, 44, 44)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(submitJButton)
-                    .addComponent(backJButton))
-                .addContainerGap(169, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnAddGene)
+                        .addComponent(txtNameGene, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(btnSubmit)
+                .addGap(122, 122, 122))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void backJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backJButtonActionPerformed
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
 
         userProcessContainer.remove(this);
         Component[] componentArray = userProcessContainer.getComponents();
         Component component = componentArray[componentArray.length - 1];
         LabAssistantWorkAreaJPanel dwjp = (LabAssistantWorkAreaJPanel) component;
         dwjp.populateTable();
-        
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
-    }//GEN-LAST:event_backJButtonActionPerformed
+    }//GEN-LAST:event_btnBackActionPerformed
 
-    private void submitJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitJButtonActionPerformed
-        request.setTestResult(resultJTextField.getText());
+    private void btnAddGeneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddGeneActionPerformed
+        Patient patient = ((LabTestWorkRequest) request).getPatient();
+        String geneName = txtNameGene.getText().trim();
+        if (geneName.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please add a gene");
+            return;
+        }
+
+        ArrayList<String> genecheck = new ArrayList<>();
+        for (Gene g1 : patient.getGeneHistory().getGeneList()) {
+            genecheck.add(g1.getGeneName().toLowerCase());
+
+        }
+        if (genecheck.contains(geneName.toLowerCase())) {
+            JOptionPane.showMessageDialog(null, "Gene already exists in the list ");
+            return;
+        }
+        Gene g = patient.getGeneHistory().addGene();
+        g.setGeneName(geneName);
+        request.setPatient(patient);
+        populateTable();
+//        saveRecord(g.getGeneName());
+        txtNameGene.setText("");
+    }//GEN-LAST:event_btnAddGeneActionPerformed
+
+//    public void saveRecord(String gene) {
+//        try {
+//            FileWriter file = new FileWriter(filePath, true);
+//            BufferedWriter bw = new BufferedWriter(file);
+//            PrintWriter pw = new PrintWriter(bw);
+//            pw.println(gene);
+//            pw.flush();
+//            pw.close();
+//        } catch (IOException ex) {
+//            java.util.logging.Logger.getLogger(PrescriptionJPanel.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
+    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
+        // TODO add your handling code here:
+        btnSubmit.setEnabled(true);
+        ArrayList<String> genecheck = new ArrayList<>();
+        for (Gene g : ((LabTestWorkRequest) request).getPatient().getGeneHistory().getGeneList()) {
+            genecheck.add(g.getGeneName());
+
+        }
+        if (genecheck.size() <= 0) {
+            JOptionPane.showMessageDialog(null, "no genes has been added to submit ");
+            return;
+        }
         request.setStatus("Completed");
-    }//GEN-LAST:event_submitJButtonActionPerformed
+        DrugWorkRequest requestDrug = new DrugWorkRequest();
+
+        requestDrug.setPatient(((LabTestWorkRequest) request).getPatient());
+
+        requestDrug.setSender(userAccount);
+
+        userAccount.getWorkQueue().getWorkRequestList().add(requestDrug);      
+        JOptionPane.showMessageDialog(null, "Result has been succesfully submited");
+        btnSubmit.setEnabled(false);
+    }//GEN-LAST:event_btnSubmitActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton backJButton;
+    private javax.swing.JButton btnAddGene;
+    private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnSubmit;
+    private javax.swing.JTable geneTbl;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField resultJTextField;
-    private javax.swing.JButton submitJButton;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTextField txtNameGene;
+    private javax.swing.JTextField txtNamePatient;
     // End of variables declaration//GEN-END:variables
 }
