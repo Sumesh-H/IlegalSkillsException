@@ -5,6 +5,29 @@
  */
 package userinterface.DoctorRole;
 
+import Business.Doctor.Prescription;
+import Business.Doctor.PrescriptionList;
+import Business.EcoSystem;
+import Business.Enterprise.Enterprise;
+import Business.Network.Network;
+import Business.Organization.DoctorOrganization;
+import Business.Organization.Organization;
+import Business.Organization.PharmacyOrganization;
+import Business.UserAccount.UserAccount;
+import Business.WorkQueue.DoctorWorkRequest;
+import Business.WorkQueue.PharmacyWorkRequest;
+import Business.WorkQueue.WorkRequest;
+import java.awt.CardLayout;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Date;
+import java.util.logging.Level;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author krish
@@ -14,10 +37,66 @@ public class DoctorPrescriptionJpanel extends javax.swing.JPanel {
     /**
      * Creates new form DocPrescriptionJpanel
      */
-    public DoctorPrescriptionJpanel() {
+    private PrescriptionList prescriptionList;
+    private DoctorOrganization organization;
+    private Enterprise enterprise;
+    private Network network;
+    private EcoSystem system;
+    private UserAccount userAccount;
+    private JPanel userProcessContainer;
+    private Prescription prescription;
+    private DoctorWorkRequest docreq;
+    private static final String filePath = "./prescription data.txt";
+    public DoctorPrescriptionJpanel(JPanel userProcessContainer, PrescriptionList list, UserAccount account, Enterprise enterprise, DoctorOrganization organization, EcoSystem system, Network network) {
         initComponents();
+        this.userProcessContainer=userProcessContainer;
+        this.userAccount=account;
+        this.system=system;
+        this.network=network;
+        this.enterprise=enterprise;
+        this.organization=organization;
+        
+        
+        populateWorkRequestTable();
+        date.setMinSelectableDate(new Date());
     }
 
+    public void populateWorkRequestTable(){
+        DefaultTableModel dtm = (DefaultTableModel) tblPrescription.getModel();
+        
+        dtm.setRowCount(0);
+        
+        for(WorkRequest work : userAccount.getWorkQueue().getWorkRequestList()){
+            if(work instanceof PharmacyWorkRequest){
+                Object[] row = new Object[4];
+                
+                String medicine = ((PharmacyWorkRequest)work).getMedicineName();
+                row[0] = (PharmacyWorkRequest) work;
+                int quantity = ((PharmacyWorkRequest) work).getQuantity();
+                row[1] = quantity;
+                row[2] = work.getReceiver();
+                String result = work.getStatus();
+                row[3] = result == null ? "Waiting" : result;
+
+                dtm.addRow(row);
+            }
+        }
+    }
+    
+    public void saveRecord(String network,String disease,String medicine){
+        try{
+            FileWriter file = new FileWriter(filePath,true);
+            BufferedWriter writer = new BufferedWriter(file);
+            PrintWriter printWriter = new PrintWriter(writer);
+            printWriter.println(network+","+disease+","+medicine);
+            printWriter.flush();
+            printWriter.close();
+        }catch(IOException ex){
+            
+            java.util.logging.Logger.getLogger(DoctorPrescriptionJpanel.class.getName()).log(Level.SEVERE, null, ex);
+            //log.error("prescription data.txt" +ex);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -32,7 +111,7 @@ public class DoctorPrescriptionJpanel extends javax.swing.JPanel {
         btnBack = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        txtPatient = new javax.swing.JTextField();
+        txtPatientName = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtAge = new javax.swing.JTextField();
@@ -40,17 +119,17 @@ public class DoctorPrescriptionJpanel extends javax.swing.JPanel {
         btnSavePrescription = new javax.swing.JButton();
         cbxDiagnosis = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
-        DateChooser = new com.toedter.calendar.JDateChooser();
+        date = new com.toedter.calendar.JDateChooser();
         jLabel7 = new javax.swing.JLabel();
         cbxMedication = new javax.swing.JComboBox<>();
         cbxSex = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
-        txtNoOfTimes = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        txtNoOfDays = new javax.swing.JTextField();
+        jSpinnerNoOfTimes = new javax.swing.JSpinner();
+        jSpinnerNoOfDays = new javax.swing.JSpinner();
         jPanel4 = new javax.swing.JPanel();
         scrollPane2 = new javax.swing.JScrollPane();
-        tblJrescription = new javax.swing.JTable();
+        tblPrescription = new javax.swing.JTable();
 
         jLabel1.setFont(new java.awt.Font("Wide Latin", 3, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -93,8 +172,7 @@ public class DoctorPrescriptionJpanel extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabel2.setText("Patient Name :");
 
-        txtPatient.setEditable(false);
-        txtPatient.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtPatientName.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabel3.setText("Sex :");
@@ -102,7 +180,6 @@ public class DoctorPrescriptionJpanel extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabel4.setText("Age :");
 
-        txtAge.setEditable(false);
         txtAge.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtAgeActionPerformed(evt);
@@ -145,7 +222,7 @@ public class DoctorPrescriptionJpanel extends javax.swing.JPanel {
         });
 
         cbxSex.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        cbxSex.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Select--", "Success", "Failure" }));
+        cbxSex.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Select--", "Male", "Female" }));
         cbxSex.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxSexActionPerformed(evt);
@@ -155,22 +232,8 @@ public class DoctorPrescriptionJpanel extends javax.swing.JPanel {
         jLabel8.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabel8.setText("Times a day:");
 
-        txtNoOfTimes.setEditable(false);
-        txtNoOfTimes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNoOfTimesActionPerformed(evt);
-            }
-        });
-
         jLabel9.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabel9.setText("For :");
-
-        txtNoOfDays.setEditable(false);
-        txtNoOfDays.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNoOfDaysActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -181,36 +244,38 @@ public class DoctorPrescriptionJpanel extends javax.swing.JPanel {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtPatientName, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cbxMedication, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cbxDiagnosis, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(30, 30, 30)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(27, 27, 27)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(cbxSex, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel8)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jSpinnerNoOfTimes, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtNoOfDays, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbxMedication, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbxDiagnosis, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(30, 30, 30)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(27, 27, 27)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(cbxSex, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(DateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtNoOfTimes, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jSpinnerNoOfDays, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(293, 293, 293)
                         .addComponent(btnSavePrescription, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -224,7 +289,7 @@ public class DoctorPrescriptionJpanel extends javax.swing.JPanel {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPatientName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -234,24 +299,24 @@ public class DoctorPrescriptionJpanel extends javax.swing.JPanel {
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbxDiagnosis, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(DateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbxMedication, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNoOfTimes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSpinnerNoOfTimes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNoOfDays, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                    .addComponent(jSpinnerNoOfDays, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                 .addComponent(btnSavePrescription, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        tblJrescription.setFont(new java.awt.Font("Microsoft JhengHei Light", 0, 20)); // NOI18N
-        tblJrescription.setModel(new javax.swing.table.DefaultTableModel(
+        tblPrescription.setFont(new java.awt.Font("Microsoft JhengHei Light", 0, 20)); // NOI18N
+        tblPrescription.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -267,8 +332,8 @@ public class DoctorPrescriptionJpanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblJrescription.setRowHeight(25);
-        scrollPane2.setViewportView(tblJrescription);
+        tblPrescription.setRowHeight(25);
+        scrollPane2.setViewportView(tblPrescription);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -284,7 +349,7 @@ public class DoctorPrescriptionJpanel extends javax.swing.JPanel {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addComponent(scrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -311,31 +376,118 @@ public class DoctorPrescriptionJpanel extends javax.swing.JPanel {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
 
-//        userProcessContainer.remove(this);
-//        Component[] componentArray = userProcessContainer.getComponents();
-//        Component component = componentArray[componentArray.length - 1];
-//        DoctorRequestJPanel dwjp = (DoctorRequestJPanel) component;
-//        dwjp.populateRequestTable();
-//        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-//        layout.previous(userProcessContainer);
+        userProcessContainer.remove(this);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnSavePrescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSavePrescriptionActionPerformed
         // TODO add your handling code here:
+        Prescription prescription = new Prescription();
+        prescription.setDaignosis(cbxDiagnosis.getSelectedItem().toString());
+        prescription.setMedicineName(cbxMedication.getSelectedItem().toString());
+        prescription.setNoofTimesInaday((Integer) jSpinnerNoOfTimes.getValue());
+        prescription.setTotalDays((Integer) jSpinnerNoOfDays.getValue());
+        prescription.setNetworkName(network.getName());
+        
+        String age = txtAge.getText();
+        boolean flag = true;
+        try {
+            Integer.parseInt(age);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Age must be integer!");
+            flag = false;
+            return;
+        }
 
-        String clinicalStatus = cbxSex.getSelectedItem().toString();
+        if (prescription.getDaignosis().equals("")) {
+            JOptionPane.showMessageDialog(null, "Please enter the daignosis!");
+            flag = false;
+            return;
+        } else if (txtPatientName.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Please enter the patient name!");
+            flag = false;
+            return;
 
-//        if((clinicalStatus == "") || (!clinicalStatus.equalsIgnoreCase("--Please select--"))){
-//
-//            request.getPatient().setClinicalStatus(clinicalStatus);
-//            log.debug("updated patient status to"+" "+request.getPatient().getClinicalStatus());
-//            JOptionPane.showMessageDialog(null, "Status has been updated successfully");
-//        }
-//
-//        else{
-//            JOptionPane.showMessageDialog(null, "Please select clincal Status");
-//            log.error("clinical status has not been selected");
-//        }
+        }
+         if(((Integer) jSpinnerNoOfTimes.getValue())==0|| ((Integer) jSpinnerNoOfDays.getValue())==0)
+                {
+                     JOptionPane.showMessageDialog(null, "Please enter the no of days or no times !");
+             flag = false;
+             return;
+                }
+         if(date.getDate()==null)
+         {
+             JOptionPane.showMessageDialog(null, "Please select the date !");
+             flag = false;
+             return;
+         }
+         if(cbxMedication.getSelectedIndex()<=0)
+         {
+             JOptionPane.showMessageDialog(null, "Please select the Medication Name !");
+             flag = false;
+         }
+         if(cbxSex.getSelectedIndex()<=0)
+         {
+          JOptionPane.showMessageDialog(null, "Please select the Medication Name !");
+             flag = false;   
+             return;
+         }
+         if(cbxDiagnosis.getSelectedIndex()<=0)
+         {
+             JOptionPane.showMessageDialog(null, "please select the diagonsis name");
+             flag=false;
+             return;
+         }
+        
+        if (flag == true) {
+            
+            
+            organization.addPrescription(prescription);
+
+            PharmacyWorkRequest pwr = new PharmacyWorkRequest();
+
+            pwr.setMedicineName(cbxMedication.getSelectedItem().toString());
+            pwr.setQuantity(((Integer) jSpinnerNoOfTimes.getValue()) * ((Integer) jSpinnerNoOfDays.getValue()));
+            pwr.setSender(userAccount);
+            pwr.setStatus("Sent");
+            System.out.println(pwr.getMedicineName());
+            JOptionPane.showMessageDialog(null, "Prescription added successfully");
+
+            System.out.println("****" + enterprise.getName());
+            Organization org = null;
+
+                for (Enterprise enterprise : network.getEnterpriseDirectory().getEnterpriseList()) {
+                    for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                        if (organization instanceof PharmacyOrganization) {
+                            org = organization;
+                            System.out.println("-------" + org);
+                            break;
+                        }
+                    }
+                }
+            
+            if (org != null) {
+
+                org.getWorkQueue().getWorkRequestList().add(pwr);
+                userAccount.getWorkQueue().getWorkRequestList().add(pwr);
+            }
+            
+           
+
+            saveRecord(prescription.getNetworkName(),prescription.getDaignosis(),prescription.getMedicineName());
+            populateWorkRequestTable();
+            txtPatientName.setText("");
+            txtAge.setText("");
+            jSpinnerNoOfTimes.setValue(0);
+            jSpinnerNoOfDays.setValue(0);
+            cbxSex.setSelectedIndex(0);
+            cbxMedication.setSelectedIndex(0);
+            cbxDiagnosis.setSelectedIndex(0);
+            date.setDate(new Date());
+            
+            
+        }
     }//GEN-LAST:event_btnSavePrescriptionActionPerformed
 
     private void cbxDiagnosisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxDiagnosisActionPerformed
@@ -354,26 +506,14 @@ public class DoctorPrescriptionJpanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAgeActionPerformed
 
-    private void txtNoOfTimesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNoOfTimesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNoOfTimesActionPerformed
-
-    private void txtNoOfDaysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNoOfDaysActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNoOfDaysActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.toedter.calendar.JDateChooser DateChooser;
     private javax.swing.JButton btnBack;
-    private javax.swing.JButton btnClinicalTrail;
     private javax.swing.JButton btnSavePrescription;
-    private javax.swing.JButton btnViewResults;
     private javax.swing.JComboBox<String> cbxDiagnosis;
     private javax.swing.JComboBox<String> cbxMedication;
     private javax.swing.JComboBox<String> cbxSex;
-    private javax.swing.JLabel enterpriseLbl1;
-    private javax.swing.JButton jButton1;
+    private com.toedter.calendar.JDateChooser date;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -385,15 +525,12 @@ public class DoctorPrescriptionJpanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSpinner jSpinnerNoOfDays;
+    private javax.swing.JSpinner jSpinnerNoOfTimes;
     private javax.swing.JScrollPane scrollPane2;
-    private javax.swing.JTable tblDoctorRequest;
-    private javax.swing.JTable tblJrescription;
+    private javax.swing.JTable tblPrescription;
     private javax.swing.JTextField txtAge;
-    private javax.swing.JTextField txtNoOfDays;
-    private javax.swing.JTextField txtNoOfTimes;
-    private javax.swing.JTextField txtPatient;
+    private javax.swing.JTextField txtPatientName;
     // End of variables declaration//GEN-END:variables
 }

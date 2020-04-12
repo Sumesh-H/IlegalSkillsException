@@ -5,10 +5,25 @@
  */
 package userinterface.DoctorRole;
 
+
+import Business.Doctor.Patient;
+import Business.EcoSystem;
+import Business.Enterprise.Enterprise;
+import Business.Network.Network;
+import Business.Organization.DoctorOrganization;
+import Business.Organization.LabOrganization;
+import Business.Organization.Organization;
+import Business.UserAccount.UserAccount;
+import Business.WorkQueue.LabTestWorkRequest;
+import Business.WorkQueue.WorkRequest;
+
 import java.awt.CardLayout;
 import java.awt.Component;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
@@ -20,8 +35,53 @@ public class DoctorRequestJPanel extends javax.swing.JPanel {
      * Creates new form DoctorRequestJPanel
      */
     private JPanel userProcessContainer;
-    public DoctorRequestJPanel() {
+
+    private Enterprise enterprise;
+    private Network network;
+    private EcoSystem system;
+    private Enterprise.EnterpriseType enterpriseType;
+    private UserAccount account;
+    private DoctorOrganization organization;
+    public DoctorRequestJPanel(JPanel userProcessContainer, UserAccount account, DoctorOrganization organization, Enterprise enterprise, EcoSystem system, Network network) {
+
         initComponents();
+        this.userProcessContainer = userProcessContainer;
+        this.account = account;
+        this.organization = organization;
+        this.enterprise = enterprise;
+        this.network = network;
+        this.system = system;
+        valueLbl.setText(enterprise.getName());
+        populateRequestTable();
+    }
+    
+    public void populateRequestTable() {
+        DefaultTableModel dtm = (DefaultTableModel) tblDoctorRequest.getModel();
+
+        dtm.setRowCount(0);
+        for (WorkRequest work : account.getWorkQueue().getWorkRequestList()) {
+            if (work instanceof LabTestWorkRequest) {
+                Object[] row = new Object[8];
+                row[0] = ((LabTestWorkRequest) work);
+                row[1] = ((LabTestWorkRequest) work).getPatient().getAge();
+                row[2] = ((LabTestWorkRequest) work).getPatient().getSex();
+                row[3] = work.getMessage();
+
+                row[4] = work.getReceiver();
+                row[5] = work.getStatus();
+                String result = ((LabTestWorkRequest) work).getPatient().getNewDrug();
+                if(work.getReceiver()==null||work.getReceiver().equals("Processing"))
+                {
+                     row[6]=null;
+                }else
+                {
+                row[6] = result == null ? "N/A(Drug Exists)" : result;
+                }
+                row[7] = ((LabTestWorkRequest) work).getPatient().getClinicalStatus();
+
+                dtm.addRow(row);
+            }
+        }
     }
 
     /**
@@ -40,7 +100,7 @@ public class DoctorRequestJPanel extends javax.swing.JPanel {
         btnBack = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        txtPatient = new javax.swing.JTextField();
+        txtPatientName = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         cbxSex = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
@@ -102,22 +162,16 @@ public class DoctorRequestJPanel extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabel2.setText("Patient Name :");
 
-        txtPatient.setEditable(false);
-
         jLabel3.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabel3.setText("Sex :");
 
-        cbxSex.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Please select--", "Success", "Failure" }));
+        cbxSex.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Please select--", "Male", "Female" }));
 
         jLabel4.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabel4.setText("Age :");
 
-        txtAge.setEditable(false);
-
         jLabel5.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabel5.setText("Test :");
-
-        txtTest.setEditable(false);
 
         btnSubmit.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         btnSubmit.setForeground(new java.awt.Color(51, 0, 204));
@@ -142,7 +196,7 @@ public class DoctorRequestJPanel extends javax.swing.JPanel {
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPatientName, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbxSex, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(51, 51, 51)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -166,7 +220,7 @@ public class DoctorRequestJPanel extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtPatientName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -184,7 +238,7 @@ public class DoctorRequestJPanel extends javax.swing.JPanel {
         enterpriseLbl1.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         enterpriseLbl1.setText("Lab Results");
 
-        tblDoctorRequest.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 0, 20)); // NOI18N
+        tblDoctorRequest.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         tblDoctorRequest.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -215,16 +269,31 @@ public class DoctorRequestJPanel extends javax.swing.JPanel {
         btnRefresh.setToolTipText("");
         btnRefresh.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnRefresh.setPreferredSize(new java.awt.Dimension(23, 25));
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
 
         btnViewResults.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         btnViewResults.setForeground(new java.awt.Color(51, 0, 204));
         btnViewResults.setText("View Results");
         btnViewResults.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnViewResults.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewResultsActionPerformed(evt);
+            }
+        });
 
         btnClinicalTrail.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         btnClinicalTrail.setForeground(new java.awt.Color(51, 0, 204));
         btnClinicalTrail.setText("Clinical Trail");
         btnClinicalTrail.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnClinicalTrail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClinicalTrailActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -288,31 +357,171 @@ public class DoctorRequestJPanel extends javax.swing.JPanel {
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
 
-//        String clinicalStatus = cbxSex.getSelectedItem().toString();
-//
-//        if((clinicalStatus == "") || (!clinicalStatus.equalsIgnoreCase("--Please select--"))){
-//
-//            request.getPatient().setClinicalStatus(clinicalStatus);
-//            
-//            JOptionPane.showMessageDialog(null, "Status has been updated successfully");
-//        }
-//
-//        else{
-//            JOptionPane.showMessageDialog(null, "Please select clincal Status");
-//            
-//        }
+
+        String message = txtTest.getText().trim();
+        String patientName = txtPatientName.getText();
+        String sex = cbxSex.getSelectedItem().toString();
+        if(cbxSex.getSelectedIndex()<=0)
+        {
+            JOptionPane.showMessageDialog(null, "Please select the sex");
+            return;
+        }
+        if(message.equals(""))
+        {
+             JOptionPane.showMessageDialog(null, "Write the test need to be performed");
+             return;
+        }
+        int age ;
+         try {
+             age=Integer.parseInt(txtAge.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Age must be integer!");
+            return;
+        }
+       
+        
+
+        LabTestWorkRequest request = new LabTestWorkRequest();
+        request.setMessage(message);
+        request.setSender(account);
+        request.setStatus("Sent");
+        request.setPatientName(patientName);
+        Patient patient = new Patient();
+        patient.setPatientName(patientName);
+        patient.setAge(age);
+        patient.setTest(message);
+        patient.setSex(sex);
+        request.setPatient(patient);
+
+        Organization org = null;
+        for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
+            if (organization instanceof LabOrganization) {
+                org = organization;
+                break;
+            }
+        }
+        if (org != null) {
+            org.getWorkQueue().getWorkRequestList().add(request);
+            account.getWorkQueue().getWorkRequestList().add(request);
+        }
+        populateRequestTable();
+        JOptionPane.showMessageDialog(null, "Test has been requested successfully");
+        txtPatientName.setText("");
+        txtAge.setText("");
+        cbxSex.setSelectedIndex(0);
+        txtTest.setText("");
+
+
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
 
-//        userProcessContainer.remove(this);
-//        Component[] componentArray = userProcessContainer.getComponents();
-//        Component component = componentArray[componentArray.length - 1];
-//        DoctorRequestJPanel dwjp = (DoctorRequestJPanel) component;
-//        dwjp.populateRequestTable();
-//        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-//        layout.previous(userProcessContainer);
+
+        userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        DoctorWorkAreaJPanel dwjp = (DoctorWorkAreaJPanel) component;
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        // TODO add your handling code here:
+        populateRequestTable();
+    }//GEN-LAST:event_btnRefreshActionPerformed
+
+    private void btnViewResultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewResultsActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tblDoctorRequest.getSelectedRow();
+
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null,"please select a row to view results");
+            return;
+        }     
+ 
+        LabTestWorkRequest request = (LabTestWorkRequest) tblDoctorRequest.getValueAt(selectedRow, 0);
+        System.out.println(tblDoctorRequest.getValueAt(selectedRow, 5));
+        System.out.println(!(tblDoctorRequest.getValueAt(selectedRow, 5).toString().toLowerCase().equalsIgnoreCase("completed")));
+        
+          if(tblDoctorRequest.getValueAt(selectedRow, 6)==null)
+        {
+            JOptionPane.showMessageDialog(null, "Results need to be generated by lab assistant");
+            return;
+        }
+         int flag=0;
+         if((tblDoctorRequest.getValueAt(selectedRow, 5).toString().equalsIgnoreCase("completed"))){
+            
+            flag++;
+            
+        }
+         if((tblDoctorRequest.getValueAt(selectedRow, 5).toString().equalsIgnoreCase("ClinicalTrail"))){            
+            flag++;
+            
+        }
+         System.out.println(flag+"clinical");
+         if(flag==0)
+         {
+             JOptionPane.showMessageDialog(this, "Lab results are  not yet returned");
+             return;
+         }
+        
+        RequestLabTestJPanel requestLabTestJPanel = new RequestLabTestJPanel(userProcessContainer, request);
+        userProcessContainer.add("RequestLabTestJPanel", requestLabTestJPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnViewResultsActionPerformed
+
+    private void btnClinicalTrailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClinicalTrailActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tblDoctorRequest.getSelectedRow();
+
+        if (selectedRow < 0) {
+             JOptionPane.showMessageDialog(null,"please select a row for clinical trail");
+            return;
+        }
+       
+
+        LabTestWorkRequest request = (LabTestWorkRequest) tblDoctorRequest.getValueAt(selectedRow, 0);
+         if(tblDoctorRequest.getValueAt(selectedRow, 6)==null || tblDoctorRequest.getValueAt(selectedRow, 6) == "N/A(Drug Exists)")
+        {
+            JOptionPane.showMessageDialog(null, "Clinical trail cannot be performed on this patient");
+            return;
+        }
+        
+         
+        
+        if(tblDoctorRequest.getValueAt(selectedRow, 7)!=null)
+        {
+            JOptionPane.showMessageDialog(null, "Clinical trail was already performed on this patient");
+            return;
+        }
+        
+         int flag=0;
+         if((tblDoctorRequest.getValueAt(selectedRow, 5).toString().equalsIgnoreCase("completed"))){
+            
+            flag++;
+            
+        }
+         if((tblDoctorRequest.getValueAt(selectedRow, 5).toString().equalsIgnoreCase("ClinicalTrail"))){            
+            flag++;
+            
+        }
+         System.out.println(flag+"clinical");
+         if(flag==0)
+         {
+             JOptionPane.showMessageDialog(this, "Lab test results are yet returned");
+             return;
+             
+         }
+         
+        request.setStatus("ClinicalTrail");
+
+        ClinicalJPanel clinicalJPanel = new ClinicalJPanel(userProcessContainer, request);
+        userProcessContainer.add("clincalJPanel", clinicalJPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnClinicalTrailActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -335,7 +544,7 @@ public class DoctorRequestJPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblDoctorRequest;
     private javax.swing.JTextField txtAge;
-    private javax.swing.JTextField txtPatient;
+    private javax.swing.JTextField txtPatientName;
     private javax.swing.JTextField txtTest;
     private javax.swing.JLabel valueLbl;
     // End of variables declaration//GEN-END:variables

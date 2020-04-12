@@ -6,6 +6,7 @@ package userinterface.DoctorRole;
 
 import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
+import Business.Gene.Gene;
 import Business.Organization.LabOrganization;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
@@ -15,6 +16,7 @@ import java.awt.Component;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -23,20 +25,36 @@ import javax.swing.JPanel;
 public class RequestLabTestJPanel extends javax.swing.JPanel {
 
     private JPanel userProcessContainer;
-    private Enterprise enterprise;
+    private LabTestWorkRequest request;
     private UserAccount userAccount;
     /**
      * Creates new form RequestLabTestJPanel
      */
-    public RequestLabTestJPanel(JPanel userProcessContainer, UserAccount account, Enterprise enterprise) {
+    public RequestLabTestJPanel(JPanel userProcessContainer, LabTestWorkRequest request) {
         initComponents();
         
         this.userProcessContainer = userProcessContainer;
-        this.enterprise = enterprise;
-        this.userAccount = account;
-        //valueLabel.setText(enterprise.getName());
+        this.request = request;
+        txtPatientName.setText(request.getPatientName());
+        populateTable();
     }
 
+    public void populateTable() {
+        DefaultTableModel dtm = (DefaultTableModel) geneTbl.getModel();
+
+        dtm.setRowCount(0);
+
+        for (Gene g : ((LabTestWorkRequest) request).getPatient().getGeneHistory().getGeneList()) {
+
+            Object[] row = new Object[2];
+            row[0] = g.getId();
+            row[1] = g.getGeneName();
+            System.out.println(((LabTestWorkRequest) request).getPatient());
+
+            dtm.addRow(row);
+        }
+
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -51,7 +69,7 @@ public class RequestLabTestJPanel extends javax.swing.JPanel {
         btnBack = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        txtPatient = new javax.swing.JTextField();
+        txtPatientName = new javax.swing.JTextField();
         jScrollPane = new javax.swing.JScrollPane();
         geneTbl = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
@@ -96,7 +114,7 @@ public class RequestLabTestJPanel extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabel2.setText("Patient Name :");
 
-        txtPatient.setEditable(false);
+        txtPatientName.setEditable(false);
 
         geneTbl.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 0, 20)); // NOI18N
         geneTbl.setModel(new javax.swing.table.DefaultTableModel(
@@ -145,7 +163,7 @@ public class RequestLabTestJPanel extends javax.swing.JPanel {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(txtPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtPatientName, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(342, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -154,7 +172,7 @@ public class RequestLabTestJPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPatientName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -202,6 +220,6 @@ public class RequestLabTestJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane;
-    private javax.swing.JTextField txtPatient;
+    private javax.swing.JTextField txtPatientName;
     // End of variables declaration//GEN-END:variables
 }
