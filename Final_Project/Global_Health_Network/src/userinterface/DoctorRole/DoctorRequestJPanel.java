@@ -5,6 +5,7 @@
  */
 package userinterface.DoctorRole;
 
+
 import Business.Doctor.Patient;
 import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
@@ -15,11 +16,14 @@ import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.LabTestWorkRequest;
 import Business.WorkQueue.WorkRequest;
+
 import java.awt.CardLayout;
 import java.awt.Component;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
 import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
@@ -31,6 +35,7 @@ public class DoctorRequestJPanel extends javax.swing.JPanel {
      * Creates new form DoctorRequestJPanel
      */
     private JPanel userProcessContainer;
+
     private Enterprise enterprise;
     private Network network;
     private EcoSystem system;
@@ -38,6 +43,7 @@ public class DoctorRequestJPanel extends javax.swing.JPanel {
     private UserAccount account;
     private DoctorOrganization organization;
     public DoctorRequestJPanel(JPanel userProcessContainer, UserAccount account, DoctorOrganization organization, Enterprise enterprise, EcoSystem system, Network network) {
+
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.account = account;
@@ -351,6 +357,7 @@ public class DoctorRequestJPanel extends javax.swing.JPanel {
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
 
+
         String message = txtTest.getText().trim();
         String patientName = txtPatientName.getText();
         String sex = cbxSex.getSelectedItem().toString();
@@ -403,10 +410,12 @@ public class DoctorRequestJPanel extends javax.swing.JPanel {
         txtAge.setText("");
         cbxSex.setSelectedIndex(0);
         txtTest.setText("");
-        
+
+
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+
 
         userProcessContainer.remove(this);
         Component[] componentArray = userProcessContainer.getComponents();
@@ -414,6 +423,7 @@ public class DoctorRequestJPanel extends javax.swing.JPanel {
         DoctorWorkAreaJPanel dwjp = (DoctorWorkAreaJPanel) component;
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
+
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed

@@ -62,14 +62,14 @@ public class LabResultsJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        workRequestJTable = new javax.swing.JTable();
+        tblLabResults = new javax.swing.JTable();
         btnBack = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
         btnGenerateDrug = new javax.swing.JButton();
 
-        workRequestJTable.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 20)); // NOI18N
-        workRequestJTable.setModel(new javax.swing.table.DefaultTableModel(
+        tblLabResults.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 20)); // NOI18N
+        tblLabResults.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -92,8 +92,8 @@ public class LabResultsJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        workRequestJTable.setRowHeight(30);
-        jScrollPane1.setViewportView(workRequestJTable);
+        tblLabResults.setRowHeight(30);
+        jScrollPane1.setViewportView(tblLabResults);
 
         btnBack.setText("<- Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -172,6 +172,6 @@ public class LabResultsJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable workRequestJTable;
+    private javax.swing.JTable tblLabResults;
     // End of variables declaration//GEN-END:variables
 }

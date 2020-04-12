@@ -13,6 +13,7 @@ import Business.UserAccount.UserAccount;
 import Business.WorkQueue.LabTestWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -44,20 +45,26 @@ public class LabAssistantWorkAreaJPanel extends javax.swing.JPanel {
         populateTable();
     }
     
-    public void populateTable(){
-        DefaultTableModel model = (DefaultTableModel)workRequestJTable.getModel();
-        
+    public void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) tblLabWorkArea.getModel();
+
         model.setRowCount(0);
-        
-        for(WorkRequest request : labOrganization.getWorkQueue().getWorkRequestList()){
-            Object[] row = new Object[4];
-            row[0] = request;
-            row[1] = request.getSender().getEmployee().getName();
-            row[2] = request.getReceiver() == null ? null : request.getReceiver().getEmployee().getName();
-            row[3] = request.getStatus();
-            
+
+        for (WorkRequest request : labOrganization.getWorkQueue().getWorkRequestList()) {
+
+            Object[] row = new Object[8];
+            row[0] = ((LabTestWorkRequest) request);
+            row[1] = ((LabTestWorkRequest) request).getPatient().getAge();
+            row[2] = ((LabTestWorkRequest) request).getPatient().getSex();
+            row[3] = request.getMessage();
+
+            row[4] = request.getSender().getEmployee().getName();
+            row[5] = request.getReceiver() == null ? null : request.getReceiver().getEmployee().getName();
+            row[6] = request.getStatus();
+            row[7] = ((LabTestWorkRequest) request).getPatient().getNewDrug();
             model.addRow(row);
         }
+
     }
 
     /**
@@ -69,30 +76,49 @@ public class LabAssistantWorkAreaJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        workRequestJTable = new javax.swing.JTable();
-        assignJButton = new javax.swing.JButton();
-        processJButton = new javax.swing.JButton();
-        refreshJButton = new javax.swing.JButton();
+        btnAssign = new javax.swing.JButton();
+        btnProcess = new javax.swing.JButton();
+        btnRefresh = new javax.swing.JButton();
+        jScrollPane = new javax.swing.JScrollPane();
+        tblLabWorkArea = new javax.swing.JTable();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel1 = new javax.swing.JLabel();
 
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        btnAssign.setText("Assign to me");
+        btnAssign.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAssignActionPerformed(evt);
+            }
+        });
 
-        workRequestJTable.setModel(new javax.swing.table.DefaultTableModel(
+        btnProcess.setText("Process");
+        btnProcess.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProcessActionPerformed(evt);
+            }
+        });
+
+        btnRefresh.setText("Refresh");
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
+
+        tblLabWorkArea.setFont(new java.awt.Font("Microsoft JhengHei Light", 0, 20)); // NOI18N
+        tblLabWorkArea.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Message", "Sender", "Receiver", "Status"
+                "Patient Name", "Age", "Sex", "Message", "Sender", "Receiver", "Status", "New Drug"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, true, false
+                false, false, false, false, false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -103,84 +129,205 @@ public class LabAssistantWorkAreaJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(workRequestJTable);
-        if (workRequestJTable.getColumnModel().getColumnCount() > 0) {
-            workRequestJTable.getColumnModel().getColumn(0).setResizable(false);
-            workRequestJTable.getColumnModel().getColumn(1).setResizable(false);
-            workRequestJTable.getColumnModel().getColumn(2).setResizable(false);
-            workRequestJTable.getColumnModel().getColumn(3).setResizable(false);
-        }
+        tblLabWorkArea.setRowHeight(30);
+        jScrollPane.setViewportView(tblLabWorkArea);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 58, 375, 96));
+        jLabel1.setFont(new java.awt.Font("Monotype Corsiva", 1, 36)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("LAB WORK AREA");
 
-        assignJButton.setText("Assign to me");
-        assignJButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                assignJButtonActionPerformed(evt);
-            }
-        });
-        add(assignJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 215, -1, -1));
-
-        processJButton.setText("Process");
-        processJButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                processJButtonActionPerformed(evt);
-            }
-        });
-        add(processJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(446, 215, -1, -1));
-
-        refreshJButton.setText("Refresh");
-        refreshJButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                refreshJButtonActionPerformed(evt);
-            }
-        });
-        add(refreshJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(406, 26, -1, -1));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 770, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(70, 70, 70)
+                        .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(130, 130, 130)
+                        .addComponent(btnAssign)
+                        .addGap(117, 117, 117)
+                        .addComponent(btnProcess)
+                        .addGap(111, 111, 111)
+                        .addComponent(btnRefresh)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(59, 59, 59)
+                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAssign)
+                    .addComponent(btnProcess)
+                    .addComponent(btnRefresh))
+                .addContainerGap(43, Short.MAX_VALUE))
+        );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void assignJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignJButtonActionPerformed
+    private void btnAssignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignActionPerformed
 
-        int selectedRow = workRequestJTable.getSelectedRow();
-        
-        if (selectedRow < 0){
+        int selectedRow = tblLabWorkArea.getSelectedRow();
+
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "Please select a row");
             return;
         }
-        
-        WorkRequest request = (WorkRequest)workRequestJTable.getValueAt(selectedRow, 0);
+        //to check task is  already completed
+        if (tblLabWorkArea.getValueAt(selectedRow, 6) != null) {
+            if (((tblLabWorkArea.getValueAt(selectedRow, 6).equals("Completed")))) {
+
+                JOptionPane.showMessageDialog(null, "Task is already completed");
+                return;
+            }
+        }
+
+        //to check task is already assigned        
+        if (tblLabWorkArea.getValueAt(selectedRow, 6) != null) {
+            if (tblLabWorkArea.getValueAt(selectedRow, 5) != null) {
+                if (userAccount.getUsername().equalsIgnoreCase(tblLabWorkArea.getValueAt(selectedRow, 5).toString())) {
+
+                    if (tblLabWorkArea.getValueAt(selectedRow, 6).equals("Pending")) {
+                        JOptionPane.showMessageDialog(null, "Task is already assigned");
+                        return;
+                    }
+                }
+            }
+        }
+        //to check the task is assigned to some one else 
+        if (tblLabWorkArea.getValueAt(selectedRow, 6) != null) {
+            if (tblLabWorkArea.getValueAt(selectedRow, 5) != null) {
+                if (tblLabWorkArea.getValueAt(selectedRow, 6).equals("Processing")) {
+                    JOptionPane.showMessageDialog(null, "Task is already assigned");
+                    return;
+                }
+            }
+        }
+
+        //to check whether task is already assigined 
+        if (tblLabWorkArea.getValueAt(selectedRow, 5) != null) {
+            if (!userAccount.getUsername().equalsIgnoreCase(tblLabWorkArea.getValueAt(selectedRow, 5).toString())) {
+                JOptionPane.showMessageDialog(null, "Task is already assigned");
+                return;
+            }
+        }
+        int flag = 0;
+
+        for (WorkRequest request : labOrganization.getWorkQueue().getWorkRequestList()) {
+
+            if (request.getStatus() == null) {
+                continue;
+            }
+            if (request.getStatus().equals("Pending")) {
+
+                if (request.getReceiver() != null) {
+
+                    if (userAccount.getUsername().equalsIgnoreCase(request.getReceiver().toString())) {
+                        flag = 1;
+                    }
+                }
+            }
+        }
+        if (flag == 1) {
+            JOptionPane.showMessageDialog(null, "Please complete the existing request before taking a new request");
+            return;
+
+        }
+        int flag1 = 0;
+        for (WorkRequest request : labOrganization.getWorkQueue().getWorkRequestList()) {
+
+            if (request.getStatus() == null) {
+                continue;
+            }
+            if (tblLabWorkArea.getValueAt(selectedRow, 5) != null) {
+                if (request.getStatus().equals("Processing") && userAccount.getUsername().equalsIgnoreCase(tblLabWorkArea.getValueAt(selectedRow, 5).toString())) {
+                    flag1 = 1;
+                }
+            }
+        }
+        if (flag1 == 1) {
+            JOptionPane.showMessageDialog(null, "Please complete the existing request before taking a new request");
+            return;
+
+        }
+
+        WorkRequest request = (WorkRequest) tblLabWorkArea.getValueAt(selectedRow, 0);
         request.setReceiver(userAccount);
-        request.setStatus("Pending");
+        request.setStatus("Pending");        
         populateTable();
-        
-    }//GEN-LAST:event_assignJButtonActionPerformed
+    }//GEN-LAST:event_btnAssignActionPerformed
 
-    private void processJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_processJButtonActionPerformed
+    private void btnProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcessActionPerformed
         
-        int selectedRow = workRequestJTable.getSelectedRow();
-        
-        if (selectedRow < 0){
+        int selectedRow = tblLabWorkArea.getSelectedRow();
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "Please select a row");
             return;
         }
-        
-        LabTestWorkRequest request = (LabTestWorkRequest)workRequestJTable.getValueAt(selectedRow, 0);
-     
+        //to check whether the task is completed 
+        LabTestWorkRequest request = (LabTestWorkRequest) tblLabWorkArea.getValueAt(selectedRow, 0);
+        if (tblLabWorkArea.getValueAt(selectedRow, 6) != null) {
+            if (((tblLabWorkArea.getValueAt(selectedRow, 6).equals("Completed")))) {
+
+                JOptionPane.showMessageDialog(null, "Task is already completed");
+                return;
+            }
+        }
+        //to check whether task is assigned forr process
+        if (tblLabWorkArea.getValueAt(selectedRow, 5) != null) {
+            if (tblLabWorkArea.getValueAt(selectedRow, 6) == null || !userAccount.getUsername().equalsIgnoreCase(tblLabWorkArea.getValueAt(selectedRow, 5).toString())) {
+                JOptionPane.showMessageDialog(null, "Task is not assigned to you for process");
+                return;
+            }
+        }
+        int flag = 0;
+        if (tblLabWorkArea.getValueAt(selectedRow, 5) != null) {
+            if (tblLabWorkArea.getValueAt(selectedRow, 6).equals("Processing")) {
+
+                flag = 1;
+            }
+        }
+        if (flag != 1) {
+            if (tblLabWorkArea.getValueAt(selectedRow, 6) != null) {
+
+                if ((!(tblLabWorkArea.getValueAt(selectedRow, 6).equals("Pending")))) {
+                    JOptionPane.showMessageDialog(null, "Task is not assigned to you for process");
+                    return;
+                }
+            }
+        }
+
         request.setStatus("Processing");
-        
-        ProcessWorkRequestJPanel processWorkRequestJPanel = new ProcessWorkRequestJPanel(userProcessContainer, request);
-        userProcessContainer.add("processWorkRequestJPanel", processWorkRequestJPanel);
+
+        ProcessWorkRequestJPanel processWorkRequestJPanel = new ProcessWorkRequestJPanel(userProcessContainer, request, labOrganization, userAccount, network);
+        userProcessContainer.add("processWorkRequestJPanel", processWorkRequestJPanel);        
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
         
-    }//GEN-LAST:event_processJButtonActionPerformed
+    }//GEN-LAST:event_btnProcessActionPerformed
 
-    private void refreshJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshJButtonActionPerformed
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
         populateTable();
-    }//GEN-LAST:event_refreshJButtonActionPerformed
+    }//GEN-LAST:event_btnRefreshActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton assignJButton;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton processJButton;
-    private javax.swing.JButton refreshJButton;
-    private javax.swing.JTable workRequestJTable;
+    private javax.swing.JButton btnAssign;
+    private javax.swing.JButton btnProcess;
+    private javax.swing.JButton btnRefresh;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTable tblLabWorkArea;
     // End of variables declaration//GEN-END:variables
 }
