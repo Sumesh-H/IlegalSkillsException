@@ -12,12 +12,9 @@ import Business.Network.Network;
 import Business.Organization.DoctorOrganization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.DoctorWorkRequest;
-import Business.WorkQueue.LabTestWorkRequest;
-import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
-import java.awt.Component;
 import javax.swing.JPanel;
-import javax.swing.table.DefaultTableModel;
+
 
 
 /**
@@ -166,7 +163,7 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
 
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
 
-        log.debug("In doctor role");
+        
         userProcessContainer.add("DocterPrescriptionJpanel", new userinterface.DoctorRole.DoctorPrescriptionJpanel(userProcessContainer,list,userAccount,enterprise,organization,system,network));
 
         layout.next(userProcessContainer);
@@ -176,7 +173,7 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
 
-        log.debug("IN doctor request");
+        
         userProcessContainer.add("DoctorRequestJPanel",new userinterface.DoctorRole.DoctorRequestJPanel(userProcessContainer,userAccount,organization,enterprise,system,network));
 
         layout.next(userProcessContainer);
