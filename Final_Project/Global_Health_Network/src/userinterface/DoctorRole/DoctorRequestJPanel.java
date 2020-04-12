@@ -156,22 +156,16 @@ public class DoctorRequestJPanel extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabel2.setText("Patient Name :");
 
-        txtPatientName.setEditable(false);
-
         jLabel3.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabel3.setText("Sex :");
 
-        cbxSex.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Please select--", "Success", "Failure" }));
+        cbxSex.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Please select--", "Male", "Female" }));
 
         jLabel4.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabel4.setText("Age :");
 
-        txtAge.setEditable(false);
-
         jLabel5.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabel5.setText("Test :");
-
-        txtTest.setEditable(false);
 
         btnSubmit.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         btnSubmit.setForeground(new java.awt.Color(51, 0, 204));
@@ -238,7 +232,7 @@ public class DoctorRequestJPanel extends javax.swing.JPanel {
         enterpriseLbl1.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         enterpriseLbl1.setText("Lab Results");
 
-        tblDoctorRequest.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 0, 20)); // NOI18N
+        tblDoctorRequest.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         tblDoctorRequest.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 

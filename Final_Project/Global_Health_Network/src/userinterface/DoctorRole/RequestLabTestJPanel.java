@@ -43,8 +43,6 @@ public class RequestLabTestJPanel extends javax.swing.JPanel {
         DefaultTableModel dtm = (DefaultTableModel) geneTbl.getModel();
 
         dtm.setRowCount(0);
-        System.out.println(((LabTestWorkRequest) request).getPatient().getGeneHistory().getGeneList());
-        System.out.println(((LabTestWorkRequest) request).getPatient().getGeneHistory().getGeneList().size());
 
         for (Gene g : ((LabTestWorkRequest) request).getPatient().getGeneHistory().getGeneList()) {
 

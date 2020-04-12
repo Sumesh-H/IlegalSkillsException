@@ -58,11 +58,11 @@ public class DoctorPrescriptionJpanel extends javax.swing.JPanel {
         
         
         populateWorkRequestTable();
-        DateChooser.setMinSelectableDate(new Date());
+        date.setMinSelectableDate(new Date());
     }
 
     public void populateWorkRequestTable(){
-        DefaultTableModel dtm = (DefaultTableModel) tblJrescription.getModel();
+        DefaultTableModel dtm = (DefaultTableModel) tblPrescription.getModel();
         
         dtm.setRowCount(0);
         
@@ -119,7 +119,7 @@ public class DoctorPrescriptionJpanel extends javax.swing.JPanel {
         btnSavePrescription = new javax.swing.JButton();
         cbxDiagnosis = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
-        DateChooser = new com.toedter.calendar.JDateChooser();
+        date = new com.toedter.calendar.JDateChooser();
         jLabel7 = new javax.swing.JLabel();
         cbxMedication = new javax.swing.JComboBox<>();
         cbxSex = new javax.swing.JComboBox<>();
@@ -129,7 +129,7 @@ public class DoctorPrescriptionJpanel extends javax.swing.JPanel {
         jSpinnerNoOfDays = new javax.swing.JSpinner();
         jPanel4 = new javax.swing.JPanel();
         scrollPane2 = new javax.swing.JScrollPane();
-        tblJrescription = new javax.swing.JTable();
+        tblPrescription = new javax.swing.JTable();
 
         jLabel1.setFont(new java.awt.Font("Wide Latin", 3, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -172,7 +172,6 @@ public class DoctorPrescriptionJpanel extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabel2.setText("Patient Name :");
 
-        txtPatientName.setEditable(false);
         txtPatientName.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
@@ -181,7 +180,6 @@ public class DoctorPrescriptionJpanel extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabel4.setText("Age :");
 
-        txtAge.setEditable(false);
         txtAge.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtAgeActionPerformed(evt);
@@ -224,7 +222,7 @@ public class DoctorPrescriptionJpanel extends javax.swing.JPanel {
         });
 
         cbxSex.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        cbxSex.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Select--", "Success", "Failure" }));
+        cbxSex.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Select--", "Male", "Female" }));
         cbxSex.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxSexActionPerformed(evt);
@@ -269,7 +267,7 @@ public class DoctorPrescriptionJpanel extends javax.swing.JPanel {
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(DateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel8)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -301,7 +299,7 @@ public class DoctorPrescriptionJpanel extends javax.swing.JPanel {
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbxDiagnosis, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(DateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -317,8 +315,8 @@ public class DoctorPrescriptionJpanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        tblJrescription.setFont(new java.awt.Font("Microsoft JhengHei Light", 0, 20)); // NOI18N
-        tblJrescription.setModel(new javax.swing.table.DefaultTableModel(
+        tblPrescription.setFont(new java.awt.Font("Microsoft JhengHei Light", 0, 20)); // NOI18N
+        tblPrescription.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -334,8 +332,8 @@ public class DoctorPrescriptionJpanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblJrescription.setRowHeight(25);
-        scrollPane2.setViewportView(tblJrescription);
+        tblPrescription.setRowHeight(25);
+        scrollPane2.setViewportView(tblPrescription);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -418,7 +416,7 @@ public class DoctorPrescriptionJpanel extends javax.swing.JPanel {
              flag = false;
              return;
                 }
-         if(DateChooser.getDate()==null)
+         if(date.getDate()==null)
          {
              JOptionPane.showMessageDialog(null, "Please select the date !");
              flag = false;
@@ -477,14 +475,17 @@ public class DoctorPrescriptionJpanel extends javax.swing.JPanel {
             
            
 
-            populateWorkRequestTable();
             saveRecord(prescription.getNetworkName(),prescription.getDaignosis(),prescription.getMedicineName());
+            populateWorkRequestTable();
             txtPatientName.setText("");
             txtAge.setText("");
             jSpinnerNoOfTimes.setValue(0);
             jSpinnerNoOfDays.setValue(0);
             cbxSex.setSelectedIndex(0);
             cbxMedication.setSelectedIndex(0);
+            cbxDiagnosis.setSelectedIndex(0);
+            date.setDate(new Date());
+            
             
         }
     }//GEN-LAST:event_btnSavePrescriptionActionPerformed
@@ -507,12 +508,12 @@ public class DoctorPrescriptionJpanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.toedter.calendar.JDateChooser DateChooser;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnSavePrescription;
     private javax.swing.JComboBox<String> cbxDiagnosis;
     private javax.swing.JComboBox<String> cbxMedication;
     private javax.swing.JComboBox<String> cbxSex;
+    private com.toedter.calendar.JDateChooser date;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -528,7 +529,7 @@ public class DoctorPrescriptionJpanel extends javax.swing.JPanel {
     private javax.swing.JSpinner jSpinnerNoOfDays;
     private javax.swing.JSpinner jSpinnerNoOfTimes;
     private javax.swing.JScrollPane scrollPane2;
-    private javax.swing.JTable tblJrescription;
+    private javax.swing.JTable tblPrescription;
     private javax.swing.JTextField txtAge;
     private javax.swing.JTextField txtPatientName;
     // End of variables declaration//GEN-END:variables
