@@ -37,6 +37,10 @@ public class OrganizationDirectory {
             organization=new DrugOrganization();
             organizationList.add(organization);
         }
+          else if (type.getValue().equals(Type.Chemical.getValue())){
+            organization=new ChemicalOrganization();
+            organizationList.add(organization);
+        }
         return organization;
     }
 }

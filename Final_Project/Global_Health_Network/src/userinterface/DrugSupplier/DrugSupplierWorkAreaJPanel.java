@@ -109,6 +109,11 @@ public class DrugSupplierWorkAreaJPanel extends javax.swing.JPanel {
         });
 
         btnReqChemical.setText("Request Chemical");
+        btnReqChemical.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReqChemicalActionPerformed(evt);
+            }
+        });
 
         btnViewLabReq.setText("View Lab Requests");
         btnViewLabReq.addActionListener(new java.awt.event.ActionListener() {
@@ -189,6 +194,15 @@ public class DrugSupplierWorkAreaJPanel extends javax.swing.JPanel {
         userProcessContainer.add("LabResultsJPanel", new LabResultsJPanel(userProcessContainer, userAccount, enterprise, drugOrganization, network, business));
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnViewLabReqActionPerformed
+
+    private void btnReqChemicalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReqChemicalActionPerformed
+        // TODO add your handling code here:
+                CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+       
+        userProcessContainer.add("ViewChemicalsRequestJPanel", new ViewChemicalRequestJpanel(userProcessContainer, userAccount, enterprise, drugOrganization, network));
+        layout.next(userProcessContainer);
+
+    }//GEN-LAST:event_btnReqChemicalActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

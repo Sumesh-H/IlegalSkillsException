@@ -5,6 +5,16 @@
  */
 package userinterface.ChemicalRole;
 
+import Business.EcoSystem;
+import Business.Enterprise.Enterprise;
+import Business.Network.Network;
+import Business.Organization.ChemicalOrganization;
+import Business.UserAccount.UserAccount;
+import Business.WorkQueue.ChemicalWorkRequest;
+import Business.WorkQueue.WorkRequest;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author keshav
@@ -14,10 +24,42 @@ public class ChemicalWorkAreaJPanel extends javax.swing.JPanel {
     /**
      * Creates new form ChemicalWorkAreaJPanel
      */
-    public ChemicalWorkAreaJPanel() {
+     private JPanel userProcessContainer;
+    private EcoSystem business;
+    private UserAccount userAccount;
+    private ChemicalOrganization chemicalOrganization;
+    private Enterprise enterprise;
+    private Network network;
+  
+
+    public ChemicalWorkAreaJPanel(JPanel userProcessContainer, UserAccount userAccount, ChemicalOrganization chemicalOrganization, Enterprise enterprise, EcoSystem business, Network network) {
+
         initComponents();
+        this.userProcessContainer = userProcessContainer;
+        this.userAccount = userAccount;
+        this.chemicalOrganization = chemicalOrganization;
+        this.enterprise = enterprise;
+        this.network = network;
+        this.business = business;
+        populateTable();
     }
 
+    public void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) tblChemicalWorkRequest.getModel();
+        model.setRowCount(0);
+
+        for (WorkRequest request : chemicalOrganization.getWorkQueue().getWorkRequestList()) {
+            Object[] row = new Object[6];
+            row[0] = ((ChemicalWorkRequest) request);
+            row[1] = ((ChemicalWorkRequest) request).getQuantity();
+            row[2] = request.getSender().getEmployee().getName();
+            row[3] = request.getReceiver() == null ? null : request.getReceiver().getEmployee().getName();
+            row[4] = request.getStatus();
+            row[5] = ((ChemicalWorkRequest) request).getDeliveryTime();
+
+            model.addRow(row);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

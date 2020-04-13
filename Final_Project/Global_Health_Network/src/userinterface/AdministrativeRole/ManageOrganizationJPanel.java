@@ -4,6 +4,7 @@
  */
 package userinterface.AdministrativeRole;
 
+import Business.Enterprise.ChemicalEnterprise;
 import Business.Enterprise.DrugEnterprise;
 import Business.Enterprise.Enterprise;
 import Business.Enterprise.HospitalEnterprise;
@@ -54,7 +55,11 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
                      cbxOrganization.addItem(Organization.Type.Drug);
                      break;
                 }           
-                 
+                   else if(enterprise instanceof ChemicalEnterprise)
+                {
+                  cbxOrganization.addItem(Organization.Type.Chemical);
+                     break;  
+                }
                     
             }
         }
