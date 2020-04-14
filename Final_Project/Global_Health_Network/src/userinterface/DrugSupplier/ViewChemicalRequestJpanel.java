@@ -10,7 +10,10 @@ import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
 import Business.Network.Network;
 import Business.Organization.DrugOrganization;
+import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
+import Business.WorkQueue.ChemicalWorkRequest;
+import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -45,14 +48,13 @@ public class ViewChemicalRequestJpanel extends javax.swing.JPanel {
         for(int i=rowCount-1;i>=0;i--) {
             model.removeRow(i);
         }
-      for(ChemicalCompound mi : drugOrganization.getChemList()){
+      for(ChemicalCompound cc : drugOrganization.getChemList()){
             Object row[] = new Object[6];
-            row[0] = mi;
-            row[1] = mi.getSerialNumber();
-            row[2]= mi.getAvailQuantity();
-            row[3]=mi.getRequiredQuantity();
-            row[4]= mi.getReorderStatus();
-            //row[5]=mi.getReorderStatus();
+            row[0] = cc;
+            row[1] = cc.getSerialNumber();
+            row[2]= cc.getAvailQuantity();
+            row[3]=cc.getRequiredQuantity();
+            row[4]= cc.getReorderStatus();
             model.addRow(row);
         }
     }
@@ -111,16 +113,42 @@ public class ViewChemicalRequestJpanel extends javax.swing.JPanel {
         tblReorder.setRowHeight(30);
         jScrollPane1.setViewportView(tblReorder);
 
+        lblChemicalRequests.setFont(new java.awt.Font("Wide Latin", 3, 24)); // NOI18N
         lblChemicalRequests.setText("Chemical Requests");
 
+        btnInventory.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        btnInventory.setForeground(new java.awt.Color(51, 0, 255));
         btnInventory.setText("Inventory");
+        btnInventory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInventoryActionPerformed(evt);
+            }
+        });
 
+        btnViewRequests.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        btnViewRequests.setForeground(new java.awt.Color(51, 0, 255));
         btnViewRequests.setText("View Requests");
+        btnViewRequests.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewRequestsActionPerformed(evt);
+            }
+        });
 
+        btnViewDetails.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        btnViewDetails.setForeground(new java.awt.Color(51, 0, 255));
         btnViewDetails.setText("View Details");
+        btnViewDetails.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewDetailsActionPerformed(evt);
+            }
+        });
 
+        btnBack.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        btnBack.setForeground(new java.awt.Color(51, 0, 255));
         btnBack.setText("Back");
 
+        btnAddChemicals.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        btnAddChemicals.setForeground(new java.awt.Color(51, 0, 255));
         btnAddChemicals.setText("Add Chemicals");
         btnAddChemicals.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,7 +177,7 @@ public class ViewChemicalRequestJpanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 950, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 129, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnViewRequests, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnInventory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -157,8 +185,8 @@ public class ViewChemicalRequestJpanel extends javax.swing.JPanel {
                         .addGap(155, 155, 155))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnBack)
-                        .addGap(379, 379, 379)
-                        .addComponent(lblChemicalRequests)
+                        .addGap(147, 147, 147)
+                        .addComponent(lblChemicalRequests, javax.swing.GroupLayout.PREFERRED_SIZE, 634, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,10 +210,10 @@ public class ViewChemicalRequestJpanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblChemicalRequests)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblChemicalRequests, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBack))
-                .addGap(111, 111, 111)
+                .addGap(65, 65, 65)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -261,13 +289,13 @@ public class ViewChemicalRequestJpanel extends javax.swing.JPanel {
         DefaultTableModel dtm =(DefaultTableModel) tblReorder.getModel();
 
         dtm.setRowCount(0);
-        for(ChemicalCompound mi : drugOrganization.getChemList()){
+        for(ChemicalCompound cc : drugOrganization.getChemList()){
             Object row[] = new Object[5];
-            row[0] = mi;
-            row[1] = mi.getSerialNumber();
-            row[2]= mi.getAvailQuantity();
-            row[3]=mi.getRequiredQuantity();
-            row[4]= mi.getReorderStatus();
+            row[0] = cc;
+            row[1] = cc.getSerialNumber();
+            row[2]= cc.getAvailQuantity();
+            row[3]=cc.getRequiredQuantity();
+            row[4]= cc.getReorderStatus();
             dtm.addRow(row);
         }
 
@@ -280,6 +308,77 @@ public class ViewChemicalRequestJpanel extends javax.swing.JPanel {
         
     
     }//GEN-LAST:event_btnAddChemicalsActionPerformed
+
+    private void btnInventoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventoryActionPerformed
+        // TODO add your handling code here:
+                int i=0;
+        for(ChemicalCompound mi : drugOrganization.getChemList()){
+            i++;
+            
+        }
+        if(i<=0)
+        {
+            JOptionPane.showMessageDialog(null,"No chemicals are present for invetory check  ");
+            return;
+        }
+      for(ChemicalCompound cc : drugOrganization.getChemList()){
+
+            if(cc.getAvailQuantity()<=cc.getRequiredQuantity()){
+                if(!cc.getReorderStatus().equals("Y")){
+                    ChemicalWorkRequest request=new ChemicalWorkRequest();
+
+                    cc.setReorderStatus("Y");
+                    request.setChemicalName(cc.getChemicalName());
+                    request.setQuantity(cc.getRequiredQuantity());
+                    request.setSender(userAccount);
+
+                    userAccount.getWorkQueue().getWorkRequestList().add(request);
+                    for(Enterprise enterprise :network.getEnterpriseDirectory().getEnterpriseList() ){
+                        System.out.println("***** Organization Name:" +enterprise.getName());
+                        for(Organization organization:enterprise.getOrganizationDirectory().getOrganizationList()){
+                            System.out.println("***** Organization Name:" +organization.getName());
+                            if(organization.getName().equals("Chemical Organization")){
+                                System.out.println("True");
+
+                                System.out.println("***** organization Name"+organization.getName());
+
+                                organization.getWorkQueue().getWorkRequestList().add(request);
+                              
+                            }
+                        }
+
+                    }
+
+                }
+
+            }
+        } 
+        JOptionPane.showMessageDialog(null, "Inventory status checked and updated!", "Warning", JOptionPane.INFORMATION_MESSAGE);
+       reorderTable();                                                 
+
+    }//GEN-LAST:event_btnInventoryActionPerformed
+
+    private void btnViewRequestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewRequestsActionPerformed
+        // TODO add your handling code here:
+                CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+       userProcessContainer.add("ViewRequestJPanel", new ViewRequestsJpanel(userProcessContainer, userAccount, enterprise, drugOrganization));
+        layout.next(userProcessContainer);
+
+    }//GEN-LAST:event_btnViewRequestsActionPerformed
+
+    private void btnViewDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewDetailsActionPerformed
+        // TODO add your handling code here:
+          int row = tblReorder.getSelectedRow();
+        if(row<0){
+            JOptionPane.showMessageDialog(null, "Please select a row!!", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        ChemicalCompound cc = (ChemicalCompound)tblReorder.getValueAt(row, 0);
+
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        userProcessContainer.add("UpdateEntryJPanel", new ViewChemicalDetailsJpanel(userProcessContainer, userAccount, enterprise,cc));
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnViewDetailsActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

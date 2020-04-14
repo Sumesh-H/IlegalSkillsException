@@ -5,6 +5,9 @@
  */
 package userinterface.DrugSupplier;
 
+import java.awt.CardLayout;
+import java.awt.Component;
+
 /**
  *
  * @author keshav
@@ -37,6 +40,7 @@ public class AddChemicalsJPanel extends javax.swing.JPanel {
         btnBack = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
 
+        lblGeneandChemical.setFont(new java.awt.Font("Wide Latin", 3, 24)); // NOI18N
         lblGeneandChemical.setText("Gene and Chemical Names");
 
         tblChemicalGene.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 0, 20)); // NOI18N
@@ -68,12 +72,23 @@ public class AddChemicalsJPanel extends javax.swing.JPanel {
         tblChemicalGene.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tblChemicalGene);
 
-        lblChemical.setText("Chemical Name");
+        lblChemical.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        lblChemical.setText("Chemical Name :");
 
-        lblGene.setText("Gene Name");
+        lblGene.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        lblGene.setText("Gene Name :");
 
+        btnBack.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        btnBack.setForeground(new java.awt.Color(51, 0, 255));
         btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
+        btnAdd.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        btnAdd.setForeground(new java.awt.Color(51, 0, 255));
         btnAdd.setText("Add");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -87,32 +102,34 @@ public class AddChemicalsJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(389, 389, 389)
+                        .addGap(247, 247, 247)
+                        .addComponent(btnBack)
+                        .addGap(245, 245, 245)
+                        .addComponent(btnAdd))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(199, 199, 199)
                         .addComponent(lblGeneandChemical))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(247, 247, 247)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnBack)
-                                .addGap(245, 245, 245)
-                                .addComponent(btnAdd))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(lblGene, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtGene))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(lblChemical)
-                                    .addGap(47, 47, 47)
-                                    .addComponent(txtChemical, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                .addGap(271, 271, 271)
+                                .addComponent(lblGene, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(lblChemical)
+                                .addGap(47, 47, 47)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtGene)
+                            .addComponent(txtChemical, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(54, 54, 54)
+                .addGap(64, 64, 64)
                 .addComponent(lblGeneandChemical)
-                .addGap(70, 70, 70)
+                .addGap(60, 60, 60)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(93, 93, 93)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -126,9 +143,15 @@ public class AddChemicalsJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBack)
                     .addComponent(btnAdd))
-                .addContainerGap(198, Short.MAX_VALUE))
+                .addContainerGap(193, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+              
+
+    }//GEN-LAST:event_btnBackActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
