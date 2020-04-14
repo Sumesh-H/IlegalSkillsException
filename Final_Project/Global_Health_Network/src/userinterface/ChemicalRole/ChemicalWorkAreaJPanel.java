@@ -12,6 +12,8 @@ import Business.Organization.ChemicalOrganization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.ChemicalWorkRequest;
 import Business.WorkQueue.WorkRequest;
+import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -24,14 +26,13 @@ public class ChemicalWorkAreaJPanel extends javax.swing.JPanel {
     /**
      * Creates new form ChemicalWorkAreaJPanel
      */
-     private JPanel userProcessContainer;
+    private JPanel userProcessContainer;
     private EcoSystem business;
     private UserAccount userAccount;
     private ChemicalOrganization chemicalOrganization;
     private Enterprise enterprise;
     private Network network;
-  
-
+    
     public ChemicalWorkAreaJPanel(JPanel userProcessContainer, UserAccount userAccount, ChemicalOrganization chemicalOrganization, Enterprise enterprise, EcoSystem business, Network network) {
 
         initComponents();
@@ -110,11 +111,21 @@ public class ChemicalWorkAreaJPanel extends javax.swing.JPanel {
         btnAssign.setForeground(new java.awt.Color(51, 0, 204));
         btnAssign.setText("Assign ");
         btnAssign.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnAssign.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAssignActionPerformed(evt);
+            }
+        });
 
         btnProcess.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         btnProcess.setForeground(new java.awt.Color(51, 0, 204));
         btnProcess.setText("Process");
         btnProcess.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnProcess.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProcessActionPerformed(evt);
+            }
+        });
 
         btnRefresh.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         btnRefresh.setForeground(new java.awt.Color(51, 0, 204));
@@ -166,6 +177,170 @@ public class ChemicalWorkAreaJPanel extends javax.swing.JPanel {
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRefreshActionPerformed
+
+    private void btnAssignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tblChemicalWorkRequest.getSelectedRow();
+
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "Please Select a Row");
+            return;
+        }
+        if (tblChemicalWorkRequest.getValueAt(selectedRow, 4) != null) {
+
+            if (((tblChemicalWorkRequest.getValueAt(selectedRow, 4).equals("Completed")))) {
+
+                JOptionPane.showMessageDialog(null, "Task is already completed");
+                return;
+            }
+        }
+        if (tblChemicalWorkRequest.getValueAt(selectedRow, 4) != null) {
+
+            if (tblChemicalWorkRequest.getValueAt(selectedRow, 4).equals("Assigned")) {
+                JOptionPane.showMessageDialog(null, "Task is already assigned");
+                return;
+            }
+        }
+        if (tblChemicalWorkRequest.getValueAt(selectedRow, 3) != null) {
+
+            if (!tblChemicalWorkRequest.getValueAt(selectedRow, 3).equals(userAccount.getUsername())) {
+                JOptionPane.showMessageDialog(null, "Task is already assigned");
+                return;
+            }
+        }
+
+        int flag = 0;
+        for (WorkRequest request : chemicalOrganization.getWorkQueue().getWorkRequestList()) {
+
+            if (request.getStatus() == null) {
+                continue;
+            }
+            if (request.getStatus().equals("Assigned") && userAccount.getUsername().equalsIgnoreCase(request.getReceiver().toString())) {
+                flag = 1;
+            }
+        }
+        if (flag == 1) {
+            JOptionPane.showMessageDialog(null, "Please complete the existing request before taking a new request");
+            return;
+
+        }
+        int flag1 = 0;
+        for (WorkRequest request : chemicalOrganization.getWorkQueue().getWorkRequestList()) {
+
+            if (request.getStatus() == null) {
+                continue;
+            }
+            if (request.getStatus().equals("Processing") && userAccount.getUsername().equalsIgnoreCase(request.getReceiver().toString())) {
+                flag1 = 1;
+            }
+        }
+        if (flag1 == 1) {
+            JOptionPane.showMessageDialog(null, "Please complete the existing request before taking a new request");
+            return;
+
+        }
+
+        WorkRequest request = (WorkRequest) tblChemicalWorkRequest.getValueAt(selectedRow, 0);
+        request.setReceiver(userAccount);
+        request.setStatus("Assigned");
+        populateTable();
+    }                                         
+
+    private void processBtnActionPerformed(java.awt.event.ActionEvent evt) {                                           
+
+        int selectedRow = tblChemicalWorkRequest.getSelectedRow();
+
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "Please select a row");
+            return;
+        }
+
+        ChemicalWorkRequest request = (ChemicalWorkRequest) tblChemicalWorkRequest.getValueAt(selectedRow, 0);
+        if (tblChemicalWorkRequest.getValueAt(selectedRow, 4) != null) {
+
+            if (((tblChemicalWorkRequest.getValueAt(selectedRow, 4).equals("Completed")))) {
+
+                JOptionPane.showMessageDialog(null, "Task is already completed");
+                return;
+            }
+        }
+
+        if (tblChemicalWorkRequest.getValueAt(selectedRow, 4) == null) {
+            JOptionPane.showMessageDialog(null, "Task is not assigned to you for process");
+            return;
+        }
+        int flag = 0;
+
+        if (tblChemicalWorkRequest.getValueAt(selectedRow, 4).equals("Processing") && userAccount.getUsername().equalsIgnoreCase(request.getReceiver().toString())) {
+
+            flag = 1;
+        }
+        if (flag != 1) {
+            if (tblChemicalWorkRequest.getValueAt(selectedRow, 4) != null) {
+
+                if (!(((tblChemicalWorkRequest.getValueAt(selectedRow, 4).equals("Assigned"))) && userAccount.getUsername().equalsIgnoreCase(request.getReceiver().toString()))) {
+                    JOptionPane.showMessageDialog(null, "Task is not assigned to you for process");
+                    return;
+                }
+            }
+        }
+
+        request.setStatus("Processing");
+
+       ChemicalWorkRequestJPanel processWorkRequestJPanel = new ChemicalWorkRequestJPanel(userProcessContainer, request);
+        userProcessContainer.add("processWorkRequestJPanel", processWorkRequestJPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnAssignActionPerformed
+
+    private void btnProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcessActionPerformed
+        // TODO add your handling code here:
+        
+        int selectedRow = tblChemicalWorkRequest.getSelectedRow();
+
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "Please select a row");
+            return;
+        }
+
+        ChemicalWorkRequest request = (ChemicalWorkRequest) tblChemicalWorkRequest.getValueAt(selectedRow, 0);
+        if (tblChemicalWorkRequest.getValueAt(selectedRow, 4) != null) {
+
+            if (((tblChemicalWorkRequest.getValueAt(selectedRow, 4).equals("Completed")))) {
+
+                JOptionPane.showMessageDialog(null, "Task is already completed");
+                return;
+            }
+        }
+
+        if (tblChemicalWorkRequest.getValueAt(selectedRow, 4) == null) {
+            JOptionPane.showMessageDialog(null, "Task is not assigned to you for process");
+            return;
+        }
+        int flag = 0;
+
+        if (tblChemicalWorkRequest.getValueAt(selectedRow, 4).equals("Processing") && userAccount.getUsername().equalsIgnoreCase(request.getReceiver().toString())) {
+
+            flag = 1;
+        }
+        if (flag != 1) {
+            if (tblChemicalWorkRequest.getValueAt(selectedRow, 4) != null) {
+
+                if (!(((tblChemicalWorkRequest.getValueAt(selectedRow, 4).equals("Assigned"))) && userAccount.getUsername().equalsIgnoreCase(request.getReceiver().toString()))) {
+                    JOptionPane.showMessageDialog(null, "Task is not assigned to you for process");
+                    return;
+                }
+            }
+        }
+
+        request.setStatus("Processing");
+
+        ChemicalWorkRequestJPanel processWorkRequestJPanel = new ChemicalWorkRequestJPanel(userProcessContainer, request);
+        userProcessContainer.add("processWorkRequestJPanel", processWorkRequestJPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+
+    }//GEN-LAST:event_btnProcessActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

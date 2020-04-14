@@ -9,6 +9,9 @@ import Business.ChemicalInventoryManagement.ChemicalCompound;
 import Business.Enterprise.Enterprise;
 import Business.Organization.DrugOrganization;
 import Business.UserAccount.UserAccount;
+import java.awt.CardLayout;
+import java.awt.Component;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -75,14 +78,29 @@ public class ViewChemicalDetailsJpanel extends javax.swing.JPanel {
         btnBack.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         btnBack.setForeground(new java.awt.Color(51, 0, 255));
         btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         btnSave.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         btnSave.setForeground(new java.awt.Color(51, 0, 255));
         btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
         btnUpdate.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         btnUpdate.setForeground(new java.awt.Color(51, 0, 255));
         btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -145,6 +163,65 @@ public class ViewChemicalDetailsJpanel extends javax.swing.JPanel {
                 .addContainerGap(143, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+                userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        ViewChemicalRequestJpanel me = (ViewChemicalRequestJpanel) component;
+        me.reorderTable();
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        // TODO add your handling code here:
+                if(txtChemicalName.getText().isEmpty())
+        {
+            JOptionPane.showMessageDialog(null, "chemical name is empty");
+            return;
+        }
+        cc.setChemicalName(txtChemicalName.getText());
+        
+        try{
+        int availableQuantity= Integer.parseInt(txtAvailability.getText());
+        cc.setAvailQuantity(availableQuantity);
+        }
+        catch(NumberFormatException e)
+        {
+            JOptionPane.showMessageDialog(null, "Available quantity must be integer");
+            return;
+        }
+        try{
+        int serialNumber= Integer.parseInt(txtSerialNumber.getText());
+        cc.setSerialNumber(serialNumber);
+        }
+         catch(NumberFormatException e)
+        {
+            JOptionPane.showMessageDialog(null, "Serial number must be integer");
+            return;
+        }
+        
+        btnSave.setEnabled(false);
+        btnUpdate.setEnabled(true);
+        txtChemicalName.setEditable(false);
+        txtSerialNumber.setEditable(false);
+        txtAvailability.setEditable(false);
+
+        JOptionPane.showMessageDialog(null, "Medicine updated Successfully", "Warning", JOptionPane.INFORMATION_MESSAGE);
+
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+        txtChemicalName.setEditable(true);
+        txtSerialNumber.setEditable(true);
+        txtAvailability.setEditable(true);
+        btnUpdate.setEnabled(false);
+        btnSave.setEnabled(true);
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -5,6 +5,14 @@
  */
 package userinterface.ChemicalRole;
 
+import Business.WorkQueue.ChemicalWorkRequest;
+import java.awt.CardLayout;
+import java.awt.Component;
+import java.util.Calendar;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
 /**
  *
  * @author keshav
@@ -14,8 +22,14 @@ public class ChemicalWorkRequestJPanel extends javax.swing.JPanel {
     /**
      * Creates new form ChemicalWorkRequestJPanel
      */
-    public ChemicalWorkRequestJPanel() {
+    JPanel userProcessContainer;
+    ChemicalWorkRequest request;
+   
+    public ChemicalWorkRequestJPanel(JPanel userprocessContainer, ChemicalWorkRequest request) {
         initComponents();
+        this.userProcessContainer = userprocessContainer;
+        this.request = request;
+        jDateDelivery.setMinSelectableDate(new Date());
     }
 
     /**
@@ -31,8 +45,8 @@ public class ChemicalWorkRequestJPanel extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         txtDate = new javax.swing.JTextField();
         jDateDelivery = new com.toedter.calendar.JDateChooser();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Wide Latin", 3, 36)); // NOI18N
         jLabel1.setText("Drug Supplier Request Processing");
@@ -43,13 +57,23 @@ public class ChemicalWorkRequestJPanel extends javax.swing.JPanel {
         txtDate.setEditable(false);
         txtDate.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 18)); // NOI18N
 
-        jButton1.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(51, 0, 204));
-        jButton1.setText("Back");
+        btnBack.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
+        btnBack.setForeground(new java.awt.Color(51, 0, 204));
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
-        jButton2.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(51, 0, 204));
-        jButton2.setText("Update");
+        btnUpdate.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
+        btnUpdate.setForeground(new java.awt.Color(51, 0, 204));
+        btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -64,10 +88,10 @@ public class ChemicalWorkRequestJPanel extends javax.swing.JPanel {
                         .addGap(52, 52, 52)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1))
+                            .addComponent(btnBack))
                         .addGap(61, 61, 61)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2)
+                            .addComponent(btnUpdate)
                             .addComponent(jDateDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(276, Short.MAX_VALUE))
         );
@@ -84,16 +108,47 @@ public class ChemicalWorkRequestJPanel extends javax.swing.JPanel {
                         .addComponent(txtDate, javax.swing.GroupLayout.Alignment.LEADING)))
                 .addGap(110, 110, 110)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(btnBack)
+                    .addComponent(btnUpdate))
                 .addContainerGap(409, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        ChemicalWorkAreaJPanel dwjp = (ChemicalWorkAreaJPanel) component;
+        dwjp.populateTable();
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+        request.setStatus("Completed");
+        try{
+        int year = jDateDelivery.getCalendar().get(Calendar.YEAR);
+        int month = jDateDelivery.getCalendar().get(Calendar.MONTH);
+        int day = jDateDelivery.getCalendar().get(Calendar.DAY_OF_MONTH);
+        String result = year + "-" + month + "-" + day;
+        ((ChemicalWorkRequest) request).setDeliveryTime(result);
+        txtDate.setText(result);
+        JOptionPane.showMessageDialog(null, "Request updated successfully!");
+      
+        }
+        catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null , "please enter the valid date");
+            return;
+        }
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnUpdate;
     private com.toedter.calendar.JDateChooser jDateDelivery;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -14,6 +14,7 @@ import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.ChemicalWorkRequest;
 import java.awt.CardLayout;
+import java.awt.Component;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -146,6 +147,11 @@ public class ViewChemicalRequestJpanel extends javax.swing.JPanel {
         btnBack.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         btnBack.setForeground(new java.awt.Color(51, 0, 255));
         btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         btnAddChemicals.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         btnAddChemicals.setForeground(new java.awt.Color(51, 0, 255));
@@ -379,6 +385,19 @@ public class ViewChemicalRequestJpanel extends javax.swing.JPanel {
         userProcessContainer.add("UpdateEntryJPanel", new ViewChemicalDetailsJpanel(userProcessContainer, userAccount, enterprise,cc));
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnViewDetailsActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        
+        userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        DrugSupplierWorkAreaJPanel dwjp = (DrugSupplierWorkAreaJPanel) component;
+        dwjp.populateTable();
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+
+    }//GEN-LAST:event_btnBackActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
