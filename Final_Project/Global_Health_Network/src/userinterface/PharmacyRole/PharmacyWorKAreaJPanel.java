@@ -7,9 +7,15 @@ package userinterface.PharmacyRole;
 
 import Business.Enterprise.Enterprise;
 import Business.Network.Network;
+import Business.Organization.Organization;
 import Business.Organization.PharmacyOrganization;
 import Business.UserAccount.UserAccount;
+import Business.WorkQueue.PharmacyWorkRequest;
+import Business.WorkQueue.WorkRequest;
+import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -20,8 +26,59 @@ public class PharmacyWorKAreaJPanel extends javax.swing.JPanel {
     /**
      * Creates new form PharmacyWorKAreaJPanel
      */
+    JPanel userProcessContainer;
+    private UserAccount userAccount;
+    private Enterprise enterprise;
+    private MedicalInventoryList mil;
+    private Organization org;
+    private PharmacyOrganization pharmorg;
+    private Network network;
     public PharmacyWorKAreaJPanel(JPanel userProcessContainer, UserAccount userAccount, PharmacyOrganization organization, Enterprise enterprise, Network network) {
         initComponents();
+        this.userProcessContainer = userProcessContainer;
+        this.userAccount = userAccount;
+        this.enterprise = enterprise;
+        this.pharmorg = organization;
+        this.network = network;
+        reorderTable();
+        populateDocTable();
+    }
+    
+    public void populateDocTable() {
+        DefaultTableModel dtm = (DefaultTableModel) tblPharmacyRequest.getModel();
+
+        dtm.setRowCount(0);
+
+        for (WorkRequest request : pharmorg.getWorkQueue().getWorkRequestList()) {
+            System.out.println("entering medication");
+           
+             if(request instanceof PharmacyWorkRequest){
+            Object[] row = new Object[3];
+            row[0] = ((PharmacyWorkRequest) request).getMedicineName();
+            row[1] = ((PharmacyWorkRequest) request).getQuantity();
+            row[2] = ((PharmacyWorkRequest) request).getStatus();
+
+            dtm.addRow(row);
+             }
+        }
+    }
+    
+    public void reorderTable() {
+        int rowCount = tblRecord.getRowCount();
+        DefaultTableModel dtm = (DefaultTableModel) tblRecord.getModel();
+        for (int i = rowCount - 1; i >= 0; i--) {
+            dtm.removeRow(i);
+        }
+        for (MedicalInventory mi : pharmorg.getMedList()) {
+            Object row[] = new Object[6];
+            row[0] = mi;
+            row[1] = mi.getSerialNumber();
+            row[2] = mi.getAvailQuantity();
+            row[3] = mi.getRequiredQuantity();
+            row[4] = mi.getReorderStatus();
+            //row[5] = mi.getReorderStatus();
+            dtm.addRow(row);
+        }
     }
 
     /**
@@ -33,19 +90,474 @@ public class PharmacyWorKAreaJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblRecord = new javax.swing.JTable();
+        btnViewRequest = new javax.swing.JButton();
+        btnCheckStatus = new javax.swing.JButton();
+        btnViewDetails = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        txtSerialNumber = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        txtMedicineName = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        txtInStock = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        txtReqQuantity = new javax.swing.JTextField();
+        btnAddMedicine = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane = new javax.swing.JScrollPane();
+        tblPharmacyRequest = new javax.swing.JTable();
+
+        jPanel1.setPreferredSize(new java.awt.Dimension(961, 105));
+
+        jLabel1.setFont(new java.awt.Font("Wide Latin", 3, 36)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Pharmacy Work Area");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(129, 129, 129)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(37, Short.MAX_VALUE))
+        );
+
+        tblRecord.setBorder(new javax.swing.border.MatteBorder(null));
+        tblRecord.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 0, 20)); // NOI18N
+        tblRecord.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "MEDICINE NAME", "SERIAL NUMBER ", "AVAILABILE QUANTITY", "REQUIRED QUANTITY", "REORDER STATUS"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblRecord.setRowHeight(25);
+        jScrollPane1.setViewportView(tblRecord);
+
+        btnViewRequest.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        btnViewRequest.setForeground(new java.awt.Color(51, 0, 204));
+        btnViewRequest.setText("View Request");
+        btnViewRequest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewRequestActionPerformed(evt);
+            }
+        });
+
+        btnCheckStatus.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        btnCheckStatus.setForeground(new java.awt.Color(51, 0, 204));
+        btnCheckStatus.setText("Check Status");
+        btnCheckStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCheckStatusActionPerformed(evt);
+            }
+        });
+
+        btnViewDetails.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        btnViewDetails.setForeground(new java.awt.Color(51, 0, 204));
+        btnViewDetails.setText("View Details");
+        btnViewDetails.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewDetailsActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 871, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnViewRequest))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnCheckStatus)
+                        .addGap(60, 60, 60)
+                        .addComponent(btnViewDetails)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(btnViewRequest)
+                .addGap(20, 20, 20)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCheckStatus)
+                    .addComponent(btnViewDetails))
+                .addGap(0, 12, Short.MAX_VALUE))
+        );
+
+        jLabel2.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        jLabel2.setText("Serial Number :");
+
+        txtSerialNumber.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        jLabel3.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        jLabel3.setText("Medicine Name :");
+
+        txtMedicineName.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtMedicineName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMedicineNameActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        jLabel4.setText("In Stock :");
+
+        txtInStock.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtInStock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtInStockActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        jLabel5.setText("Required Quantity :");
+
+        txtReqQuantity.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        btnAddMedicine.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        btnAddMedicine.setForeground(new java.awt.Color(51, 0, 204));
+        btnAddMedicine.setText("ADD");
+        btnAddMedicine.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnAddMedicine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddMedicineActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(124, 124, 124)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39)
+                        .addComponent(txtSerialNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtReqQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtInStock, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(39, 39, 39)
+                            .addComponent(txtMedicineName, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(108, 108, 108)
+                        .addComponent(btnAddMedicine, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(124, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSerialNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtMedicineName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtInStock, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtReqQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(btnAddMedicine, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
+        );
+
+        tblPharmacyRequest.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 0, 20)); // NOI18N
+        tblPharmacyRequest.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "MEDICINE NAME", "QUANTITY", "STATUS"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblPharmacyRequest.setRowHeight(25);
+        jScrollPane.setViewportView(tblPharmacyRequest);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 714, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 714, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 207, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createSequentialGroup()
+                    .addGap(0, 15, Short.MAX_VALUE)
+                    .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 15, Short.MAX_VALUE)))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(158, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(171, 171, 171))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(117, 117, 117)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 22, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtInStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtInStockActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtInStockActionPerformed
+
+    private void txtMedicineNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMedicineNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMedicineNameActionPerformed
+
+    private void btnAddMedicineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddMedicineActionPerformed
+        // TODO add your handling code here:
+        MedicalInventory m = new MedicalInventory();
+        String name = txtMedicineName.getText().trim();
+        String error_message = "";
+        String avail = txtInStock.getText();
+        try {
+            Integer.parseInt(avail);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Available quantity must be integer");
+            return;
+
+        }
+        if(name.isEmpty())
+        {
+            JOptionPane.showMessageDialog(null, "Please enter the name ");
+            return;
+        }
+        
+        m.setMedicineName(txtMedicineName.getText());
+        try{
+        int availableQuantity = Integer.parseInt(txtInStock.getText());
+        m.setAvailQuantity(availableQuantity);
+        }
+        catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "serial number must be integer!");
+            return;
+        }
+        try{
+        int serialNumber = Integer.parseInt(txtSerialNumber.getText());
+        m.setSerialNumber(serialNumber);
+        }
+        catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "serial number must be integer!");
+            return;
+        }
+        String req = txtReqQuantity.getText();
+        try {
+           
+            m.setRequiredQuantity( Integer.parseInt(req));
+        } catch (NumberFormatException e) {
+
+            JOptionPane.showMessageDialog(null, "Required quantity must be integer!");
+            return;
+        }
+        pharmorg.addMedicine(m);
+        m.setReorderStatus("N");
+
+        DefaultTableModel dtm = (DefaultTableModel) tblRecord.getModel();
+
+        dtm.setRowCount(0);
+        for (MedicalInventory mi : pharmorg.getMedList()) {
+            Object row[] = new Object[5];
+            row[0] = mi;
+            row[1] = mi.getSerialNumber();
+            row[2] = mi.getAvailQuantity();
+            row[3] = mi.getRequiredQuantity();
+            row[4] = mi.getReorderStatus();
+            dtm.addRow(row);
+        }
+
+        JOptionPane.showMessageDialog(null, "Medicine Added Successfully", "Warning", JOptionPane.INFORMATION_MESSAGE);
+        txtSerialNumber.setText("");
+        txtMedicineName.setText("");
+        txtInStock.setText("");
+        txtReqQuantity.setText("");
+
+        
+        
+    }//GEN-LAST:event_btnAddMedicineActionPerformed
+
+    private void btnCheckStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckStatusActionPerformed
+        // TODO add your handling code here:
+        int medicinecheck=0; 
+        for (MedicalInventory mi : pharmorg.getMedList()) {
+            medicinecheck++;
+         }
+         
+         if(medicinecheck<=0)
+        {
+            JOptionPane.showMessageDialog(null,"No medicines are present for invetory check  ");
+            return;
+        }
+        for (MedicalInventory mi : pharmorg.getMedList()) {
+
+            if (mi.getAvailQuantity() <= mi.getRequiredQuantity()) {
+                if (!mi.getReorderStatus().equals("Y")) {
+                    DrugWorkRequest request = new DrugWorkRequest();
+                    
+                    mi.setReorderStatus("Y");
+                    request.setDrugName(mi.getMedicineName());
+                    request.setQuantity(mi.getRequiredQuantity());
+                    request.setSender(userAccount);
+
+                    userAccount.getWorkQueue().getWorkRequestList().add(request);
+                    for (Enterprise enterprise : network.getEnterpriseDirectory().getEnterpriseList()) {
+                        System.out.println("***** Organization Name:" + enterprise.getName());
+                        for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                            System.out.println("***** Organization Name:" + organization.getName());
+                            if (organization.getName().equals("Drug Organization")) {
+                                System.out.println("True");
+
+                                System.out.println("***** organization Name" + organization.getName());
+
+                                organization.getWorkQueue().getWorkRequestList().add(request);
+                            }
+                        }
+
+                    }
+
+                }
+
+            }
+        }
+        JOptionPane.showMessageDialog(null, "Inventory status checked and updated!", "Warning", JOptionPane.INFORMATION_MESSAGE);
+        reorderTable();
+    }//GEN-LAST:event_btnCheckStatusActionPerformed
+
+    private void btnViewRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewRequestActionPerformed
+        // TODO add your handling code here:
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        userProcessContainer.add("ViewRequestJPanel", new ViewRequestJPanel(userProcessContainer, userAccount, enterprise, org));
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnViewRequestActionPerformed
+
+    private void btnViewDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewDetailsActionPerformed
+        // TODO add your handling code here:
+        int row = tblRecord.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(null, "Pls select a row!!", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        MedicalInventory mi = (MedicalInventory) tblRecord.getValueAt(row, 0);
+
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        userProcessContainer.add("UpdateEntryJPanel", new ViewDetailsJPanel(userProcessContainer, userAccount, enterprise, mi));
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnViewDetailsActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddMedicine;
+    private javax.swing.JButton btnCheckStatus;
+    private javax.swing.JButton btnViewDetails;
+    private javax.swing.JButton btnViewRequest;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblPharmacyRequest;
+    private javax.swing.JTable tblRecord;
+    private javax.swing.JTextField txtInStock;
+    private javax.swing.JTextField txtMedicineName;
+    private javax.swing.JTextField txtReqQuantity;
+    private javax.swing.JTextField txtSerialNumber;
     // End of variables declaration//GEN-END:variables
 }
