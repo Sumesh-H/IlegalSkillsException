@@ -8,6 +8,7 @@ import Business.Enterprise.ChemicalEnterprise;
 import Business.Enterprise.DrugEnterprise;
 import Business.Enterprise.Enterprise;
 import Business.Enterprise.HospitalEnterprise;
+import Business.Enterprise.PharmacyEnterprise;
 import Business.Organization.Organization;
 import Business.Organization.Organization.Type;
 import Business.Organization.OrganizationDirectory;
@@ -59,6 +60,12 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
                 {
                   cbxOrganization.addItem(Organization.Type.Chemical);
                      break;  
+                }
+                    else if(enterprise instanceof PharmacyEnterprise){
+                    
+                        cbxOrganization.addItem(Organization.Type.Pharmacy);
+                    break;
+                    
                 }
                     
             }
