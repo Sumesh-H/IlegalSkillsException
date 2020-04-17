@@ -285,7 +285,7 @@ public class LabAssistantWorkAreaJPanel extends javax.swing.JPanel {
         }
         //to check whether task is assigned for process
         if (tblLabWorkArea.getValueAt(selectedRow, 5) != null) {
-            if (tblLabWorkArea.getValueAt(selectedRow, 6) == null || !userAccount.getUsername().equalsIgnoreCase(tblLabWorkArea.getValueAt(selectedRow, 5).toString())) {
+            if (tblLabWorkArea.getValueAt(selectedRow, 6) == null || !userAccount.getEmployee().getName().equalsIgnoreCase(tblLabWorkArea.getValueAt(selectedRow, 5).toString())) {
                 JOptionPane.showMessageDialog(null, "Task is not assigned to you for process");
                 return;
             }

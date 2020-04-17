@@ -5,6 +5,7 @@
 package userinterface.LabAssistantRole;
 
 import Business.Doctor.Patient;
+import Business.Enterprise.Enterprise;
 import Business.Gene.Gene;
 import Business.Network.Network;
 import Business.Organization.LabOrganization;
@@ -270,8 +271,21 @@ public class ProcessWorkRequestJPanel extends javax.swing.JPanel {
         requestDrug.setPatient(((LabTestWorkRequest) request).getPatient());
 
         requestDrug.setSender(userAccount);
+        userAccount.getWorkQueue().getWorkRequestList().add(requestDrug);
+        for (Enterprise enterprise : network.getEnterpriseDirectory().getEnterpriseList()) {
+            System.out.println("***** Organization Name:" + enterprise.getName());
+            for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                System.out.println("***** Organization Name:" + organization.getName());
+                if (organization.getName().equals("Drug Organization")) {
+                    System.out.println("True");
 
-        userAccount.getWorkQueue().getWorkRequestList().add(requestDrug);      
+                    System.out.println("***** organization Name" + organization.getName());
+
+                    organization.getWorkQueue().getWorkRequestList().add(requestDrug);
+                }
+            }
+
+        }      
         JOptionPane.showMessageDialog(null, "Result has been succesfully submited");
         btnSubmit.setEnabled(false);
     }//GEN-LAST:event_btnSubmitActionPerformed
