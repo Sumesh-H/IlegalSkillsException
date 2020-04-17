@@ -34,7 +34,12 @@ public class EnterpriseDirectory {
         if(type==Enterprise.EnterpriseType.Hospital){
             enterprise=new HospitalEnterprise(name);
             enterpriseList.add(enterprise);
-        }else if (type==Enterprise.EnterpriseType.Drug){
+        }
+        else if (type==Enterprise.EnterpriseType.Pharmacy){
+            enterprise= new PharmacyEnterprise(name);
+            enterpriseList.add(enterprise);
+        }
+        else if (type==Enterprise.EnterpriseType.Drug){
             enterprise=new DrugEnterprise(name);
             enterpriseList.add(enterprise);
         }
@@ -43,7 +48,7 @@ public class EnterpriseDirectory {
             enterprise=new ChemicalEnterprise(name);
             enterpriseList.add(enterprise);
            
-        }
+        }        
         return enterprise;
     }
 }

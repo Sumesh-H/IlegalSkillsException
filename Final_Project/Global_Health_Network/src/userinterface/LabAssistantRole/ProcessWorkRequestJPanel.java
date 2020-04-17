@@ -14,10 +14,16 @@ import Business.WorkQueue.DrugWorkRequest;
 import Business.WorkQueue.LabTestWorkRequest;
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.logging.Level;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import userinterface.DoctorRole.DoctorPrescriptionJpanel;
 
 /**
  *
@@ -230,22 +236,22 @@ public class ProcessWorkRequestJPanel extends javax.swing.JPanel {
         g.setGeneName(geneName);
         request.setPatient(patient);
         populateTable();
-//        saveRecord(g.getGeneName());
+        saveRecord(g.getGeneName());
         txtNameGene.setText("");
     }//GEN-LAST:event_btnAddGeneActionPerformed
 
-//    public void saveRecord(String gene) {
-//        try {
-//            FileWriter file = new FileWriter(filePath, true);
-//            BufferedWriter bw = new BufferedWriter(file);
-//            PrintWriter pw = new PrintWriter(bw);
-//            pw.println(gene);
-//            pw.flush();
-//            pw.close();
-//        } catch (IOException ex) {
-//            java.util.logging.Logger.getLogger(PrescriptionJPanel.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
+    public void saveRecord(String gene) {
+        try {
+            FileWriter file = new FileWriter(filePath, true);
+            BufferedWriter bw = new BufferedWriter(file);
+            PrintWriter pw = new PrintWriter(bw);
+            pw.println(gene);
+            pw.flush();
+            pw.close();
+        } catch (IOException ex) {
+            java.util.logging.Logger.getLogger(DoctorPrescriptionJpanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
         btnSubmit.setEnabled(true);

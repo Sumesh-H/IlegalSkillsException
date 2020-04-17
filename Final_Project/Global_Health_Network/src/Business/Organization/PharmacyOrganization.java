@@ -5,6 +5,7 @@
  */
 package Business.Organization;
 
+import Business.MedicalInventory.MedicalInventory;
 import Business.Role.PharmacyRole;
 import Business.Role.Role;
 import java.util.ArrayList;
@@ -15,8 +16,11 @@ import java.util.ArrayList;
  */
 public class PharmacyOrganization extends Organization{
 
+    private ArrayList<MedicalInventory> medList;
     public PharmacyOrganization() {
-        super(Organization.Type.Pharmacy.getValue());
+     
+       super(Organization.Type.Pharmacy.getValue());
+        medList=new ArrayList<MedicalInventory>();
     }
     
     @Override
@@ -25,6 +29,20 @@ public class PharmacyOrganization extends Organization{
         roles.add(new PharmacyRole());
         return roles;
     }
+
+    public ArrayList<MedicalInventory> getMedList() {
+        return medList;
+    }
+
+    public void setMedList(ArrayList<MedicalInventory> medList) {
+        this.medList = medList;
+    }
     
+     public void addMedicine(MedicalInventory mi)
+    {
+       
+        medList.add(mi);
+        
+    }   
     
 }

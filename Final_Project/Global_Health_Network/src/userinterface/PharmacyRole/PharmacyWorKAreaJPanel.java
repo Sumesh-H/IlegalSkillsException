@@ -6,10 +6,13 @@
 package userinterface.PharmacyRole;
 
 import Business.Enterprise.Enterprise;
+import Business.MedicalInventory.MedicalInventory;
+import Business.MedicalInventory.MedicalInventoryList;
 import Business.Network.Network;
 import Business.Organization.Organization;
 import Business.Organization.PharmacyOrganization;
 import Business.UserAccount.UserAccount;
+import Business.WorkQueue.DrugWorkRequest;
 import Business.WorkQueue.PharmacyWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;

@@ -26,11 +26,8 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
     private JPanel userProcessContainer;
     private DoctorOrganization organization;
     private Enterprise enterprise;
-    private UserAccount userAccount;
-
-    private Physician physician;
-    private PrescriptionList list;
-    private DoctorWorkRequest docreq;
+    private UserAccount userAccount;   
+    private PrescriptionList list;   
     private Network network;
     private EcoSystem system;
  
@@ -38,19 +35,14 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
      * Creates new form DoctorWorkAreaJPanel
      */
     public DoctorWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, DoctorOrganization organization, Enterprise enterprise, EcoSystem ecoSystem, Network network) {
-
-    
-        initComponents();
-        
+        initComponents();        
         this.userProcessContainer = userProcessContainer;
         this.organization = organization;
         this.enterprise = enterprise;
         this.userAccount = account;
         this.network = network;
-
         this.system = ecoSystem;
         network();
-
     }
     
     public void network(){
@@ -160,22 +152,15 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnPrecriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrecriptionActionPerformed
         // TODO add your handling code here:
-
-        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-
-        
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();        
         userProcessContainer.add("DocterPrescriptionJpanel", new userinterface.DoctorRole.DoctorPrescriptionJpanel(userProcessContainer,list,userAccount,enterprise,organization,system,network));
-
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnPrecriptionActionPerformed
 
     private void btnLabTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLabTestActionPerformed
         // TODO add your handling code here:
-        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-
-        
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();        
         userProcessContainer.add("DoctorRequestJPanel",new userinterface.DoctorRole.DoctorRequestJPanel(userProcessContainer,userAccount,organization,enterprise,system,network));
-
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnLabTestActionPerformed
 

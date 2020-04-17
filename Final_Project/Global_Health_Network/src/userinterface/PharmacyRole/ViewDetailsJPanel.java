@@ -6,6 +6,8 @@
 package userinterface.PharmacyRole;
 
 import Business.Enterprise.Enterprise;
+import Business.MedicalInventory.MedicalInventory;
+import Business.MedicalInventory.MedicalInventoryList;
 import Business.Organization.Organization;
 import Business.Organization.PharmacyOrganization;
 import Business.UserAccount.UserAccount;

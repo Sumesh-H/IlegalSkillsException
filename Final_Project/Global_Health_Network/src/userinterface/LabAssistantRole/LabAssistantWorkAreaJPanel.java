@@ -57,7 +57,6 @@ public class LabAssistantWorkAreaJPanel extends javax.swing.JPanel {
             row[1] = ((LabTestWorkRequest) request).getPatient().getAge();
             row[2] = ((LabTestWorkRequest) request).getPatient().getSex();
             row[3] = request.getMessage();
-
             row[4] = request.getSender().getEmployee().getName();
             row[5] = request.getReceiver() == null ? null : request.getReceiver().getEmployee().getName();
             row[6] = request.getStatus();
@@ -269,7 +268,7 @@ public class LabAssistantWorkAreaJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAssignActionPerformed
 
     private void btnProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcessActionPerformed
-        
+         
         int selectedRow = tblLabWorkArea.getSelectedRow();
         if (selectedRow < 0) {
             JOptionPane.showMessageDialog(null, "Please select a row");
@@ -284,7 +283,7 @@ public class LabAssistantWorkAreaJPanel extends javax.swing.JPanel {
                 return;
             }
         }
-        //to check whether task is assigned forr process
+        //to check whether task is assigned for process
         if (tblLabWorkArea.getValueAt(selectedRow, 5) != null) {
             if (tblLabWorkArea.getValueAt(selectedRow, 6) == null || !userAccount.getUsername().equalsIgnoreCase(tblLabWorkArea.getValueAt(selectedRow, 5).toString())) {
                 JOptionPane.showMessageDialog(null, "Task is not assigned to you for process");
