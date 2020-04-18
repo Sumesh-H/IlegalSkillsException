@@ -5,6 +5,24 @@
  */
 package userinterface.DrugSupplier;
 
+import Business.Chemical.Chemical;
+import Business.Doctor.Patient;
+import Business.Drug.Drug;
+import Business.EcoSystem;
+import Business.Gene.Gene;
+import Business.Network.Network;
+import Business.Organization.DrugOrganization;
+import Business.UserAccount.UserAccount;
+import java.awt.CardLayout;
+import java.awt.Component;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Sumesh
@@ -14,10 +32,64 @@ public class NewDrugJPanel extends javax.swing.JPanel {
     /**
      * Creates new form NewDrugJPanel
      */
-    public NewDrugJPanel() {
+    private JPanel userProcessContainer;
+    private Patient patient;
+    private DrugOrganization drugOrganization;
+    private UserAccount userAccount;
+    private Network network;
+    private EcoSystem business;
+    public NewDrugJPanel(JPanel userProcessContainer, Patient patient, DrugOrganization drugOrganization, UserAccount userAccount, Network network,EcoSystem business) {
         initComponents();
+        this.userProcessContainer = userProcessContainer;
+        this.patient = patient;
+        this.drugOrganization = drugOrganization;
+        this.userAccount = userAccount;
+        this.network = network;
+        this.business = business;
+        txtNamePatient.setText(patient.getPatientName());
+        populateTable();
     }
 
+        public void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) tblDrug.getModel();
+
+        List<String> newDiseaseGenes = new ArrayList<String>();
+        for (Gene gene : patient.getGeneHistory().getGeneList()) {
+            newDiseaseGenes.add(gene.getGeneName());
+        }
+
+        int i = 0;
+        Map<String, String> GeneChem = new TreeMap<String, String>((String.CASE_INSENSITIVE_ORDER));
+        for (Drug d : business.getDrugList().getDrugList()) {
+
+            for (i = 0; i < d.getChemicalList().getChemicalList().size(); i++) {
+
+                Chemical c = d.getChemicalList().getChemicalList().get(i);
+                Gene g = d.getGeneHistory().getGeneList().get(i);
+                GeneChem.put(g.getGeneName(), c.getChemicalName());
+            }
+
+        }
+
+        Map<String, String> newDrugFinal = new TreeMap<String, String>((String.CASE_INSENSITIVE_ORDER));
+        for (String s : newDiseaseGenes) {
+
+            if (GeneChem.containsKey(s)) {
+
+                newDrugFinal.put(s, GeneChem.get(s));
+            }
+        }
+
+        for (Map.Entry<String, String> entry : newDrugFinal.entrySet()) {
+            String key = entry.getKey();
+            String values = entry.getValue();
+            Object[] row = new Object[2];
+            row[0] = key;
+            row[1] = values;
+            model.addRow(row);
+        }
+
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -74,8 +146,18 @@ public class NewDrugJPanel extends javax.swing.JPanel {
         jLabel3.setText("Drug Name:");
 
         btnNewDrug.setText("Add New Drug");
+        btnNewDrug.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewDrugActionPerformed(evt);
+            }
+        });
 
         btnBack.setText("<- Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -131,6 +213,48 @@ public class NewDrugJPanel extends javax.swing.JPanel {
                 .addContainerGap(145, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnNewDrugActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewDrugActionPerformed
+        // TODO add your handling code here:
+        String drugName = txtNameDrug.getText().trim();
+        if(drugName.isEmpty())
+        {
+            JOptionPane.showMessageDialog(null, "Please enter the drug name");
+            return;
+        }
+        ArrayList<String>drugCheck = new ArrayList<>();
+        for(Drug d:business.getDrugList().getDrugList())
+        {
+            drugCheck.add(d.getDrugName().toLowerCase());
+        }
+        if(drugCheck.contains(drugName))
+        {
+             JOptionPane.showMessageDialog(null, " Drug name already exists ");
+            return;
+        }
+        Drug d = business.getDrugList().addDrugList();
+        d.setDrugName(drugName);
+        patient.setNewDrug(drugName);
+        int count = tblDrug.getRowCount();
+        for (int i = 0; i < count; i++) {
+            String s = tblDrug.getValueAt(i, 0).toString();
+            d.getGeneHistory().addGene().setGeneName(s);
+            String t = tblDrug.getValueAt(i, 1).toString();
+            d.getChemicalList().addChemicalList().setChemicalName(t);
+        }
+        JOptionPane.showMessageDialog(null,"New Drug is added succesfully");
+    }//GEN-LAST:event_btnNewDrugActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        LabResultsJPanel dwjp = (LabResultsJPanel) component;
+        dwjp.populateTable();
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_btnBackActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
