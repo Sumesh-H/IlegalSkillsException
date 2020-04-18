@@ -5,8 +5,21 @@
  */
 package userinterface.DrugSupplier;
 
+import Business.Chemical.Chemical;
+import Business.Drug.Drug;
+import Business.Drug.DrugList;
+import Business.EcoSystem;
+import Business.Enterprise.Enterprise;
+import Business.Gene.Gene;
+import Business.Network.Network;
+import Business.Organization.DrugOrganization;
+import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -17,10 +30,45 @@ public class AddChemicalsJPanel extends javax.swing.JPanel {
     /**
      * Creates new form addChemicalsJPanel
      */
-    public AddChemicalsJPanel() {
+    private Drug drug;
+    private DrugList drugList;
+    private JPanel userProcessContainer;
+    private EcoSystem business;
+    private UserAccount userAccount;
+    private DrugOrganization drugOrganization ;
+    private Enterprise enterprise;
+    private Object e;
+    private Network network;
+    public AddChemicalsJPanel(JPanel userProcessContainer,EcoSystem business,UserAccount userAccount,DrugOrganization organization,Enterprise enterprise,Network network,Drug drug) {
         initComponents();
+        this.userProcessContainer = userProcessContainer;
+        this.userAccount = userAccount;
+        this.business = business;
+        this.enterprise = enterprise;
+        this.network = network;
+        this.drug = drug;
+        this.drugOrganization = (DrugOrganization)organization;
+        populateTable();
     }
 
+    public void populateTable(){
+         DefaultTableModel model = (DefaultTableModel)tblChemicalGene.getModel();
+        
+        model.setRowCount(0);
+        Object[] row = new Object[2];
+        int i = 0;
+            for(Chemical c : drug.getChemicalList().getChemicalList()){
+                 
+                 row[0] = c.getChemicalName();
+                 
+                    
+                    Gene g=  drug.getGeneHistory().getGeneList().get(i);
+                      
+                      row[1] = g.getGeneName();
+                      model.addRow(row);
+                     i++;
+                     }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -90,6 +138,11 @@ public class AddChemicalsJPanel extends javax.swing.JPanel {
         btnAdd.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         btnAdd.setForeground(new java.awt.Color(51, 0, 255));
         btnAdd.setText("Add");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -149,9 +202,58 @@ public class AddChemicalsJPanel extends javax.swing.JPanel {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
-              
-
+        userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        AddDrugJPanel dwjp = (AddDrugJPanel) component;
+        dwjp.populateTable();
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);   
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        // TODO add your handling code here:
+         String chemicalName = txtChemical.getText().trim();
+         String geneName = txtGene.getText().trim();
+         if(chemicalName.isEmpty())
+         {
+             JOptionPane.showMessageDialog(null,"Please enter the chemical name");
+             return;
+         }
+         if(geneName.isEmpty())
+         {
+             JOptionPane.showMessageDialog(null, "please enter the gene name ");
+             return;
+         }
+         ArrayList<String> chemicalCheck = new ArrayList<>();
+         for(Chemical c : drug.getChemicalList().getChemicalList())
+         {
+             chemicalCheck.add(c.getChemicalName().toLowerCase());
+             
+         }
+         ArrayList<String>genecheck= new ArrayList<>();
+         for(Gene g:drug.getGeneHistory().getGeneList())
+         {
+             genecheck.add(g.getGeneName().toLowerCase());
+         }
+         if(chemicalCheck.contains(chemicalName.toLowerCase()))
+         {
+             JOptionPane.showMessageDialog(null,"Chemical already exists in the drug ");
+             return;
+             
+         }
+         if(genecheck.contains(geneName.toLowerCase()))
+         {
+          JOptionPane.showMessageDialog(null,"Gene already exists in the drug ");
+             return;   
+         }
+        drug.getChemicalList().addChemicalList().setChemicalName(chemicalName);
+        drug.getGeneHistory().addGene().setGeneName(geneName);
+       
+        populateTable();        
+        txtChemical.setText("");
+        txtGene.setText("");
+    }//GEN-LAST:event_btnAddActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

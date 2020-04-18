@@ -5,6 +5,19 @@
  */
 package userinterface.DrugSupplier;
 
+import Business.Chemical.Chemical;
+import Business.Drug.Drug;
+import Business.EcoSystem;
+import Business.Enterprise.Enterprise;
+import Business.Gene.Gene;
+import Business.Network.Network;
+import Business.Organization.DrugOrganization;
+import Business.UserAccount.UserAccount;
+import java.awt.CardLayout;
+import java.awt.Component;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Sumesh
@@ -14,10 +27,38 @@ public class ExistingDrugResultsJPanel extends javax.swing.JPanel {
     /**
      * Creates new form ExistingDrugResultsJPanel
      */
-    public ExistingDrugResultsJPanel() {
+    private JPanel userProcessContainer;
+    private EcoSystem business;
+    private UserAccount userAccount;
+    private DrugOrganization drugOrganization ;
+    private Enterprise enterprise;
+    private Network network;
+    private Drug drug;
+    public ExistingDrugResultsJPanel(JPanel userProcessContainer,UserAccount userAccount,Enterprise enterprise, DrugOrganization drugOrganization,Network network,Drug drug) {
         initComponents();
+        this.userProcessContainer = userProcessContainer;
+        this.userAccount = userAccount;
+        this.drugOrganization = drugOrganization;
+        this.enterprise = enterprise;
+        this.network = network;
+        this.drug=drug;
+        populateTable();
+        txtNameDrug.setText(drug.getDrugName());
     }
-
+    
+    public void populateTable(){
+        DefaultTableModel model = (DefaultTableModel)chemicalGeneTbl.getModel();        
+            model.setRowCount(0);
+            Object[] row = new Object[2];
+            int i = 0;
+            for(Chemical c : drug.getChemicalList().getChemicalList()){                 
+                row[0] = c.getChemicalName();  
+                Gene g=  drug.getGeneHistory().getGeneList().get(i);                      
+                row[1] = g.getGeneName();
+                model.addRow(row);
+                i++;
+            }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -67,6 +108,11 @@ public class ExistingDrugResultsJPanel extends javax.swing.JPanel {
         jLabel1.setText("Drug Name:");
 
         btnBack.setText("<- Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Monotype Corsiva", 1, 36)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -111,6 +157,17 @@ public class ExistingDrugResultsJPanel extends javax.swing.JPanel {
                 .addContainerGap(177, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        LabResultsJPanel lrjp = (LabResultsJPanel) component;
+        lrjp.populateTable();
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_btnBackActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -212,7 +212,16 @@ public class AddDrugJPanel extends javax.swing.JPanel {
 
     private void btnAddChemicalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddChemicalActionPerformed
         // TODO add your handling code here:
-        
+        int selectedRow = tblDrug.getSelectedRow();
+        if(selectedRow<0)
+        {
+            JOptionPane.showMessageDialog(null, "please select a row ");
+            return;
+        }
+        Drug c = (Drug) tblDrug.getValueAt(selectedRow, 1);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        userProcessContainer.add("AddChemicalsJPanel", new AddChemicalsJPanel(userProcessContainer, business, userAccount, drugOrganization, enterprise, network, c));        
+        layout.next(userProcessContainer);
     }//GEN-LAST:event_btnAddChemicalActionPerformed
 
 
