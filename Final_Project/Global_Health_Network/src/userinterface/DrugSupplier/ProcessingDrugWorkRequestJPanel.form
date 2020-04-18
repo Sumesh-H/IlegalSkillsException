@@ -26,9 +26,9 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="btnUpdate" min="-2" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
-                              <Component id="jTextField1" min="-2" pref="103" max="-2" attributes="0"/>
+                              <Component id="txtDate" min="-2" pref="103" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="dateFld" min="-2" pref="154" max="-2" attributes="0"/>
+                              <Component id="fldDate" min="-2" pref="154" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -53,10 +53,10 @@
               <Component id="btnBack" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="dateFld" alignment="1" min="-2" pref="20" max="-2" attributes="0"/>
+                  <Component id="fldDate" alignment="1" min="-2" pref="20" max="-2" attributes="0"/>
                   <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtDate" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
@@ -72,14 +72,17 @@
         <Property name="text" type="java.lang.String" value="Select date of delivery:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField1">
+    <Component class="javax.swing.JTextField" name="txtDate">
     </Component>
-    <Component class="com.toedter.calendar.JDateChooser" name="dateFld">
+    <Component class="com.toedter.calendar.JDateChooser" name="fldDate">
     </Component>
     <Component class="javax.swing.JButton" name="btnUpdate">
       <Properties>
         <Property name="text" type="java.lang.String" value="Update Status"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUpdateActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnBack">
       <Properties>

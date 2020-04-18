@@ -5,8 +5,12 @@
  */
 package userinterface.DrugSupplier;
 
+import Business.WorkQueue.DrugWorkRequest;
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.util.Calendar;
+import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -19,10 +23,12 @@ public class ProcessingDrugWorkRequestJPanel extends javax.swing.JPanel {
      * Creates new form ProcessingDrugWorkRequestJPanel
      */
     private JPanel userProcessContainer;
-    
-    public ProcessingDrugWorkRequestJPanel() {
+    private DrugWorkRequest request;   
+    public ProcessingDrugWorkRequestJPanel(JPanel userprocessContainer,DrugWorkRequest request) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
+        this.request = request;
+        fldDate.setMinSelectableDate(new Date());
     }
 
     /**
@@ -35,8 +41,8 @@ public class ProcessingDrugWorkRequestJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        dateFld = new com.toedter.calendar.JDateChooser();
+        txtDate = new javax.swing.JTextField();
+        fldDate = new com.toedter.calendar.JDateChooser();
         btnUpdate = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
@@ -45,6 +51,11 @@ public class ProcessingDrugWorkRequestJPanel extends javax.swing.JPanel {
         jLabel1.setText("Select date of delivery:");
 
         btnUpdate.setText("Update Status");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
 
         btnBack.setText("<- Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -71,9 +82,9 @@ public class ProcessingDrugWorkRequestJPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnUpdate)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(dateFld, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(fldDate, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(btnBack))
@@ -91,10 +102,10 @@ public class ProcessingDrugWorkRequestJPanel extends javax.swing.JPanel {
                 .addComponent(btnBack)
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(dateFld, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fldDate, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(38, 38, 38)
                 .addComponent(btnUpdate)
                 .addContainerGap(166, Short.MAX_VALUE))
@@ -112,14 +123,37 @@ public class ProcessingDrugWorkRequestJPanel extends javax.swing.JPanel {
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_btnBackActionPerformed
 
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+        request.setStatus("Completed");
+       try{ 
+           int year=fldDate.getCalendar().get(Calendar.YEAR);
+        int month=fldDate.getCalendar().get(Calendar.MONTH);
+        int day=fldDate.getCalendar().get(Calendar.DAY_OF_MONTH);
+         String result=year+"-"+month+"-"+day;
+           ((DrugWorkRequest) request).setDeliveryTime(result);
+        txtDate.setText(result);
+       }
+       catch(Exception e)
+       {
+            JOptionPane.showMessageDialog(null, "please enter the delivery date ");
+            return;
+       }
+       
+       
+        
+       
+        JOptionPane.showMessageDialog(null, "Request updated successfully!");
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnUpdate;
-    private com.toedter.calendar.JDateChooser dateFld;
+    private com.toedter.calendar.JDateChooser fldDate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txtDate;
     // End of variables declaration//GEN-END:variables
 }

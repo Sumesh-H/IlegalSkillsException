@@ -14,6 +14,7 @@ import Business.UserAccount.UserAccount;
 import Business.WorkQueue.DrugWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -114,8 +115,18 @@ public class DrugSupplierWorkAreaJPanel extends javax.swing.JPanel {
         jLabel1.setText("DRUG SUPPLIER WORK AREA");
 
         btnAssign.setText("Assign to me");
+        btnAssign.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAssignActionPerformed(evt);
+            }
+        });
 
         btnProcess.setText("Process");
+        btnProcess.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProcessActionPerformed(evt);
+            }
+        });
 
         btnRefresh.setText("Refresh");
         btnRefresh.addActionListener(new java.awt.event.ActionListener() {
@@ -215,12 +226,111 @@ public class DrugSupplierWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnReqChemicalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReqChemicalActionPerformed
         // TODO add your handling code here:
-                CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-       
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();       
         userProcessContainer.add("ViewChemicalsRequestJPanel", new ViewChemicalRequestJpanel(userProcessContainer, userAccount, enterprise, drugOrganization, network));
         layout.next(userProcessContainer);
 
     }//GEN-LAST:event_btnReqChemicalActionPerformed
+
+    private void btnAssignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tblWorkAreaDrug.getSelectedRow();
+
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "please select a row ");
+            return;
+        }
+        //to check whether the the task is already assigned list 
+        if (tblWorkAreaDrug.getValueAt(selectedRow, 4) != null) {
+
+            if (tblWorkAreaDrug.getValueAt(selectedRow, 4).equals("Assigned")) {
+                JOptionPane.showMessageDialog(null, "Task is already assigned");
+                return;
+            }
+        }
+        //to set the falg if already theere existing job
+        int flag = 0;
+        for (WorkRequest request : drugOrganization.getWorkQueue().getWorkRequestList()) {
+
+            if (request.getStatus() == null) {
+                continue;
+            }
+            if (request.getStatus().equals("Assigned")) {
+                if (request.getReceiver() != null) {
+                    if (userAccount.getUsername().equalsIgnoreCase(request.getReceiver().toString())) {
+                        flag = 1;
+                    }
+                }
+            }
+        }
+        if (flag == 1) {
+            JOptionPane.showMessageDialog(null, "Please complete the existing request before taking a new request");
+            return;
+
+        }
+        int flag1 = 0;
+        for (WorkRequest request : drugOrganization.getWorkQueue().getWorkRequestList()) {
+
+            if (request.getStatus() == null) {
+                continue;
+            }
+            if (request.getStatus().equals("Processing")) {
+                if (request.getReceiver() != null) {
+                    if (userAccount.getUsername().equalsIgnoreCase(request.getReceiver().toString())) {
+                        flag1 = 1;
+                    }
+                }
+            }
+        }
+        if (flag1 == 1) {
+            JOptionPane.showMessageDialog(null, "Please complete the existing request before taking a new request");
+            return;
+
+        }
+
+        WorkRequest request = (WorkRequest) tblWorkAreaDrug.getValueAt(selectedRow, 0);
+        request.setReceiver(userAccount);
+        request.setStatus("Assigned");        
+        populateTable();
+    }//GEN-LAST:event_btnAssignActionPerformed
+
+    private void btnProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcessActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tblWorkAreaDrug.getSelectedRow();
+
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "please select a row");
+            return;
+        }
+
+        DrugWorkRequest request = (DrugWorkRequest) tblWorkAreaDrug.getValueAt(selectedRow, 0);
+        if (tblWorkAreaDrug.getValueAt(selectedRow, 4) == null) {
+            JOptionPane.showMessageDialog(null, "Task is not assigned to you for process");
+            return;
+        }
+        int flag = 0;
+
+        if (tblWorkAreaDrug.getValueAt(selectedRow, 4).equals("Processing") && userAccount.getUsername().equalsIgnoreCase(request.getReceiver().toString())) {
+
+            flag = 1;
+        }
+        if (flag != 1) {
+            if (tblWorkAreaDrug.getValueAt(selectedRow, 4) != null) {
+
+                if (!(((tblWorkAreaDrug.getValueAt(selectedRow, 4).equals("Assigned"))) && (userAccount.getUsername().equalsIgnoreCase(request.getReceiver().toString())))) {
+                    JOptionPane.showMessageDialog(null, "Task is not assigned to you for process");
+                    return;
+                }
+            }
+        }
+
+        request.setStatus("Processing");
+
+        ProcessingDrugWorkRequestJPanel processWorkRequestJPanel = new ProcessingDrugWorkRequestJPanel(userProcessContainer, request);
+        userProcessContainer.add("processWorkRequestJPanel", processWorkRequestJPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();        
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnProcessActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
