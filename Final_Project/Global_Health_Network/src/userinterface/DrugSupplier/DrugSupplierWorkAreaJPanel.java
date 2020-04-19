@@ -14,6 +14,7 @@ import Business.UserAccount.UserAccount;
 import Business.WorkQueue.DrugWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -44,7 +45,7 @@ public class DrugSupplierWorkAreaJPanel extends javax.swing.JPanel {
     }
     
     public void populateTable(){
-        DefaultTableModel model = (DefaultTableModel) tblWorkAreaDrug.getModel();
+        DefaultTableModel model = (DefaultTableModel) tblDrugWorkArea.getModel();
         model.setRowCount(0);
 
         for (WorkRequest request : drugOrganization.getWorkQueue().getWorkRequestList()) {
@@ -72,7 +73,7 @@ public class DrugSupplierWorkAreaJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblWorkAreaDrug = new javax.swing.JTable();
+        tblDrugWorkArea = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         btnAssign = new javax.swing.JButton();
         btnProcess = new javax.swing.JButton();
@@ -82,8 +83,8 @@ public class DrugSupplierWorkAreaJPanel extends javax.swing.JPanel {
         btnAddDrug = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
 
-        tblWorkAreaDrug.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 0, 20)); // NOI18N
-        tblWorkAreaDrug.setModel(new javax.swing.table.DefaultTableModel(
+        tblDrugWorkArea.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 0, 20)); // NOI18N
+        tblDrugWorkArea.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -106,16 +107,26 @@ public class DrugSupplierWorkAreaJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblWorkAreaDrug.setRowHeight(30);
-        jScrollPane2.setViewportView(tblWorkAreaDrug);
+        tblDrugWorkArea.setRowHeight(30);
+        jScrollPane2.setViewportView(tblDrugWorkArea);
 
         jLabel1.setFont(new java.awt.Font("Monotype Corsiva", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("DRUG SUPPLIER WORK AREA");
 
         btnAssign.setText("Assign to me");
+        btnAssign.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAssignActionPerformed(evt);
+            }
+        });
 
         btnProcess.setText("Process");
+        btnProcess.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProcessActionPerformed(evt);
+            }
+        });
 
         btnRefresh.setText("Refresh");
         btnRefresh.addActionListener(new java.awt.event.ActionListener() {
@@ -222,6 +233,109 @@ public class DrugSupplierWorkAreaJPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnReqChemicalActionPerformed
 
+    private void btnAssignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tblDrugWorkArea.getSelectedRow();
+
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "please select a row ");
+            return;
+        }
+        //to check whether the the task is already assigned list 
+        if (tblDrugWorkArea.getValueAt(selectedRow, 4) != null) {
+
+            if (tblDrugWorkArea.getValueAt(selectedRow, 4).equals("Assigned")) {
+                JOptionPane.showMessageDialog(null, "Task is already assigned");
+                return;
+            }
+        }
+        //to set the falg if already theere existing job
+        int flag = 0;
+        for (WorkRequest request : drugOrganization.getWorkQueue().getWorkRequestList()) {
+
+            if (request.getStatus() == null) {
+                continue;
+            }
+            if (request.getStatus().equals("Assigned")) {
+                if (request.getReceiver() != null) {
+                    if (userAccount.getUsername().equalsIgnoreCase(request.getReceiver().toString())) {
+                        flag = 1;
+                    }
+                }
+            }
+        }
+        if (flag == 1) {
+            JOptionPane.showMessageDialog(null, "Please complete the existing request before taking a new request");
+            return;
+
+        }
+        int flag1 = 0;
+        for (WorkRequest request : drugOrganization.getWorkQueue().getWorkRequestList()) {
+
+            if (request.getStatus() == null) {
+                continue;
+            }
+            if (request.getStatus().equals("Processing")) {
+                if (request.getReceiver() != null) {
+                    if (userAccount.getUsername().equalsIgnoreCase(request.getReceiver().toString())) {
+                        flag1 = 1;
+                    }
+                }
+            }
+        }
+        if (flag1 == 1) {
+            JOptionPane.showMessageDialog(null, "Please complete the existing request before taking a new request");
+            return;
+
+        }
+
+        WorkRequest request = (WorkRequest) tblDrugWorkArea.getValueAt(selectedRow, 0);
+        request.setReceiver(userAccount);
+        request.setStatus("Assigned");
+        //log.debug(userAccount+" "+"assigned himself a task");
+        populateTable();
+              
+    }//GEN-LAST:event_btnAssignActionPerformed
+
+    private void btnProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcessActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tblDrugWorkArea.getSelectedRow();
+
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "please select a row");
+            return;
+        }
+
+        DrugWorkRequest request = (DrugWorkRequest) tblDrugWorkArea.getValueAt(selectedRow, 0);
+        if (tblDrugWorkArea.getValueAt(selectedRow, 4) == null) {
+            JOptionPane.showMessageDialog(null, "Task is not assigned to you for process");
+            return;
+        }
+        int flag = 0;
+
+        if (tblDrugWorkArea.getValueAt(selectedRow, 4).equals("Processing") && userAccount.getUsername().equalsIgnoreCase(request.getReceiver().toString())) {
+
+            flag = 1;
+        }
+        if (flag != 1) {
+            if (tblDrugWorkArea.getValueAt(selectedRow, 4) != null) {
+
+                if (!(((tblDrugWorkArea.getValueAt(selectedRow, 4).equals("Assigned"))) && (userAccount.getUsername().equalsIgnoreCase(request.getReceiver().toString())))) {
+                    JOptionPane.showMessageDialog(null, "Task is not assigned to you for process");
+                    return;
+                }
+            }
+        }
+
+        request.setStatus("Processing");
+
+        ProcessingDrugWorkRequestJPanel processingDrugWorkRequestJPanel = new ProcessingDrugWorkRequestJPanel(userProcessContainer, request);
+        userProcessContainer.add("processingDrugWorkRequestJPanel", processingDrugWorkRequestJPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        //log.debug(userAccount+" "+"entering processing page");
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnProcessActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddDrug;
@@ -233,6 +347,6 @@ public class DrugSupplierWorkAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable tblWorkAreaDrug;
+    private javax.swing.JTable tblDrugWorkArea;
     // End of variables declaration//GEN-END:variables
 }
