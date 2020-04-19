@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author keshav
+ * @author Sumesh
  */
 public class ChemicalWorkAreaJPanel extends javax.swing.JPanel {
 
@@ -32,9 +32,7 @@ public class ChemicalWorkAreaJPanel extends javax.swing.JPanel {
     private ChemicalOrganization chemicalOrganization;
     private Enterprise enterprise;
     private Network network;
-    
     public ChemicalWorkAreaJPanel(JPanel userProcessContainer, UserAccount userAccount, ChemicalOrganization chemicalOrganization, Enterprise enterprise, EcoSystem business, Network network) {
-
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.userAccount = userAccount;
@@ -44,9 +42,9 @@ public class ChemicalWorkAreaJPanel extends javax.swing.JPanel {
         this.business = business;
         populateTable();
     }
-
+    
     public void populateTable() {
-        DefaultTableModel model = (DefaultTableModel) tblChemicalWorkRequest.getModel();
+        DefaultTableModel model = (DefaultTableModel) tblChemical.getModel();
         model.setRowCount(0);
 
         for (WorkRequest request : chemicalOrganization.getWorkQueue().getWorkRequestList()) {
@@ -71,19 +69,22 @@ public class ChemicalWorkAreaJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblChemicalWorkRequest = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
+        tblChemical = new javax.swing.JTable();
         btnAssign = new javax.swing.JButton();
         btnProcess = new javax.swing.JButton();
         btnRefresh = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
 
-        tblChemicalWorkRequest.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 0, 20)); // NOI18N
-        tblChemicalWorkRequest.setModel(new javax.swing.table.DefaultTableModel(
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        tblChemical.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 0, 20)); // NOI18N
+        tblChemical.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Drug Name", "Quantity", "Sender", "Receiver", "Status", "Delivery Time"
+                "Chemical Name", "Quantity", "Sender", "Receiver", "Status", "Delivery Date"
             }
         ) {
             Class[] types = new Class [] {
@@ -101,109 +102,107 @@ public class ChemicalWorkAreaJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblChemicalWorkRequest.setRowHeight(30);
-        jScrollPane2.setViewportView(tblChemicalWorkRequest);
+        tblChemical.setRowHeight(30);
+        jScrollPane2.setViewportView(tblChemical);
 
-        jLabel1.setFont(new java.awt.Font("Wide Latin", 3, 36)); // NOI18N
-        jLabel1.setText("Chemical Supplier Work Area");
-
-        btnAssign.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        btnAssign.setForeground(new java.awt.Color(51, 0, 204));
-        btnAssign.setText("Assign ");
-        btnAssign.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnAssign.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        btnAssign.setText("Assign to me");
         btnAssign.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAssignActionPerformed(evt);
             }
         });
 
-        btnProcess.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        btnProcess.setForeground(new java.awt.Color(51, 0, 204));
+        btnProcess.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnProcess.setText("Process");
-        btnProcess.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnProcess.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnProcessActionPerformed(evt);
             }
         });
 
-        btnRefresh.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        btnRefresh.setForeground(new java.awt.Color(51, 0, 204));
+        btnRefresh.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnRefresh.setText("Refresh");
-        btnRefresh.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRefreshActionPerformed(evt);
-            }
-        });
+
+        jPanel1.setBackground(new java.awt.Color(0, 153, 255));
+
+        jLabel6.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 36)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("CHEMICAL PORTAL");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(162, 162, 162)
+                .addComponent(jLabel6)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(130, 130, 130)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(146, 146, 146)
-                        .addComponent(btnAssign, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(83, 83, 83)
-                        .addComponent(btnProcess, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(97, 97, 97)
-                        .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(64, 64, 64)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1204, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(343, Short.MAX_VALUE))
+                        .addComponent(btnAssign, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(139, 139, 139)
+                        .addComponent(btnProcess, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 714, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(62, 62, 62)
-                .addComponent(jLabel1)
-                .addGap(83, 83, 83)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnProcess, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAssign, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(135, Short.MAX_VALUE))
+                    .addComponent(btnAssign, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnProcess, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(172, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnRefreshActionPerformed
-
     private void btnAssignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignActionPerformed
         // TODO add your handling code here:
-        int selectedRow = tblChemicalWorkRequest.getSelectedRow();
+        int selectedRow = tblChemical.getSelectedRow();
 
         if (selectedRow < 0) {
             JOptionPane.showMessageDialog(null, "Please Select a Row");
             return;
         }
-        if (tblChemicalWorkRequest.getValueAt(selectedRow, 4) != null) {
+        if (tblChemical.getValueAt(selectedRow, 4) != null) {
 
-            if (((tblChemicalWorkRequest.getValueAt(selectedRow, 4).equals("Completed")))) {
+            if (((tblChemical.getValueAt(selectedRow, 4).equals("Completed")))) {
 
                 JOptionPane.showMessageDialog(null, "Task is already completed");
                 return;
             }
         }
-        if (tblChemicalWorkRequest.getValueAt(selectedRow, 4) != null) {
+        if (tblChemical.getValueAt(selectedRow, 4) != null) {
 
-            if (tblChemicalWorkRequest.getValueAt(selectedRow, 4).equals("Assigned")) {
+            if (tblChemical.getValueAt(selectedRow, 4).equals("Assigned")) {
                 JOptionPane.showMessageDialog(null, "Task is already assigned");
                 return;
             }
         }
-        if (tblChemicalWorkRequest.getValueAt(selectedRow, 3) != null) {
+        if (tblChemical.getValueAt(selectedRow, 3) != null) {
 
-            if (!tblChemicalWorkRequest.getValueAt(selectedRow, 3).equals(userAccount.getUsername())) {
+            if (!tblChemical.getValueAt(selectedRow, 3).equals(userAccount.getUsername())) {
                 JOptionPane.showMessageDialog(null, "Task is already assigned");
                 return;
             }
@@ -240,93 +239,45 @@ public class ChemicalWorkAreaJPanel extends javax.swing.JPanel {
 
         }
 
-        WorkRequest request = (WorkRequest) tblChemicalWorkRequest.getValueAt(selectedRow, 0);
+        WorkRequest request = (WorkRequest) tblChemical.getValueAt(selectedRow, 0);
         request.setReceiver(userAccount);
         request.setStatus("Assigned");
         populateTable();
-    }                                         
-
-    private void processBtnActionPerformed(java.awt.event.ActionEvent evt) {                                           
-
-        int selectedRow = tblChemicalWorkRequest.getSelectedRow();
-
-        if (selectedRow < 0) {
-            JOptionPane.showMessageDialog(null, "Please select a row");
-            return;
-        }
-
-        ChemicalWorkRequest request = (ChemicalWorkRequest) tblChemicalWorkRequest.getValueAt(selectedRow, 0);
-        if (tblChemicalWorkRequest.getValueAt(selectedRow, 4) != null) {
-
-            if (((tblChemicalWorkRequest.getValueAt(selectedRow, 4).equals("Completed")))) {
-
-                JOptionPane.showMessageDialog(null, "Task is already completed");
-                return;
-            }
-        }
-
-        if (tblChemicalWorkRequest.getValueAt(selectedRow, 4) == null) {
-            JOptionPane.showMessageDialog(null, "Task is not assigned to you for process");
-            return;
-        }
-        int flag = 0;
-
-        if (tblChemicalWorkRequest.getValueAt(selectedRow, 4).equals("Processing") && userAccount.getUsername().equalsIgnoreCase(request.getReceiver().toString())) {
-
-            flag = 1;
-        }
-        if (flag != 1) {
-            if (tblChemicalWorkRequest.getValueAt(selectedRow, 4) != null) {
-
-                if (!(((tblChemicalWorkRequest.getValueAt(selectedRow, 4).equals("Assigned"))) && userAccount.getUsername().equalsIgnoreCase(request.getReceiver().toString()))) {
-                    JOptionPane.showMessageDialog(null, "Task is not assigned to you for process");
-                    return;
-                }
-            }
-        }
-
-        request.setStatus("Processing");
-
-       ChemicalWorkRequestJPanel processWorkRequestJPanel = new ChemicalWorkRequestJPanel(userProcessContainer, request);
-        userProcessContainer.add("processWorkRequestJPanel", processWorkRequestJPanel);
-        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        layout.next(userProcessContainer);
     }//GEN-LAST:event_btnAssignActionPerformed
 
     private void btnProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcessActionPerformed
         // TODO add your handling code here:
-        
-        int selectedRow = tblChemicalWorkRequest.getSelectedRow();
+        int selectedRow = tblChemical.getSelectedRow();
 
         if (selectedRow < 0) {
             JOptionPane.showMessageDialog(null, "Please select a row");
             return;
         }
 
-        ChemicalWorkRequest request = (ChemicalWorkRequest) tblChemicalWorkRequest.getValueAt(selectedRow, 0);
-        if (tblChemicalWorkRequest.getValueAt(selectedRow, 4) != null) {
+        ChemicalWorkRequest request = (ChemicalWorkRequest) tblChemical.getValueAt(selectedRow, 0);
+        if (tblChemical.getValueAt(selectedRow, 4) != null) {
 
-            if (((tblChemicalWorkRequest.getValueAt(selectedRow, 4).equals("Completed")))) {
+            if (((tblChemical.getValueAt(selectedRow, 4).equals("Completed")))) {
 
                 JOptionPane.showMessageDialog(null, "Task is already completed");
                 return;
             }
         }
 
-        if (tblChemicalWorkRequest.getValueAt(selectedRow, 4) == null) {
+        if (tblChemical.getValueAt(selectedRow, 4) == null) {
             JOptionPane.showMessageDialog(null, "Task is not assigned to you for process");
             return;
         }
         int flag = 0;
 
-        if (tblChemicalWorkRequest.getValueAt(selectedRow, 4).equals("Processing") && userAccount.getUsername().equalsIgnoreCase(request.getReceiver().toString())) {
+        if (tblChemical.getValueAt(selectedRow, 4).equals("Processing") && userAccount.getUsername().equalsIgnoreCase(request.getReceiver().toString())) {
 
             flag = 1;
         }
         if (flag != 1) {
-            if (tblChemicalWorkRequest.getValueAt(selectedRow, 4) != null) {
+            if (tblChemical.getValueAt(selectedRow, 4) != null) {
 
-                if (!(((tblChemicalWorkRequest.getValueAt(selectedRow, 4).equals("Assigned"))) && userAccount.getUsername().equalsIgnoreCase(request.getReceiver().toString()))) {
+                if (!(((tblChemical.getValueAt(selectedRow, 4).equals("Assigned"))) && userAccount.getUsername().equalsIgnoreCase(request.getReceiver().toString()))) {
                     JOptionPane.showMessageDialog(null, "Task is not assigned to you for process");
                     return;
                 }
@@ -339,7 +290,6 @@ public class ChemicalWorkAreaJPanel extends javax.swing.JPanel {
         userProcessContainer.add("processWorkRequestJPanel", processWorkRequestJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
-
     }//GEN-LAST:event_btnProcessActionPerformed
 
 
@@ -347,8 +297,9 @@ public class ChemicalWorkAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnAssign;
     private javax.swing.JButton btnProcess;
     private javax.swing.JButton btnRefresh;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable tblChemicalWorkRequest;
+    private javax.swing.JTable tblChemical;
     // End of variables declaration//GEN-END:variables
 }

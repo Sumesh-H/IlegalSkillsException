@@ -53,9 +53,9 @@ public class ViewChemicalRequestJpanel extends javax.swing.JPanel {
             Object row[] = new Object[6];
             row[0] = cc;
             row[1] = cc.getSerialNumber();
-            row[2]= cc.getAvailQuantity();
-            row[3]=cc.getRequiredQuantity();
-            row[4]= cc.getReorderStatus();
+            row[2] = cc.getAvailQuantity();
+            row[3] = cc.getRequiredQuantity();
+            row[4] = cc.getReorderStatus();
             model.addRow(row);
         }
     }
@@ -71,20 +71,24 @@ public class ViewChemicalRequestJpanel extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblReorder = new javax.swing.JTable();
-        lblChemicalRequests = new javax.swing.JLabel();
         btnInventory = new javax.swing.JButton();
         btnViewRequests = new javax.swing.JButton();
         btnViewDetails = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
-        btnAddChemicals = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         txtSerialNumber = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
         txtChemicalName = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
         txtAvailableQuantity = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
         txtRequiredQuantity = new javax.swing.JTextField();
+        btnAddChemicals = new javax.swing.JButton();
+
+        setBackground(new java.awt.Color(255, 255, 255));
 
         tblReorder.setBorder(new javax.swing.border.MatteBorder(null));
         tblReorder.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 20)); // NOI18N
@@ -114,20 +118,15 @@ public class ViewChemicalRequestJpanel extends javax.swing.JPanel {
         tblReorder.setRowHeight(30);
         jScrollPane1.setViewportView(tblReorder);
 
-        lblChemicalRequests.setFont(new java.awt.Font("Wide Latin", 3, 24)); // NOI18N
-        lblChemicalRequests.setText("Chemical Requests");
-
-        btnInventory.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        btnInventory.setForeground(new java.awt.Color(51, 0, 255));
-        btnInventory.setText("Inventory");
+        btnInventory.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        btnInventory.setText("Inventory Check");
         btnInventory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInventoryActionPerformed(evt);
             }
         });
 
-        btnViewRequests.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        btnViewRequests.setForeground(new java.awt.Color(51, 0, 255));
+        btnViewRequests.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnViewRequests.setText("View Requests");
         btnViewRequests.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -135,8 +134,7 @@ public class ViewChemicalRequestJpanel extends javax.swing.JPanel {
             }
         });
 
-        btnViewDetails.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        btnViewDetails.setForeground(new java.awt.Color(51, 0, 255));
+        btnViewDetails.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnViewDetails.setText("View Details");
         btnViewDetails.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -144,8 +142,7 @@ public class ViewChemicalRequestJpanel extends javax.swing.JPanel {
             }
         });
 
-        btnBack.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        btnBack.setForeground(new java.awt.Color(51, 0, 255));
+        btnBack.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -153,8 +150,86 @@ public class ViewChemicalRequestJpanel extends javax.swing.JPanel {
             }
         });
 
-        btnAddChemicals.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        btnAddChemicals.setForeground(new java.awt.Color(51, 0, 255));
+        jPanel4.setBackground(new java.awt.Color(0, 153, 255));
+
+        jLabel5.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 36)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("REQUEST CHEMICAL PORTAL");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(137, 137, 137)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 632, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setText("Serial No. :");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setText("Chemical Name :");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setText("Available Quantity :");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setText("Required Quantity :");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
+                .addGap(90, 90, 90)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(txtAvailableQuantity, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                    .addComponent(txtChemicalName, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtSerialNumber, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtRequiredQuantity))
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtSerialNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtChemicalName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtAvailableQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtRequiredQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(27, Short.MAX_VALUE))
+        );
+
+        btnAddChemicals.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnAddChemicals.setText("Add Chemicals");
         btnAddChemicals.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -162,97 +237,56 @@ public class ViewChemicalRequestJpanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        jLabel1.setText("Serial No. :");
-
-        jLabel2.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        jLabel2.setText("Chemical Name :");
-
-        jLabel3.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        jLabel3.setText("Available Quantity :");
-
-        jLabel4.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        jLabel4.setText("Required Quantity :");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(104, 104, 104)
+                .addContainerGap()
+                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(149, 149, 149)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAddChemicals, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 950, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
+                        .addGap(52, 52, 52)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnViewRequests, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnInventory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnViewDetails, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(155, 155, 155))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnBack)
-                        .addGap(147, 147, 147)
-                        .addComponent(lblChemicalRequests, javax.swing.GroupLayout.PREFERRED_SIZE, 634, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
-                        .addGap(90, 90, 90)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtSerialNumber)
-                            .addComponent(txtChemicalName)
-                            .addComponent(txtAvailableQuantity)
-                            .addComponent(txtRequiredQuantity, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(386, 386, 386)
-                .addComponent(btnAddChemicals, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(btnViewDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblChemicalRequests, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBack))
-                .addGap(65, 65, 65)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnInventory)
-                        .addGap(63, 63, 63)
-                        .addComponent(btnViewRequests)
-                        .addGap(58, 58, 58)
-                        .addComponent(btnViewDetails)))
-                .addGap(43, 43, 43)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtSerialNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnInventory, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(56, 56, 56)
+                        .addComponent(btnViewRequests, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnViewDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtChemicalName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtAvailableQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtRequiredQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
-                .addComponent(btnAddChemicals)
-                .addGap(65, 65, 65))
+                .addComponent(btnAddChemicals, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(74, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddChemicalsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddChemicalsActionPerformed
         // TODO add your handling code here:
-           ChemicalCompound m=new ChemicalCompound();
+        ChemicalCompound m=new ChemicalCompound();
         String name=txtChemicalName.getText().trim();      
         if(name.isEmpty())
         {
@@ -299,9 +333,9 @@ public class ViewChemicalRequestJpanel extends javax.swing.JPanel {
             Object row[] = new Object[5];
             row[0] = cc;
             row[1] = cc.getSerialNumber();
-            row[2]= cc.getAvailQuantity();
-            row[3]=cc.getRequiredQuantity();
-            row[4]= cc.getReorderStatus();
+            row[2] = cc.getAvailQuantity();
+            row[3] = cc.getRequiredQuantity();
+            row[4] = cc.getReorderStatus();
             dtm.addRow(row);
         }
 
@@ -327,7 +361,7 @@ public class ViewChemicalRequestJpanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null,"No chemicals are present for invetory check  ");
             return;
         }
-      for(ChemicalCompound cc : drugOrganization.getChemList()){
+       for(ChemicalCompound cc : drugOrganization.getChemList()){
 
             if(cc.getAvailQuantity()<=cc.getRequiredQuantity()){
                 if(!cc.getReorderStatus().equals("Y")){
@@ -340,13 +374,13 @@ public class ViewChemicalRequestJpanel extends javax.swing.JPanel {
 
                     userAccount.getWorkQueue().getWorkRequestList().add(request);
                     for(Enterprise enterprise :network.getEnterpriseDirectory().getEnterpriseList() ){
-                        System.out.println("***** Organization Name:" +enterprise.getName());
+//                        System.out.println("***** Organization Name:" +enterprise.getName());
                         for(Organization organization:enterprise.getOrganizationDirectory().getOrganizationList()){
-                            System.out.println("***** Organization Name:" +organization.getName());
-                            if(organization.getName().equals("Chemical Organization")){
-                                System.out.println("True");
-
-                                System.out.println("***** organization Name"+organization.getName());
+//                            System.out.println("***** Organization Name:" +organization.getName());
+                            if(organization.getName().equalsIgnoreCase("ChemicalOrganization")){
+//                                System.out.println("True");
+//
+//                                System.out.println("***** organization Name"+organization.getName());
 
                                 organization.getWorkQueue().getWorkRequestList().add(request);
                               
@@ -366,29 +400,27 @@ public class ViewChemicalRequestJpanel extends javax.swing.JPanel {
 
     private void btnViewRequestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewRequestsActionPerformed
         // TODO add your handling code here:
-                CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-       userProcessContainer.add("ViewRequestJPanel", new ViewRequestsJpanel(userProcessContainer, userAccount, enterprise, drugOrganization));
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        userProcessContainer.add("ViewRequestJPanel", new ViewRequestsJpanel(userProcessContainer, userAccount, enterprise, drugOrganization));
         layout.next(userProcessContainer);
 
     }//GEN-LAST:event_btnViewRequestsActionPerformed
 
     private void btnViewDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewDetailsActionPerformed
         // TODO add your handling code here:
-          int row = tblReorder.getSelectedRow();
+        int row = tblReorder.getSelectedRow();
         if(row<0){
             JOptionPane.showMessageDialog(null, "Please select a row!!", "Warning", JOptionPane.WARNING_MESSAGE);
             return;
         }
         ChemicalCompound cc = (ChemicalCompound)tblReorder.getValueAt(row, 0);
-
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         userProcessContainer.add("UpdateEntryJPanel", new ViewChemicalDetailsJpanel(userProcessContainer, userAccount, enterprise,cc));
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnViewDetailsActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        // TODO add your handling code here:
-        
+        // TODO add your handling code here:        
         userProcessContainer.remove(this);
         Component[] componentArray = userProcessContainer.getComponents();
         Component component = componentArray[componentArray.length - 1];
@@ -410,8 +442,10 @@ public class ViewChemicalRequestJpanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblChemicalRequests;
     private javax.swing.JTable tblReorder;
     private javax.swing.JTextField txtAvailableQuantity;
     private javax.swing.JTextField txtChemicalName;
