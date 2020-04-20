@@ -16,6 +16,7 @@ import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -29,6 +30,8 @@ public class LabAssistantWorkAreaJPanel extends javax.swing.JPanel {
     private LabOrganization labOrganization;
     private Network network;
     private Enterprise enterprise;
+    private static Logger log = Logger.getLogger(LabAssistantWorkAreaJPanel.class);
+    private static final String CLASS_NAME = LabAssistantWorkAreaJPanel.class.getName();
     
     /**
      * Creates new form LabAssistantWorkAreaJPanel
@@ -41,7 +44,8 @@ public class LabAssistantWorkAreaJPanel extends javax.swing.JPanel {
         this.business = business;
         this.network = network;
         this.enterprise = enterprise;
-        this.labOrganization = (LabOrganization)organization;        
+        this.labOrganization = (LabOrganization)organization;   
+        log.debug(userAccount+" "+"logged in");     
         populateTable();
     }
     
@@ -281,7 +285,9 @@ public class LabAssistantWorkAreaJPanel extends javax.swing.JPanel {
 
         WorkRequest request = (WorkRequest) tblLabWorkArea.getValueAt(selectedRow, 0);
         request.setReceiver(userAccount);
-        request.setStatus("Pending");        
+        request.setStatus("Pending");     
+        log.debug(userAccount+" "+"has assigned the request");
+        log.debug("status has been set to pending");   
         populateTable();
     }//GEN-LAST:event_btnAssignActionPerformed
 
@@ -329,6 +335,7 @@ public class LabAssistantWorkAreaJPanel extends javax.swing.JPanel {
 
         ProcessWorkRequestJPanel processWorkRequestJPanel = new ProcessWorkRequestJPanel(userProcessContainer, request, labOrganization, userAccount, network);
         userProcessContainer.add("processWorkRequestJPanel", processWorkRequestJPanel);        
+        log.debug("entering process request page");
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
         
@@ -336,6 +343,7 @@ public class LabAssistantWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
         populateTable();
+        log.debug("refreshed the table");
     }//GEN-LAST:event_btnRefreshActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

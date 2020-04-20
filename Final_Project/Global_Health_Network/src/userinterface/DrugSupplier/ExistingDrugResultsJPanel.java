@@ -17,6 +17,7 @@ import java.awt.CardLayout;
 import java.awt.Component;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -33,6 +34,8 @@ public class ExistingDrugResultsJPanel extends javax.swing.JPanel {
     private Enterprise enterprise;
     private Network network;
     private Drug drug;
+    private static Logger log = Logger.getLogger(ExistingDrugResultsJPanel.class);
+    private static final String CLASS_NAME = ExistingDrugResultsJPanel.class.getName();
     public ExistingDrugResultsJPanel(JPanel userProcessContainer,UserAccount userAccount,Enterprise enterprise, DrugOrganization drugOrganization,Network network,Drug drug) {
         initComponents();
         this.userProcessContainer = userProcessContainer;

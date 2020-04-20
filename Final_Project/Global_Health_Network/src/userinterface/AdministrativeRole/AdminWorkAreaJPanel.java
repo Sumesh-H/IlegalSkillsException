@@ -8,6 +8,7 @@ import Business.Organization.Organization;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -17,6 +18,8 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
     
     JPanel userProcessContainer;
     Enterprise enterprise;
+    private static Logger log = Logger.getLogger(AdminWorkAreaJPanel.class);
+    private static final String CLASS_NAME = AdminWorkAreaJPanel.class.getName();
     /** Creates new form AdminWorkAreaJPanel */
     public AdminWorkAreaJPanel(JPanel userProcessContainer, Enterprise enterprise) {
         initComponents();
@@ -173,6 +176,7 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
             return;
         }
         ManageUserAccountJPanel muajp = new ManageUserAccountJPanel(userProcessContainer, enterprise);
+        log.debug("Enterprise admin adding users \t" +CLASS_NAME);
         userProcessContainer.add("ManageUserAccountJPanel", muajp);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
@@ -192,6 +196,7 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
             return;
         }
         ManageEmployeeJPanel manageEmployeeJPanel = new ManageEmployeeJPanel(userProcessContainer, enterprise.getOrganizationDirectory());
+        log.debug("Enterprise admin adding Employee \t" +CLASS_NAME);
         userProcessContainer.add("manageEmployeeJPanel", manageEmployeeJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
@@ -201,6 +206,7 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
     private void btnManageOrganizationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageOrganizationActionPerformed
 
         ManageOrganizationJPanel manageOrganizationJPanel = new ManageOrganizationJPanel(userProcessContainer, enterprise.getOrganizationDirectory(), enterprise);
+        log.debug("Enterprise admin creating Organization \t"+CLASS_NAME);
         userProcessContainer.add("manageOrganizationJPanel", manageOrganizationJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);

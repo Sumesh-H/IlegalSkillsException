@@ -14,6 +14,7 @@ import java.awt.CardLayout;
 import java.awt.Font;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -24,6 +25,8 @@ public class MainJFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainJFrame
      */
+    private static Logger log = Logger.getLogger(MainJFrame.class);
+    private static final String CLASS_NAME = MainJFrame.class.getName();
     private EcoSystem system;
     private DB4OUtil dB4OUtil = DB4OUtil.getInstance();
 
@@ -159,6 +162,9 @@ public class MainJFrame extends javax.swing.JFrame {
                                inEnterprise=enterprise;
                                inOrganization=organization;
                                inNetwork=network;
+                               log.debug("Current Enterprise\t" +enterprise);
+                               log.debug("Current Organization\t" +organization);
+                               log.debug("Current Network\t" +network);
                                break;
                            }
                        }
@@ -179,11 +185,13 @@ public class MainJFrame extends javax.swing.JFrame {
         }
         
         if(userAccount==null){
+            log.error("Invalid credentials for user");
             JOptionPane.showMessageDialog(null, "Invalid credentials");
             return;
         }
         else{
             CardLayout layout=(CardLayout)container.getLayout();
+            log.debug("Logged in User Role" +userAccount.getRole());
             container.add("workArea",userAccount.getRole().createWorkArea(container, userAccount, inOrganization, inEnterprise, system,inNetwork));
             layout.next(container);
         }
@@ -237,6 +245,7 @@ public class MainJFrame extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MainJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        log.debug("Entering Main JFrame\t" +CLASS_NAME);
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

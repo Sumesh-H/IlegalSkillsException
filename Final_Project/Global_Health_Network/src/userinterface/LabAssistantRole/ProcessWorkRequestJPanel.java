@@ -24,6 +24,7 @@ import java.util.logging.Level;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.Logger;
 import userinterface.DoctorRole.DoctorPrescriptionJpanel;
 
 /**
@@ -40,6 +41,8 @@ public class ProcessWorkRequestJPanel extends javax.swing.JPanel {
     private UserAccount userAccount;
     private Network network;
     String filePath = "./genes data.txt";
+    private static Logger log = Logger.getLogger(ProcessWorkRequestJPanel.class);
+    private static final String CLASS_NAME = ProcessWorkRequestJPanel.class.getName();
     /**
      * Creates new form ProcessWorkRequestJPanel
      */
@@ -297,6 +300,7 @@ public class ProcessWorkRequestJPanel extends javax.swing.JPanel {
             pw.println(gene);
             pw.flush();
             pw.close();
+        log.debug("Gene is added to Gene data.txt");
         } catch (IOException ex) {
             java.util.logging.Logger.getLogger(DoctorPrescriptionJpanel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -321,13 +325,13 @@ public class ProcessWorkRequestJPanel extends javax.swing.JPanel {
         requestDrug.setSender(userAccount);
         userAccount.getWorkQueue().getWorkRequestList().add(requestDrug);
         for (Enterprise enterprise : network.getEnterpriseDirectory().getEnterpriseList()) {
-//            System.out.println("***** Organization Name:" + enterprise.getName());
+            System.out.println("***** Organization Name:" + enterprise.getName());
             for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
-//                System.out.println("***** Organization Name:" + organization.getName());
+                System.out.println("***** Organization Name:" + organization.getName());
                 if (organization.getName().equals("Drug Organization")) {
-//                    System.out.println("True");
-//
-//                    System.out.println("***** organization Name" + organization.getName());
+                    System.out.println("True");
+
+                    System.out.println("***** organization Name" + organization.getName());
 
                     organization.getWorkQueue().getWorkRequestList().add(requestDrug);
                 }

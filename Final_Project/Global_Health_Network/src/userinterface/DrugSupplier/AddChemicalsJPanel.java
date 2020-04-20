@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -39,6 +40,8 @@ public class AddChemicalsJPanel extends javax.swing.JPanel {
     private Enterprise enterprise;
     private Object e;
     private Network network;
+    private static Logger log = Logger.getLogger(AddChemicalsJPanel.class);
+    private static final String CLASS_NAME = AddChemicalsJPanel.class.getName();
     public AddChemicalsJPanel(JPanel userProcessContainer,EcoSystem business,UserAccount userAccount,DrugOrganization organization,Enterprise enterprise,Network network,Drug drug) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
@@ -285,7 +288,8 @@ public class AddChemicalsJPanel extends javax.swing.JPanel {
         drug.getChemicalList().addChemicalList().setChemicalName(chemicalName);
         drug.getGeneHistory().addGene().setGeneName(geneName);
        
-        populateTable();        
+        populateTable();
+        log.debug(userAccount+" "+"added chemicals and genes to drug"+" "+drug);        
         txtChemical.setText("");
         txtGene.setText("");
     }//GEN-LAST:event_btnAddActionPerformed

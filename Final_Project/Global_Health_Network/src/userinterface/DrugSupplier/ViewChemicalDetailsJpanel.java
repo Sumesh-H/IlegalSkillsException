@@ -13,6 +13,7 @@ import java.awt.CardLayout;
 import java.awt.Component;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -28,6 +29,8 @@ public class ViewChemicalDetailsJpanel extends javax.swing.JPanel {
     private Enterprise enterprise;
     private DrugOrganization drugOrg;
     private ChemicalCompound cc;
+    private static Logger log = Logger.getLogger(ViewChemicalDetailsJpanel.class);
+    private static final String CLASS_NAME = ViewChemicalDetailsJpanel.class.getName();
     public ViewChemicalDetailsJpanel(JPanel userProcessContainer, UserAccount userAccount, Enterprise enterprise,ChemicalCompound cc) {
         initComponents();
           this.userProcessContainer=userProcessContainer;
@@ -250,6 +253,7 @@ public class ViewChemicalDetailsJpanel extends javax.swing.JPanel {
         txtAvailability.setEditable(false);
 
         JOptionPane.showMessageDialog(null, "Medicine updated Successfully", "Warning", JOptionPane.INFORMATION_MESSAGE);
+        log.debug(userAccount+" "+"updated chemical details successfully");
 
     }//GEN-LAST:event_btnSaveActionPerformed
 

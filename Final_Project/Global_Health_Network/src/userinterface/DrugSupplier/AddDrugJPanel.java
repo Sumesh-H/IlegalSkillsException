@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -33,6 +34,8 @@ public class AddDrugJPanel extends javax.swing.JPanel {
     private DrugOrganization drugOrganization;
     private Enterprise enterprise;
     private Network network;
+    private static Logger log = Logger.getLogger(AddDrugJPanel.class);
+    private static final String CLASS_NAME = AddDrugJPanel.class.getName();
     public AddDrugJPanel(JPanel userProcessContainer, EcoSystem business, UserAccount userAccount, DrugOrganization drugOrganization, Enterprise enterprise, Network network) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
@@ -255,6 +258,7 @@ public class AddDrugJPanel extends javax.swing.JPanel {
         business.getDrugList().addDrugList().setDrugName(drugName);
         
         populateTable();        
+        log.debug(userAccount+" "+"added new drug"+" "+drugName);
         txtNameDrug.setText("");
 
     }//GEN-LAST:event_btnAddDrugActionPerformed
@@ -269,7 +273,8 @@ public class AddDrugJPanel extends javax.swing.JPanel {
         }
         Drug c = (Drug) tblDrug.getValueAt(selectedRow, 1);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        userProcessContainer.add("AddChemicalsJPanel", new AddChemicalsJPanel(userProcessContainer, business, userAccount, drugOrganization, enterprise, network, c));        
+        userProcessContainer.add("AddChemicalsJPanel", new AddChemicalsJPanel(userProcessContainer, business, userAccount, drugOrganization, enterprise, network, c));     
+        log.debug(userAccount+" "+"entering add chemicals page");   
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnAddChemicalActionPerformed
 

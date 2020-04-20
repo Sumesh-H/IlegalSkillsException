@@ -5,6 +5,7 @@
  */
 package userinterface.DoctorRole;
 
+import Business.Doctor.Patient;
 import Business.Doctor.Prescription;
 import Business.Doctor.PrescriptionList;
 import Business.EcoSystem;
@@ -28,6 +29,7 @@ import java.util.logging.Level;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -48,6 +50,8 @@ public class DoctorPrescriptionJpanel extends javax.swing.JPanel {
     private Prescription prescription;
     private DoctorWorkRequest docreq;
     private static final String filePath = "./prescription data.txt";
+    private static Logger log = Logger.getLogger(DoctorPrescriptionJpanel.class);
+    private static final String CLASS_NAME = DoctorPrescriptionJpanel.class.getName();
     public DoctorPrescriptionJpanel(JPanel userProcessContainer, PrescriptionList list, UserAccount account, Enterprise enterprise, DoctorOrganization organization, EcoSystem system, Network network) {
         initComponents();
         this.userProcessContainer=userProcessContainer;
@@ -93,10 +97,11 @@ public class DoctorPrescriptionJpanel extends javax.swing.JPanel {
             printWriter.println(network+","+disease+","+medicine);
             printWriter.flush();
             printWriter.close();
+            log.debug("saving prescription details to prescription data.txt");
         }catch(IOException ex){
             
             java.util.logging.Logger.getLogger(DoctorPrescriptionJpanel.class.getName()).log(Level.SEVERE, null, ex);
-            //log.error("prescription data.txt" +ex);
+            log.error("prescription data.txt" +ex);
         }
     }
     /**
@@ -365,6 +370,7 @@ public class DoctorPrescriptionJpanel extends javax.swing.JPanel {
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
 
         userProcessContainer.remove(this);
+        log.debug("going back to Doctors work area");
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_btnBackActionPerformed
@@ -377,6 +383,7 @@ public class DoctorPrescriptionJpanel extends javax.swing.JPanel {
         prescription.setNoofTimesInaday((Integer) jSpinnerNoOfTimes.getValue());
         prescription.setTotalDays((Integer) jSpinnerNoOfDays.getValue());
         prescription.setNetworkName(network.getName());
+        String patientName = txtPatientName.getText();
         
         String age = txtAge.getText();
         boolean flag = true;
@@ -439,6 +446,7 @@ public class DoctorPrescriptionJpanel extends javax.swing.JPanel {
             pwr.setQuantity(((Integer) jSpinnerNoOfTimes.getValue()) * ((Integer) jSpinnerNoOfDays.getValue()));
             pwr.setSender(userAccount);
             pwr.setStatus("Sent");
+            pwr.setPatientName(patientName);
             System.out.println(pwr.getMedicineName());
             JOptionPane.showMessageDialog(null, "Prescription added successfully");
 
@@ -450,6 +458,10 @@ public class DoctorPrescriptionJpanel extends javax.swing.JPanel {
                         if (organization instanceof PharmacyOrganization) {
                             org = organization;
                             System.out.println("-------" + org);
+                            log.debug(org);
+                            log.debug("Current Enterprise\t" +enterprise);
+                            log.debug("Current Organization\t" +org);
+                            log.debug("Current Network\t" +network);
                             break;
                         }
                     }
@@ -459,6 +471,7 @@ public class DoctorPrescriptionJpanel extends javax.swing.JPanel {
 
                 org.getWorkQueue().getWorkRequestList().add(pwr);
                 userAccount.getWorkQueue().getWorkRequestList().add(pwr);
+                log.debug("request sent to Pharmacy");
             }
             
            

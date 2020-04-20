@@ -23,6 +23,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.Logger;
 
 
 /**
@@ -42,6 +43,8 @@ public class DoctorRequestJPanel extends javax.swing.JPanel {
     private Enterprise.EnterpriseType enterpriseType;
     private UserAccount account;
     private DoctorOrganization organization;
+    private static Logger log = Logger.getLogger(DoctorRequestJPanel.class);
+    private static final String CLASS_NAME = DoctorRequestJPanel.class.getName();
     public DoctorRequestJPanel(JPanel userProcessContainer, UserAccount account, DoctorOrganization organization, Enterprise enterprise, EcoSystem system, Network network) {
 
         initComponents();
@@ -447,6 +450,7 @@ public class DoctorRequestJPanel extends javax.swing.JPanel {
         if (org != null) {
             org.getWorkQueue().getWorkRequestList().add(request);
             account.getWorkQueue().getWorkRequestList().add(request);
+            log.debug("sent request to Lab");
         }
         populateRequestTable();
         JOptionPane.showMessageDialog(null, "Test has been requested successfully");
@@ -500,6 +504,7 @@ public class DoctorRequestJPanel extends javax.swing.JPanel {
         
         RequestLabTestJPanel requestLabTestJPanel = new RequestLabTestJPanel(userProcessContainer, request);
         userProcessContainer.add("RequestLabTestJPanel", requestLabTestJPanel);
+        log.debug("adding request to lab assistant");
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnViewResultsActionPerformed
@@ -551,6 +556,7 @@ public class DoctorRequestJPanel extends javax.swing.JPanel {
 
         ClinicalJPanel clinicalJPanel = new ClinicalJPanel(userProcessContainer, request);
         userProcessContainer.add("clincalJPanel", clinicalJPanel);
+        log.debug("entering clinical Page");
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnClinicalTrailActionPerformed
