@@ -5,6 +5,7 @@
  */
 package userinterface.DoctorRole;
 
+import Business.Doctor.Patient;
 import Business.Doctor.Prescription;
 import Business.Doctor.PrescriptionList;
 import Business.EcoSystem;
@@ -377,6 +378,7 @@ public class DoctorPrescriptionJpanel extends javax.swing.JPanel {
         prescription.setNoofTimesInaday((Integer) jSpinnerNoOfTimes.getValue());
         prescription.setTotalDays((Integer) jSpinnerNoOfDays.getValue());
         prescription.setNetworkName(network.getName());
+        String patientName = txtPatientName.getText();
         
         String age = txtAge.getText();
         boolean flag = true;
@@ -439,6 +441,7 @@ public class DoctorPrescriptionJpanel extends javax.swing.JPanel {
             pwr.setQuantity(((Integer) jSpinnerNoOfTimes.getValue()) * ((Integer) jSpinnerNoOfDays.getValue()));
             pwr.setSender(userAccount);
             pwr.setStatus("Sent");
+            pwr.setPatientName(patientName);
             System.out.println(pwr.getMedicineName());
             JOptionPane.showMessageDialog(null, "Prescription added successfully");
 

@@ -377,7 +377,7 @@ public class ViewChemicalRequestJpanel extends javax.swing.JPanel {
 //                        System.out.println("***** Organization Name:" +enterprise.getName());
                         for(Organization organization:enterprise.getOrganizationDirectory().getOrganizationList()){
 //                            System.out.println("***** Organization Name:" +organization.getName());
-                            if(organization.getName().equalsIgnoreCase("ChemicalOrganization")){
+                            if(organization.getName().equalsIgnoreCase("Chemical Organization")){
 //                                System.out.println("True");
 //
 //                                System.out.println("***** organization Name"+organization.getName());

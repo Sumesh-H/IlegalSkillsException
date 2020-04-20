@@ -45,7 +45,7 @@ public class DrugSupplierWorkAreaJPanel extends javax.swing.JPanel {
     }
     
     public void populateTable(){
-        DefaultTableModel model = (DefaultTableModel) tblDrugWorkArea.getModel();
+        DefaultTableModel model = (DefaultTableModel) tblWorkAreaDrug.getModel();
         model.setRowCount(0);
 
         for (WorkRequest request : drugOrganization.getWorkQueue().getWorkRequestList()) {
@@ -73,7 +73,6 @@ public class DrugSupplierWorkAreaJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane2 = new javax.swing.JScrollPane();
-
         tblWorkAreaDrug = new javax.swing.JTable();
         btnAssign = new javax.swing.JButton();
         btnProcess = new javax.swing.JButton();
@@ -86,8 +85,8 @@ public class DrugSupplierWorkAreaJPanel extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        tblDrugWorkArea.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 0, 20)); // NOI18N
-        tblDrugWorkArea.setModel(new javax.swing.table.DefaultTableModel(
+        tblWorkAreaDrug.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 0, 20)); // NOI18N
+        tblWorkAreaDrug.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -110,8 +109,8 @@ public class DrugSupplierWorkAreaJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblDrugWorkArea.setRowHeight(30);
-        jScrollPane2.setViewportView(tblDrugWorkArea);
+        tblWorkAreaDrug.setRowHeight(30);
+        jScrollPane2.setViewportView(tblWorkAreaDrug);
 
         btnAssign.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         btnAssign.setText("Assign to me");
