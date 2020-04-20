@@ -17,7 +17,7 @@ import java.util.Random;
 public class DataGenerator {
     
     private static Random rand = new Random();
-    private static String[] network = {"Boston", "California", "Dallas"};
+    private static String[] network = {"India", "Russia", "America"};
 
     private static String[] beginning = {"kr", "ca", "Ra", "Ho", "Lj", "pg", "kre", "lop", "mat"};
     private static String[] middle = {"air", "cal", "Pla", "ghdo", "kal", "hkg", "pokre", "lojop", "mploat"};
