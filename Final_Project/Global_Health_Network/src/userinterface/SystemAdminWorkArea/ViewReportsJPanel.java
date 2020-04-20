@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import javax.swing.JPanel;
+import org.apache.log4j.Logger;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
@@ -40,6 +41,8 @@ public class ViewReportsJPanel extends javax.swing.JPanel {
     List<String> diseaseList;
     List<String> medicineList;
     List<String> geneList;
+    private static Logger log = Logger.getLogger(ViewReportsJPanel.class);
+    private static final String CLASS_NAME = ViewReportsJPanel.class.getName();
     public ViewReportsJPanel(JPanel userProcessContainer,EcoSystem system) {
         initComponents();
         initComponents();
@@ -68,7 +71,7 @@ public class ViewReportsJPanel extends javax.swing.JPanel {
              
         } catch (FileNotFoundException ex) {
             
-//            log.error("genes data.txt" +ex);
+            log.error("genes data.txt" +ex);
         }
        
     }
@@ -89,7 +92,7 @@ public class ViewReportsJPanel extends javax.swing.JPanel {
                 }
            
         } catch (Exception ex) {
-//            log.error("prescription data.txt not found" +ex);
+            log.error("prescription data.txt not found" +ex);
             
         }
         
