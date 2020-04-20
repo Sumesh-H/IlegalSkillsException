@@ -14,11 +14,9 @@
 **NUID :** *001378461*
 **Husky Email:** *gupta.k@husky.neu.edu*
 
-
-This project is created as an assignment for AED.
-
 # Steps to run:
 1. Download the zip file (IllegalSkillsException) to your local directory.
-2. Start Netbeans and open project name TravelAgency.
-3. The project is created on Netbeans 8.1 version.
+2. Start Netbeans and open project name Global_Health_Network.
+3. Run project and login with Username: sysadmin Password sysadmin
 
+# Global_Health_Network

@@ -1,5 +1,12 @@
 /lab7_complete[[]1]/lab7_complete/dist/
 /Final_Project/Global_Health_Network/nbproject/private/
+/Final_Project/Global_Health_Network/nbproject/project.properties
 /Final_Project/Global_Health_Network/dist/
 /Final_Project/Global_Health_Network/Databank.db4o
 /Final_Project/Global_Health_Network/build/
+*.class
+*.out
+build/*
+*.db4o
+*.txt
+*.jars
