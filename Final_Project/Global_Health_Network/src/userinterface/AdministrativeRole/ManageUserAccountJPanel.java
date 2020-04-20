@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -26,6 +27,8 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
      */
     private JPanel container;
     private Enterprise enterprise;
+    private static Logger log = Logger.getLogger(ManageUserAccountJPanel.class);
+    private static final String CLASS_NAME = ManageUserAccountJPanel.class.getName();
 
     public ManageUserAccountJPanel(JPanel container, Enterprise enterprise) {
         initComponents();
@@ -308,6 +311,7 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
          JOptionPane.showMessageDialog(null,"Please enter a Valid input");
             return;   
         }
+        log.debug("Enterprise admin creating user with name \t" +userName+ "Role" +role+ "In Organization" +organization+ "\t" +CLASS_NAME);
         
         organization.getUserAccountDirectory().createUserAccount(userName, password, employee, role);
         

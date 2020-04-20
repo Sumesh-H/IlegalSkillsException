@@ -17,6 +17,7 @@ import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -33,6 +34,8 @@ public class DrugSupplierWorkAreaJPanel extends javax.swing.JPanel {
     private DrugOrganization drugOrganization;
     private Enterprise enterprise;
     private Network network;
+    private static Logger log = Logger.getLogger(DrugSupplierWorkAreaJPanel.class);
+    private static final String CLASS_NAME = DrugSupplierWorkAreaJPanel.class.getName();
     public DrugSupplierWorkAreaJPanel(JPanel userProcessContainer, EcoSystem business, UserAccount userAccount, Organization organization, Enterprise enterprise, Network network) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
@@ -41,6 +44,7 @@ public class DrugSupplierWorkAreaJPanel extends javax.swing.JPanel {
         this.drugOrganization = (DrugOrganization) organization;
         this.enterprise = enterprise;
         this.network = network;
+        log.debug(userAccount+" "+"logged in drug work area");
         populateTable();
     }
     
@@ -241,14 +245,17 @@ public class DrugSupplierWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnViewLabReqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewLabReqActionPerformed
         // TODO add your handling code here:
-        CardLayout layout = (CardLayout) userProcessContainer.getLayout();        
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();   
+        log.debug(userAccount+" "+"entering drug adding page");     
         userProcessContainer.add("LabResultsJPanel", new LabResultsJPanel(userProcessContainer, userAccount, enterprise, drugOrganization, network, business));
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnViewLabReqActionPerformed
 
     private void btnReqChemicalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReqChemicalActionPerformed
         // TODO add your handling code here:
-        CardLayout layout = (CardLayout) userProcessContainer.getLayout();       
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout(); 
+        log.debug(userAccount+" "+"entering lab requests page");  
+        log.debug(userAccount+" "+"entering chemical requests page");    
         userProcessContainer.add("ViewChemicalsRequestJPanel", new ViewChemicalRequestJpanel(userProcessContainer, userAccount, enterprise, drugOrganization, network));
         layout.next(userProcessContainer);
 
@@ -312,7 +319,8 @@ public class DrugSupplierWorkAreaJPanel extends javax.swing.JPanel {
 
         WorkRequest request = (WorkRequest) tblWorkAreaDrug.getValueAt(selectedRow, 0);
         request.setReceiver(userAccount);
-        request.setStatus("Assigned");        
+        request.setStatus("Assigned");     
+        log.debug(userAccount+" "+"assigned himself a task");   
         populateTable();
     }//GEN-LAST:event_btnAssignActionPerformed
 
@@ -350,7 +358,8 @@ public class DrugSupplierWorkAreaJPanel extends javax.swing.JPanel {
 
         ProcessingDrugWorkRequestJPanel processWorkRequestJPanel = new ProcessingDrugWorkRequestJPanel(userProcessContainer, request);
         userProcessContainer.add("processWorkRequestJPanel", processWorkRequestJPanel);
-        CardLayout layout = (CardLayout) userProcessContainer.getLayout();        
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();   
+        log.debug(userAccount+" "+"entering processing page");     
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnProcessActionPerformed
 

@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -25,6 +26,8 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
 
     private JPanel userProcessContainer;
     private EcoSystem system;
+    private static Logger log = Logger.getLogger(ManageEnterpriseAdminJPanel.class);
+    private static final String CLASS_NAME = ManageEnterpriseAdminJPanel.class.getName();
 
     /**
      * Creates new form ManageEnterpriseJPanel
@@ -291,6 +294,7 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
         }
         
         Network network = (Network) cbxNetwork.getSelectedItem();
+        log.debug("system admin creating enterprise admin\t" +CLASS_NAME);
         
         Enterprise enterprise = (Enterprise) cbxEnterprise.getSelectedItem();
         
@@ -309,6 +313,7 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
             return;
         }
         
+        log.debug("name of the USER is: \t" +username+ "name of the enterprise is: \t" +name+  "name of network is\t"  +network+ "\t" +CLASS_NAME);
         
         Employee employee = enterprise.getEmployeeDirectory().createEmployee(name);
         

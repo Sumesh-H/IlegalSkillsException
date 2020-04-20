@@ -14,6 +14,7 @@ import Business.UserAccount.UserAccount;
 import Business.WorkQueue.DoctorWorkRequest;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
+import org.apache.log4j.Logger;
 
 
 
@@ -30,6 +31,8 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
     private PrescriptionList list;   
     private Network network;
     private EcoSystem system;
+    private static Logger log = Logger.getLogger(DoctorWorkAreaJPanel.class);
+    private static final String CLASS_NAME = DoctorWorkAreaJPanel.class.getName();
  
     /**
      * Creates new form DoctorWorkAreaJPanel
@@ -157,14 +160,16 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnPrecriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrecriptionActionPerformed
         // TODO add your handling code here:
-        CardLayout layout = (CardLayout) userProcessContainer.getLayout();        
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();  
+        log.debug("inside doctor role");      
         userProcessContainer.add("DocterPrescriptionJpanel", new userinterface.DoctorRole.DoctorPrescriptionJpanel(userProcessContainer,list,userAccount,enterprise,organization,system,network));
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnPrecriptionActionPerformed
 
     private void btnLabTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLabTestActionPerformed
         // TODO add your handling code here:
-        CardLayout layout = (CardLayout) userProcessContainer.getLayout();        
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout(); 
+        log.debug("inside doctor's lab request");       
         userProcessContainer.add("DoctorRequestJPanel",new userinterface.DoctorRole.DoctorRequestJPanel(userProcessContainer,userAccount,organization,enterprise,system,network));
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnLabTestActionPerformed

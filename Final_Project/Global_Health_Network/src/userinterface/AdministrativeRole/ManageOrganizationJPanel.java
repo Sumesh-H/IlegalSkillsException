@@ -15,6 +15,7 @@ import Business.Organization.OrganizationDirectory;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -25,6 +26,8 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
     private OrganizationDirectory organizationDir;
     private JPanel userProcessContainer;
     private Enterprise enterprise;
+    private static Logger log = Logger.getLogger(ManageOrganizationJPanel.class);
+    private static final String CLASS_NAME = ManageOrganizationJPanel.class.getName();
     
     /**
      * Creates new form ManageOrganizationJPanel
@@ -241,6 +244,7 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
     private void btnAddOrgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddOrgActionPerformed
 
         Type type = (Type) cbxOrganization.getSelectedItem();
+        log.debug("Enterprise admin adding the following Organization" +type);
         organizationDir.createOrganization(type);
         populateTable();
     }//GEN-LAST:event_btnAddOrgActionPerformed

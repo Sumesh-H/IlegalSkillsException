@@ -23,6 +23,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -39,6 +40,8 @@ public class LabResultsJPanel extends javax.swing.JPanel {
     private DrugOrganization drugOrganization;
     private Enterprise enterprise;
     private Network network;
+    private static Logger log = Logger.getLogger(LabResultsJPanel.class);
+    private static final String CLASS_NAME = LabResultsJPanel.class.getName();
     public LabResultsJPanel(JPanel userProcessContainer, UserAccount userAccount, Enterprise enterprise, DrugOrganization drugOrganization, Network network,EcoSystem business) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
@@ -243,7 +246,8 @@ public class LabResultsJPanel extends javax.swing.JPanel {
 //        System.out.println(totaldrugGene.containsAll(patientGene));
          if (!totaldrugGene.containsAll(patientGene)) {
                 NonExistingGeneJPanel nonExistingGeneJpanel = new NonExistingGeneJPanel(userProcessContainer, userAccount, enterprise, drugOrganization, network);
-                userProcessContainer.add("nonExistingGeneJpanel", nonExistingGeneJpanel);                
+                userProcessContainer.add("nonExistingGeneJpanel", nonExistingGeneJpanel);       
+                log.debug(userAccount+" "+"entering nonexisting page as drug doesn't exist");         
                 CardLayout layout = (CardLayout) userProcessContainer.getLayout();
                 layout.next(userProcessContainer);
                 flag = 2;
@@ -253,7 +257,8 @@ public class LabResultsJPanel extends javax.swing.JPanel {
         if (flag == 0) {
             NewDrugJPanel generateDrugNewDrugJPanel = new NewDrugJPanel(userProcessContainer, patient, drugOrganization, userAccount, network,business);
             userProcessContainer.add("generateDrugNewDrugJPanel", generateDrugNewDrugJPanel);
-            CardLayout layout = (CardLayout) userProcessContainer.getLayout();            
+            CardLayout layout = (CardLayout) userProcessContainer.getLayout();    
+            log.debug(userAccount+" "+"entering new drug page as no drug exists");        
             layout.next(userProcessContainer);
         }
     }//GEN-LAST:event_btnGenerateDrugActionPerformed

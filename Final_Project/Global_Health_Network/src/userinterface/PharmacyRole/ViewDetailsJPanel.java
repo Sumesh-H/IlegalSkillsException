@@ -15,6 +15,7 @@ import java.awt.CardLayout;
 import java.awt.Component;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -32,6 +33,8 @@ public class ViewDetailsJPanel extends javax.swing.JPanel {
     private Organization org;
     private PharmacyOrganization pharmorg;
     private MedicalInventory medicalInventory;
+    private static Logger log = Logger.getLogger(ViewDetailsJPanel.class);
+    private static final String CLASS_NAME = ViewDetailsJPanel.class.getName();
     public ViewDetailsJPanel(JPanel userProcessContainer, UserAccount userAccount, Enterprise enterprise, MedicalInventory medicalInventory) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
@@ -275,6 +278,7 @@ public class ViewDetailsJPanel extends javax.swing.JPanel {
         txtInStock.setEditable(false);
         btnSave.setEnabled(false);
         btnUpdate.setEnabled(true);
+        log.debug(userAccount+" "+" updated the medicine details");
 
         JOptionPane.showMessageDialog(null, "Medicine updated Successfully", "Warning", JOptionPane.INFORMATION_MESSAGE);
 

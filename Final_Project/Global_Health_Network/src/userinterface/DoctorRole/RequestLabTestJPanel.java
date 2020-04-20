@@ -27,6 +27,8 @@ public class RequestLabTestJPanel extends javax.swing.JPanel {
     private JPanel userProcessContainer;
     private LabTestWorkRequest request;
     private UserAccount userAccount;
+    private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(RequestLabTestJPanel.class);
+    private static final String CLASS_NAME = RequestLabTestJPanel.class.getName();
     /**
      * Creates new form RequestLabTestJPanel
      */
@@ -52,6 +54,7 @@ public class RequestLabTestJPanel extends javax.swing.JPanel {
             System.out.println(((LabTestWorkRequest) request).getPatient());
 
             dtm.addRow(row);
+            log.debug("displaying results");
         }
 
     }

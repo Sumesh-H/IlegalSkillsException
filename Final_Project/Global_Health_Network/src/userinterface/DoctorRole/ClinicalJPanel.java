@@ -11,6 +11,7 @@ import java.awt.Component;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import org.apache.log4j.Logger;
 
 
 /**
@@ -24,6 +25,8 @@ public class ClinicalJPanel extends javax.swing.JPanel {
      */
     private JPanel userProcessContainer;
     private LabTestWorkRequest request;
+    private static Logger log = Logger.getLogger(ClinicalJPanel.class);
+    private static final String CLASS_NAME = ClinicalJPanel.class.getName();
    
     public ClinicalJPanel(JPanel userProcessContainer, LabTestWorkRequest request) {
         initComponents();
@@ -173,12 +176,14 @@ public class ClinicalJPanel extends javax.swing.JPanel {
         if((clinicalStatus == "") || (!clinicalStatus.equalsIgnoreCase("--Please select--"))){
 
             request.getPatient().setClinicalStatus(clinicalStatus);
+            log.debug("updated patient status to"+" "+request.getPatient().getClinicalStatus());
 
             JOptionPane.showMessageDialog(null, "Status has been updated successfully");
         }
 
         else{
             JOptionPane.showMessageDialog(null, "Please select clincal Status");
+            log.error("clinical status has not been selected");
 
         }
     }//GEN-LAST:event_btnSubmitActionPerformed

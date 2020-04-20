@@ -19,6 +19,7 @@ import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -36,6 +37,8 @@ public class PharmacyWorKAreaJPanel extends javax.swing.JPanel {
     private Organization org;
     private PharmacyOrganization pharmorg;
     private Network network;
+    private static Logger log = Logger.getLogger(PharmacyWorKAreaJPanel.class);
+    private static final String CLASS_NAME = PharmacyWorKAreaJPanel.class.getName();
     public PharmacyWorKAreaJPanel(JPanel userProcessContainer, UserAccount userAccount, PharmacyOrganization organization, Enterprise enterprise, Network network) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
@@ -44,6 +47,7 @@ public class PharmacyWorKAreaJPanel extends javax.swing.JPanel {
         this.pharmorg = organization;
         this.network = network;
         reorderTable();
+        log.debug(userAccount+" "+"logged in");
         populateDocTable();
     }
     
@@ -442,6 +446,7 @@ public class PharmacyWorKAreaJPanel extends javax.swing.JPanel {
         }
 
         JOptionPane.showMessageDialog(null, "Medicine Added Successfully", "Warning", JOptionPane.INFORMATION_MESSAGE);
+        log.debug("medicine added successfully");
         txtSerialNumber.setText("");
         txtMedicineName.setText("");
         txtInStock.setText("");
@@ -482,15 +487,16 @@ public class PharmacyWorKAreaJPanel extends javax.swing.JPanel {
 
                     userAccount.getWorkQueue().getWorkRequestList().add(request);
                     for (Enterprise enterprise : network.getEnterpriseDirectory().getEnterpriseList()) {
-                        //                        System.out.println("***** Organization Name:" + enterprise.getName());
+                        System.out.println("***** Organization Name:" + enterprise.getName());
                         for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
-                            //                            System.out.println("***** Organization Name:" + organization.getName());
+                            System.out.println("***** Organization Name:" + organization.getName());
                             if (organization.getName().equals("Drug Organization")) {
-                                //                                System.out.println("True");
-                                //
-                                //                                System.out.println("***** organization Name" + organization.getName());
+                                System.out.println("True");
+
+                                System.out.println("***** organization Name" + organization.getName());
 
                                 organization.getWorkQueue().getWorkRequestList().add(request);
+                                log.debug(userAccount+" "+"sending request to Drug Organization");
                             }
                         }
 
@@ -521,6 +527,7 @@ public class PharmacyWorKAreaJPanel extends javax.swing.JPanel {
         MedicalInventory mi = (MedicalInventory) tblRecord.getValueAt(row, 0);
 
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        log.debug(userAccount+" "+"entering view details page");
         userProcessContainer.add("UpdateEntryJPanel", new ViewDetailsJPanel(userProcessContainer, userAccount, enterprise, mi));
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnViewDetailsActionPerformed

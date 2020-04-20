@@ -18,6 +18,7 @@ import java.awt.Component;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -30,6 +31,8 @@ public class ViewChemicalRequestJpanel extends javax.swing.JPanel {
     private DrugOrganization drugOrganization ;
     private Enterprise enterprise;
     private Network network;
+    private static Logger log = Logger.getLogger(ViewChemicalRequestJpanel.class);
+    private static final String CLASS_NAME = ViewChemicalRequestJpanel.class.getName();
     /**
      * Creates new form ViewChemicalRequestJpanel
      */
@@ -344,6 +347,7 @@ public class ViewChemicalRequestJpanel extends javax.swing.JPanel {
         txtChemicalName.setText("");
         txtAvailableQuantity.setText("");
         txtRequiredQuantity.setText("");
+        log.debug(userAccount+" "+"added chemical"+name);
         
         
     
@@ -374,15 +378,16 @@ public class ViewChemicalRequestJpanel extends javax.swing.JPanel {
 
                     userAccount.getWorkQueue().getWorkRequestList().add(request);
                     for(Enterprise enterprise :network.getEnterpriseDirectory().getEnterpriseList() ){
-//                        System.out.println("***** Organization Name:" +enterprise.getName());
+                        System.out.println("***** Organization Name:" +enterprise.getName());
                         for(Organization organization:enterprise.getOrganizationDirectory().getOrganizationList()){
-//                            System.out.println("***** Organization Name:" +organization.getName());
+                            System.out.println("***** Organization Name:" +organization.getName());
                             if(organization.getName().equalsIgnoreCase("Chemical Organization")){
-//                                System.out.println("True");
-//
-//                                System.out.println("***** organization Name"+organization.getName());
+                                System.out.println("True");
+
+                                System.out.println("***** organization Name"+organization.getName());
 
                                 organization.getWorkQueue().getWorkRequestList().add(request);
+                                log.debug("chemical request has been sent to chemical organization");
                               
                             }
                         }
@@ -402,6 +407,7 @@ public class ViewChemicalRequestJpanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         userProcessContainer.add("ViewRequestJPanel", new ViewRequestsJpanel(userProcessContainer, userAccount, enterprise, drugOrganization));
+        log.debug("entering view chemical requests page");
         layout.next(userProcessContainer);
 
     }//GEN-LAST:event_btnViewRequestsActionPerformed
@@ -416,6 +422,7 @@ public class ViewChemicalRequestJpanel extends javax.swing.JPanel {
         ChemicalCompound cc = (ChemicalCompound)tblReorder.getValueAt(row, 0);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         userProcessContainer.add("UpdateEntryJPanel", new ViewChemicalDetailsJpanel(userProcessContainer, userAccount, enterprise,cc));
+        log.debug(userAccount+" "+"entering view chemical details page");
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnViewDetailsActionPerformed
 

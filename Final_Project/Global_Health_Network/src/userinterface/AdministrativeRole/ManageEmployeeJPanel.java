@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
 
     private OrganizationDirectory organizationDir;
     private JPanel userProcessContainer;
+    private static Logger log = Logger.getLogger(ManageEmployeeJPanel.class);
+    private static final String CLASS_NAME = ManageEmployeeJPanel.class.getName();
     
     /**
      * Creates new form ManageOrganizationJPanel
@@ -294,6 +297,7 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null,"Employee already exists");
             return;
         }
+        log.debug("Enterprise admin adding following employee \t" +name+ "in following Organization \t" +organization+ "\t" +CLASS_NAME);
         
         organization.getEmployeeDirectory().createEmployee(name);
         populateTable(organization);

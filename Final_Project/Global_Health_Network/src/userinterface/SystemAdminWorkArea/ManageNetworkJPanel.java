@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,6 +22,8 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
 
     private JPanel userProcessContainer;
     private EcoSystem system;
+    private static Logger log = Logger.getLogger(ManageNetworkJPanel.class);
+    private static final String CLASS_NAME = ManageNetworkJPanel.class.getName();
 
     /**
      *
@@ -201,6 +204,7 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
 
+        log.debug("Sysadmin Creating Network" +CLASS_NAME);
         String name = txtNameNetwork.getText().trim();
         if(name.isEmpty())
         {
@@ -221,6 +225,7 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
         }
         Network network = system.createAndAddNetwork();
         network.setName(name);        
+        log.debug("Name of network Created:\t" +name);
         populateNetworkTable();
         txtNameNetwork.setText("");
     }//GEN-LAST:event_btnSubmitActionPerformed
