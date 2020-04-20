@@ -22,6 +22,7 @@ import java.util.TreeMap;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -38,6 +39,8 @@ public class NewDrugJPanel extends javax.swing.JPanel {
     private UserAccount userAccount;
     private Network network;
     private EcoSystem business;
+    private static Logger log = Logger.getLogger(NewDrugJPanel.class);
+    private static final String CLASS_NAME = NewDrugJPanel.class.getName();
     public NewDrugJPanel(JPanel userProcessContainer, Patient patient, DrugOrganization drugOrganization, UserAccount userAccount, Network network,EcoSystem business) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
@@ -287,6 +290,7 @@ public class NewDrugJPanel extends javax.swing.JPanel {
             d.getChemicalList().addChemicalList().setChemicalName(t);
         }
         JOptionPane.showMessageDialog(null,"New Drug is added succesfully");
+        log.debug(userAccount+" "+"added new drug"+" "+drugName);
     }//GEN-LAST:event_btnNewDrugActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed

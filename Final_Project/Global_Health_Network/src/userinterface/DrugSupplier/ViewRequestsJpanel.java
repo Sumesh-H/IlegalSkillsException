@@ -14,6 +14,7 @@ import java.awt.CardLayout;
 import java.awt.Component;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -28,6 +29,8 @@ public class ViewRequestsJpanel extends javax.swing.JPanel {
     private UserAccount userAccount;
     private Enterprise enterprise;
     private DrugOrganization drugOrganization;
+     private static Logger log = Logger.getLogger(ViewRequestsJpanel.class);
+    private static final String CLASS_NAME = ViewRequestsJpanel.class.getName();
     public ViewRequestsJpanel(JPanel userProcessContainer, UserAccount userAccount, Enterprise enterprise, DrugOrganization drugOrganization) {
         initComponents();
         this.userProcessContainer = userProcessContainer;

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -22,6 +23,8 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
 
     private JPanel userProcessContainer;
     private EcoSystem system;
+    private static Logger log = Logger.getLogger(ManageEnterpriseJPanel.class);
+    private static final String CLASS_NAME = ManageEnterpriseJPanel.class.getName();
 
     /**
      * Creates new form ManageEnterpriseJPanel
@@ -275,7 +278,7 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
             
         }
         Enterprise enterprise = network.getEnterpriseDirectory().createAndAddEnterprise(name, type);
-
+        log.debug("name of the Enterpise is: \t" +name+ "name of Network in which the enterprise is: \t" +network+ "\t" +CLASS_NAME);
         
         populateTable();
         txtNameEnterprise.setText("");

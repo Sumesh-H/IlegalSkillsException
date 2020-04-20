@@ -12,6 +12,7 @@ import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -24,6 +25,8 @@ public class ChemicalWorkRequestJPanel extends javax.swing.JPanel {
      */
     JPanel userProcessContainer;
     ChemicalWorkRequest request;
+    private static Logger log = Logger.getLogger(ChemicalWorkRequestJPanel.class);
+    private static final String CLASS_NAME = ChemicalWorkRequestJPanel.class.getName();
    
     public ChemicalWorkRequestJPanel(JPanel userprocessContainer, ChemicalWorkRequest request) {
         initComponents();
@@ -155,6 +158,7 @@ public class ChemicalWorkRequestJPanel extends javax.swing.JPanel {
         ((ChemicalWorkRequest) request).setDeliveryTime(result);
         txtDate.setText(result);
         JOptionPane.showMessageDialog(null, "Request updated successfully!");
+        log.debug("request updated successfully");
       
         }
         catch(Exception e)

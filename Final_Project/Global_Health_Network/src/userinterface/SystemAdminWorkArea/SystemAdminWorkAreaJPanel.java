@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -28,6 +29,8 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
      */
     JPanel userProcessContainer;
     EcoSystem ecosystem;
+    private static Logger log = Logger.getLogger(SystemAdminWorkAreaJPanel.class);
+    private static final String CLASS_NAME = SystemAdminWorkAreaJPanel.class.getName();
     public SystemAdminWorkAreaJPanel(JPanel userProcessContainer,EcoSystem ecosystem) {
         initComponents();
         this.userProcessContainer=userProcessContainer;
@@ -252,6 +255,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
     private void btnManageNetworkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageNetworkActionPerformed
         ManageNetworkJPanel manageNetworkJPanel=new ManageNetworkJPanel(userProcessContainer, ecosystem);
         userProcessContainer.add("manageNetworkJPanel",manageNetworkJPanel);
+        log.debug("user creating network" +CLASS_NAME);
         CardLayout layout=(CardLayout)userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnManageNetworkActionPerformed
@@ -266,6 +270,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
       {
         ManageEnterpriseJPanel manageEnterpriseJPanel=new ManageEnterpriseJPanel(userProcessContainer, ecosystem);        
         userProcessContainer.add("manageEnterpriseJPanel",manageEnterpriseJPanel);
+        log.debug("user creating enterpirse" +CLASS_NAME);
         CardLayout layout=(CardLayout)userProcessContainer.getLayout();
         layout.next(userProcessContainer);
       }
@@ -288,6 +293,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         }
         ManageEnterpriseAdminJPanel manageEnterpriseAdminJPanel=new ManageEnterpriseAdminJPanel(userProcessContainer, ecosystem);        
         userProcessContainer.add("manageEnterpriseAdminJPanel",manageEnterpriseAdminJPanel);
+        log.debug("user adding enterpirse admins" +CLASS_NAME);
         CardLayout layout=(CardLayout)userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnManageAdminActionPerformed

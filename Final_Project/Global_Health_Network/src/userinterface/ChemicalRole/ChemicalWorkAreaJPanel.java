@@ -16,6 +16,7 @@ import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -32,6 +33,8 @@ public class ChemicalWorkAreaJPanel extends javax.swing.JPanel {
     private ChemicalOrganization chemicalOrganization;
     private Enterprise enterprise;
     private Network network;
+    private static Logger log = Logger.getLogger(ChemicalWorkAreaJPanel.class);
+    private static final String CLASS_NAME = ChemicalWorkAreaJPanel.class.getName();
     public ChemicalWorkAreaJPanel(JPanel userProcessContainer, UserAccount userAccount, ChemicalOrganization chemicalOrganization, Enterprise enterprise, EcoSystem business, Network network) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
@@ -243,6 +246,7 @@ public class ChemicalWorkAreaJPanel extends javax.swing.JPanel {
         request.setReceiver(userAccount);
         request.setStatus("Assigned");
         populateTable();
+        log.debug(userAccount+" "+"assigned a task to himself");
     }//GEN-LAST:event_btnAssignActionPerformed
 
     private void btnProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcessActionPerformed
@@ -290,6 +294,7 @@ public class ChemicalWorkAreaJPanel extends javax.swing.JPanel {
         userProcessContainer.add("processWorkRequestJPanel", processWorkRequestJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
+        log.debug(userAccount+" "+"processes the task");
     }//GEN-LAST:event_btnProcessActionPerformed
 
 
