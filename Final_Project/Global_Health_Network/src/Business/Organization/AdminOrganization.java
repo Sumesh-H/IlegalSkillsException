@@ -14,8 +14,18 @@ import java.util.ArrayList;
  */
 public class AdminOrganization extends Organization{
 
+    private String organizationName;
+    
     public AdminOrganization() {
         super(Type.Admin.getValue());
+    }
+
+    public String getOrganizationName() {
+        return organizationName;
+    }
+
+    public void setOrganizationName(String organizationName) {
+        this.organizationName = organizationName;
     }
     
     @Override

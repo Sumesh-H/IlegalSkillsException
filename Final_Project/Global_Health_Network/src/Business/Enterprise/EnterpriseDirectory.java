@@ -5,7 +5,7 @@
  */
 package Business.Enterprise;
 
-import Business.Organization.OrganizationDirectory;
+
 import java.util.ArrayList;
 
 /**
@@ -35,6 +35,20 @@ public class EnterpriseDirectory {
             enterprise=new HospitalEnterprise(name);
             enterpriseList.add(enterprise);
         }
+        else if (type==Enterprise.EnterpriseType.Pharmacy){
+            enterprise= new PharmacyEnterprise(name);
+            enterpriseList.add(enterprise);
+        }
+        else if (type==Enterprise.EnterpriseType.Drug){
+            enterprise=new DrugEnterprise(name);
+            enterpriseList.add(enterprise);
+        }
+        else if (type==Enterprise.EnterpriseType.Chemical){
+                
+            enterprise=new ChemicalEnterprise(name);
+            enterpriseList.add(enterprise);
+           
+        }        
         return enterprise;
     }
 }
