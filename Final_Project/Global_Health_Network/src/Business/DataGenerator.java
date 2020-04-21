@@ -12,7 +12,7 @@ import java.util.Random;
 
 /**
  *
- * @author venu0
+ * @author krish
  */
 public class DataGenerator {
     

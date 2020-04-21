@@ -14,6 +14,7 @@ import java.awt.CardLayout;
 import java.awt.Font;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 
 /**
@@ -245,6 +246,7 @@ public class MainJFrame extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MainJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        BasicConfigurator.configure();
         log.debug("Entering Main JFrame\t" +CLASS_NAME);
 
         /* Create and display the form */

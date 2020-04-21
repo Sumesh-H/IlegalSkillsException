@@ -80,7 +80,7 @@ public class DoctorPrescriptionJpanel extends javax.swing.JPanel {
                 row[0] = (PharmacyWorkRequest) work;
                 int quantity = ((PharmacyWorkRequest) work).getQuantity();
                 row[1] = quantity;
-                row[2] = work.getReceiver();
+                row[2] = ((PharmacyWorkRequest) work).getPatientName();
                 String result = work.getStatus();
                 row[3] = result == null ? "Waiting" : result;
 
@@ -254,11 +254,11 @@ public class DoctorPrescriptionJpanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Medicine Name", "Total Quantity", "Reciever"
+                "Medicine Name", "Total Quantity", "Patient Name", "Status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -354,7 +354,7 @@ public class DoctorPrescriptionJpanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(116, 116, 116)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(324, Short.MAX_VALUE))
+                .addContainerGap(321, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -375,7 +375,8 @@ public class ViewReportsJPanel extends javax.swing.JPanel {
        
          for(int i=0;i<medicineList.size();i++){
            String network = networkList.get(i);
-           String disease = diseaseList.get(i);           
+           String disease = diseaseList.get(i); 
+           String medicine = medicineList.get(i);
            
             if((network.equalsIgnoreCase("India")) && disease.equalsIgnoreCase("Achondroplasia")){
               Achondroplasia++;
@@ -427,6 +428,7 @@ public class ViewReportsJPanel extends javax.swing.JPanel {
        for(int i=0;i<medicineList.size();i++){
            String network = networkList.get(i);
            String disease = diseaseList.get(i);
+           String medicine = medicineList.get(i);
          
            if((network.equalsIgnoreCase("Russia")) && disease.equalsIgnoreCase("Achondroplasia")){
               Achondroplasia1++;
@@ -468,7 +470,8 @@ public class ViewReportsJPanel extends javax.swing.JPanel {
         
         for(int i=0;i<medicineList.size();i++){
            String network = networkList.get(i);
-           String disease = diseaseList.get(i);           
+           String disease = diseaseList.get(i);
+           String medicine = medicineList.get(i);           
            
              if((network.equalsIgnoreCase("America")) && disease.equalsIgnoreCase("Achondroplasia")){
               Achondroplasia2++;
