@@ -16,7 +16,9 @@
 
 # Steps to run:
 1. Download the zip file (IllegalSkillsException) to your local directory.
-2. Start Netbeans and open project name Global_Health_Network.
-3. Run project and login with Username: sysadmin Password sysadmin
+2. Start Netbeans and open project name Global Health Network.
+3. Run project and login with 
+  Username: sysadmin 
+  Password sysadmin
 
-# Global_Health_Network
+# Global Health Network
